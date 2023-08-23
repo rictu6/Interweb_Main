@@ -57,7 +57,7 @@ Route::get('get_fta_list','FTAsController@fta_list')->name('fta_list');
 //ORS
 Route::resource('orsheaders','ORSHeaderController');
 Route::get('get_orsheaders','ORSHeaderController@ajax')->name('get_orsheaders');
-Route::get('get_orsheader_list','ORSHeaderController@orsheader_list')->name('orsheader_list');
+Route::get('orsheader_list','ORSHeaderController@orsheader_list')->name('orsheader_list');
 //Sub Allotment
 Route::resource('suballotments','SubAllotmentController');
 //Allotment

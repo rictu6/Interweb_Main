@@ -1,13 +1,13 @@
 
 <div class="form-group">
-    <label>Deposit</label>
-    <div class="form-check">
-        <input type="hidden" name="ors_type" value="2">
-        <input type="checkbox" class="form-check-input" name="ors_type" id="deposit_payment_checkbox" value="1">
-        <label class="form-check-label" for="deposit_payment_checkbox">Deposit</label>
-    </div>
-
+    <select class="form-control" name="ors_type" placeholder="{{ __('DEPOSIT/WITHDRAWAL') }}" id="" required>
+        <option value="2" {{ old('ors_type') == "DEPOSIT" ? '' : 'selected' }}>
+            {{ __('WITHDRAWAL') }}</option>
+        <option value="1" {{ old('ors_type') == "DEPOSIT" ? 'selected' : '' }}>
+            {{ __('DEPOSIT') }}</option>
+    </select>
 </div>
+
 
 <div class="form-group">
     <label>DILG Office</label>

@@ -33,7 +33,7 @@ class ORSHeaderController extends \Illuminate\Routing\Controller
     public function __construct()
     {
 
-        $this->middleware('can:view_orsheader',     ['only' => ['index', 'show','ajax','orsheader_list']]);
+        $this->middleware('can:view_orsheader',     ['only' => ['index','ajax','orsheader_list']]);
         $this->middleware('can:create_orsheader',   ['only' => ['create', 'store']]);
         $this->middleware('can:edit_orsheader',     ['only' => ['edit', 'update']]);
         $this->middleware('can:delete_orsheader',   ['only' => ['destroy']]);
@@ -97,10 +97,11 @@ public function create()
 {
          $rescenter=ResponsibilityCenter::all();
          $paps=PAP::all();
-    return view('admin.orsheaders.create', compact('paps','rescenter'));
+         $ors= new ORSHeader();
+    return view('admin.orsheaders.create', compact('paps','rescenter','ors'));
 }
 function store (Request $request){
- // dd ($request);
+  //dd ($request);
 
 $ors =new ORSHeader;
 $ors_last_no=ORSHeader::latest()->first();
@@ -112,7 +113,8 @@ if (empty($ors_last_no)) {
 }
 $user_id =     Auth::guard('admin')->user()->emp_id;
  $ors->office_id= $request->office_id;
-$ors->ors_type= $request->ors_type;
+$ors->ors_type = $request->input('ors_type') == '1' ? '1' : '2';
+
 //  $ors->ors_id= $request->ors_id;
 // $currentDate = Carbon::now()->format('Y-n');
 $currentDate = Carbon::now()->format('Y-m-d');
@@ -197,11 +199,13 @@ foreach ($request->details as $detail) {
             DB::commit(); // Commit the transaction only if there were no errors
             // session()->flash('success',__('New ORS has been successfully added to the database'));
             // return redirect()->route('admin.orsheader_list');
-            session()->flash('toast_message', __('New ORS has been successfully added to the database'));
-            return response()->json(['redirect_to' => route('admin.orsheader_list')]);
+
 
  }
+ session()->flash('toast_message', __('New ORS has been successfully added to the database'));
+ return response()->json(['redirect_to' => route('admin.orsheader_list')]);
 } catch (\Exception $e) {
+    // session()->flash('fail',__($e));
     DB::rollback(); // Rollback the transaction on any exception
     //return response()->json(['message' => 'Failed to save ORS. Please try again.'], 500);
     }

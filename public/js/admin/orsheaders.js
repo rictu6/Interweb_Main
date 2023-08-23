@@ -710,13 +710,14 @@ $('.add_component').on('click', function() {
 //  });
 $('#deposit_payment_checkbox').on('change', function() {
     if ($(this).is(':checked')) {
-        // Checkbox is checked, set the value to 1
-        $ors.ors_type = 1;
+        console.log('Checkbox is checked');
+        orstype = 1; // Update orstype directly
     } else {
-        // Checkbox is not checked, set the value to 2
-        $ors.ors_type = 2;
+        console.log('Checkbox is not checked');
+        orstype = 2; // Update orstype directly
     }
 });
+
   //submit form
 //   $('#ors_form').on('submit',function(){
 //     //event.preventDefault();
