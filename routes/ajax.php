@@ -20,6 +20,7 @@ Route::get('get_payee_by_name','AjaxController@get_payee_by_name')->name('get_pa
  Route::get('get_dv_type','AjaxController@get_dv_type')->name('get_dv_type');
  //get ors
  Route::get('get_orsheaders','AjaxController@get_orsheaders')->name('get_orsheaders');
+ Route::get('get_orsheaders_by_filter','AjaxController@get_orsheaders_by_filter')->name('get_orsheaders_by_filter');
 //allotment class
 Route::get('get_alot_by_desc','AjaxController@get_alot_by_desc')->name('get_alot_by_desc');
 //fund cluster
@@ -28,6 +29,7 @@ Route::get('get_fund_cluster_by_desc','AjaxController@get_fund_cluster_by_desc')
 Route::get('get_budget_type_by_desc','AjaxController@get_budget_type_by_desc')->name('get_budget_type_by_desc');
 //fundsource
 Route::get('get_fundsource_by_auth','AjaxController@get_fundsource_by_auth')->name('get_fundsource_by_auth');
+Route::get('get_fundsource','AjaxController@get_fundsource')->name('get_fundsource');
 //ors details
 //rescenter
 Route::get('get_res_center','AjaxController@get_res_center')->name('get_res_center');

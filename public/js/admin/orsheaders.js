@@ -54,16 +54,20 @@
               url:url("admin/get_orsheaders"),
               data:function(data)
               {
-                // data.filter_destination=$('#filter_destination').val();
-                // data.filter_leave=$('#filter_leave').val();
-                // data.filter_status=$('#filter_status').val();
+
+                data.filter_payee=$('#filter_payee').val();
+               // data.filter_auth=$('#filter_auth').val();
+               // data.filter_no=$('#filter_no').val();
+                //  data.filter_year=$('#filter_year').val();
+
+                //  data.filter_month=$('#filter_month').val();
                 // data.filter_date=$('#filter_date').val();
               }
           },
           // orderCellsTop: true,
           fixedHeader: true,
           "columns": [
-            {data:"ors_no"},
+            {data:"ors_no",searchable:true,orderable:false,sortable:false},
 
             {
                 data: null,
@@ -108,46 +112,50 @@
                 }
               },
             //{data:"ors_no",searchable:false,orderable:false,sortable:false}
-          ],
-          "language": {
-            "sEmptyTable":     trans("No data available in table"),
-            "sInfo":           trans("Showing")+" _START_ "+trans("to")+" _END_ "+trans("of")+" _TOTAL_ "+trans("records"),
-            "sInfoEmpty":      trans("Showing")+" 0 "+trans("to")+" 0 "+trans("of")+" 0 "+trans("records"),
-            "sInfoFiltered":   "("+trans("filtered")+" "+trans("from")+" _MAX_ "+trans("total")+" "+trans("records")+")",
-            "sInfoPostFix":    "",
-            "sInfoThousands":  ",",
-            "sLengthMenu":     trans("Show")+" _MENU_ "+trans("records"),
-            "sLoadingRecords": trans("Loading..."),
-            "sProcessing":     trans("Processing..."),
-            "sSearch":         trans("Search")+":",
-            "sZeroRecords":    trans("No matching records found"),
-            "oPaginate": {
-                "sFirst":    trans("First"),
-                "sLast":     trans("Last"),
-                "sNext":     trans("Next"),
-                "sPrevious": trans("Previous")
-            },
-          }
-    });
+        ],
+        "language": {
+          "sEmptyTable":     trans("No data available in table"),
+          "sInfo":           trans("Showing")+" _START_ "+trans("to")+" _END_ "+trans("of")+" _TOTAL_ "+trans("records"),
+          "sInfoEmpty":      trans("Showing")+" 0 "+trans("to")+" 0 "+trans("of")+" 0 "+trans("records"),
+          "sInfoFiltered":   "("+trans("filtered")+" "+trans("from")+" _MAX_ "+trans("total")+" "+trans("records")+")",
+          "sInfoPostFix":    "",
+          "sInfoThousands":  ",",
+          "sLengthMenu":     trans("Show")+" _MENU_ "+trans("records"),
+          "sLoadingRecords": trans("Loading..."),
+          "sProcessing":     trans("Processing..."),
+          "sSearch":         trans("Search")+":",
+          "sZeroRecords":    trans("No matching records found"),
+          "oPaginate": {
+              "sFirst":    trans("First"),
+              "sLast":     trans("Last"),
+              "sNext":     trans("Next"),
+              "sPrevious": trans("Previous")
+          },
+        }
+  });
 
-    // $('#filter_status').on('change',function(){
-    //     table.draw();
-    //  });
-    //  $('#filter_leave').on('change',function(){
-    //     table.draw();
-    //  });
-    //  $('#filter_destination').on('change',function(){
-    //     table.draw();
-    //  });
 
+    //  $('#filter_auth').on('change',function(){
+    //     table.draw();
+    //  });
+     $('#filter_payee').on('change',function(){
+        table.draw();
+     });
+    //  $('#filter_year').on('change',function(){
+    //     table.draw();
+    //  });
+     // Attach the change event handler outside the AJAX configuration
+        // $('#filter_no').on('change', function () {
+        // table.draw();
+        // });
    // filter date
-   $('#filter_date').on( 'cancel.daterangepicker', function(){
-    $(this).val('');
-    table.draw();
- });
- $('#filter_date').on('apply.daterangepicker',function(){
-    table.draw();
- });
+//    $('#filter_date').on( 'cancel.daterangepicker', function(){
+//     $(this).val('');
+//     table.draw();
+//  });
+//  $('#filter_date').on('apply.daterangepicker',function(){
+//     table.draw();
+//  });
 
  //ors_date
  $('#ors_date').val(formattedDate);
@@ -217,7 +225,59 @@ $('#datefrom, #dateto').on('change', function() {
 
 
 
+$('#filter_no').select2({
+    width: "100%",
+    placeholder: trans("Filter ORS No"),
+    ajax: {
+        url: ajax_url('get_orsheaders'),
+        processResults: function (data) {
+            return {
+                results: $.map(data, function (item) {
+                    return {
+                        text: item.ors_no,
+                        id: item.ors_no
+                    }
+                })
+            };
+        }
+    }
+});
 
+
+$('#filter_allotment').select2({
+    width:"100%",
+    placeholder:trans("Filter Allotment Class"),
+    ajax: {
+        url: ajax_url('get_alot_by_desc'),
+        processResults: function (data) {
+            return {
+                results: $.map(data, function (item) {
+                    return {
+                        text:item.cluster_code + ' - ' + item.description,
+                        id: item.cluster_code
+                    }
+                })
+            };
+        }
+    }
+});
+ $('#filter_payee').select2({
+    width:"100%",
+    placeholder:trans("Filter Payee"),
+    ajax: {
+    url: ajax_url('get_payee_by_name'),
+    processResults: function (data) {
+            return {
+                results: $.map(data, function (item) {
+                    return {
+                        text: item.name,
+                        id: item.payee_id
+                    }
+                })
+            };
+        }
+    }
+});
 
 //select payee
 $('#payee_id').select2({
@@ -276,6 +336,33 @@ $('#fund_cluster_id').select2({
     }
 });
 //get budgetype
+$('#filter_auth').select2({
+    width:"100%",
+    placeholder:trans("Authorization"),
+    ajax: {
+       beforeSend:function()
+       {
+          $('.preloader').show();
+          $('.loader').show();
+       },
+       url: ajax_url('get_budget_type_by_desc'),
+       processResults: function (data) {
+             return {
+                   results: $.map(data, function (item) {
+                      return {
+                         text: item.description,
+                         id: item.budget_type_id
+                      }
+                   })
+             };
+          },
+          complete:function()
+          {
+             $('.preloader').hide();
+             $('.loader').hide();
+          }
+       }
+  });
 $('#budget_type').select2({
     width:"100%",
     placeholder:trans("Authorization"),
@@ -292,6 +379,60 @@ $('#budget_type').select2({
                       return {
                          text: item.description,
                          id: item.budget_type_id
+                      }
+                   })
+             };
+          },
+          complete:function()
+          {
+             $('.preloader').hide();
+             $('.loader').hide();
+          }
+       }
+  });
+  $('#filter_fundcluster').select2({
+    width:"100%",
+    placeholder:trans("Fund Cluster"),
+    ajax: {
+       beforeSend:function()
+       {
+          $('.preloader').show();
+          $('.loader').show();
+       },
+       url: ajax_url('get_fund_cluster_by_desc'),
+       processResults: function (data) {
+             return {
+                   results: $.map(data, function (item) {
+                      return {
+                         text: item.description,
+                         id: item.fund_cluster_id
+                      }
+                   })
+             };
+          },
+          complete:function()
+          {
+             $('.preloader').hide();
+             $('.loader').hide();
+          }
+       }
+  });
+  $('#filter_fundsource').select2({
+    width:"100%",
+    placeholder:trans("FundSource"),
+    ajax: {
+       beforeSend:function()
+       {
+          $('.preloader').show();
+          $('.loader').show();
+       },
+       url: ajax_url('get_fundsource'),
+       processResults: function (data) {
+             return {
+                   results: $.map(data, function (item) {
+                      return {
+                         text: item.code,
+                         id: item.code
                       }
                    })
              };
@@ -690,6 +831,28 @@ $('.add_component').on('click', function() {
         toolbar: []
     });
 });
+// $('#searchButton').on('click', function() {
+
+//     trigger_get_search();
+//     table.draw();
+
+// });
+//fundsource by budget_id and get pap by fundsource
+// function trigger_get_search(){
+//     $.ajax({
+//         url:ajax_url('get_orsheaders_by_filter'),
+//         success: function(data) {
+
+//             {
+//               data.filter_no=$('#filter_no').val();
+//             //   data.filter_leave=$('#filter_leave').val();
+//             //   data.filter_status=$('#filter_status').val();
+//             //   data.filter_date=$('#filter_date').val();
+//             }
+//         }
+//     });
+//         }
+
 // // check amount whenever change
 // $(document).on('change','.input_amount',function(){
 //     var checked=$(this).prop('checked');

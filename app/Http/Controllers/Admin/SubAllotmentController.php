@@ -106,7 +106,7 @@ function store(Request $request){
 
     //   dd($request);
 
-     $user =     Auth::guard('admin')->user()->first_name;// +' '+ Auth::guard('admin')->user()->last_name;
+     $user =     Auth::guard('admin')->user()->emp_id;// +' '+ Auth::guard('admin')->user()->last_name;
 
 $appro=new ApproSetup();
 

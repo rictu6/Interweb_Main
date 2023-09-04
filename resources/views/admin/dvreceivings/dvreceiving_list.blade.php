@@ -37,6 +37,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+
        <div class="col-lg-12 table-responsive">
           <table id="dv_receiving_table" class="table table-striped table-hover table-bordered"  width="100%">
             <thead>
