@@ -155,7 +155,7 @@
         </div>
       </div>
 
-      <div class="card card-primary card-outline">
+      {{-- <div class="card card-primary card-outline">
         <div class="card-header">
           <h5 class="card-title">{{__('Accounting Report Summary')}}</h5>
           <div class="card-tools no-print">
@@ -170,12 +170,12 @@
               <tr>
                 <th width="100px">{{__('Total')}}:</th>
                 {{-- <td>{{formated_price($total)}}</td> --}}
-              </tr>
+              {{-- </tr>
 
             </tbody>
           </table>
         </div>
-      </div>
+      </div> --}} 
 
     </div>
 

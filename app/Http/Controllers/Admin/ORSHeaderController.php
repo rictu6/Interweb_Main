@@ -16,6 +16,7 @@ use App\Models\BudgetType;
 use App\Models\FundSource;
 use App\Models\ORSDetails;
 use App\Models\FundCluster;
+use App\Models\User;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -47,16 +48,11 @@ class ORSHeaderController extends \Illuminate\Routing\Controller
     public function index()
     {
         try {
-
-
-
             return view('admin.orsheaders.index');
         } catch (\Exception $th) {
 
             dd($th->getMessage());
         }
-
-
     }
     public function orsheader_list()
     {try {
@@ -77,10 +73,65 @@ class ORSHeaderController extends \Illuminate\Routing\Controller
 
 
     public function ajax(Request $request)
-{
+    {
     try {
-        $model = ORSHeader::query()
-        ->with('processed','details','fundsource','payee');// Include the 'details' relationship
+
+    $current_user = Auth::guard('admin')->user();
+    $current_user->refresh(); // Refresh the user data
+    $current_user->load('province');
+
+        if ($current_user->province == null) {// || $current_user->province->prov_code == null
+            $model = ORSHeader::query()
+            ->with('processed','details','fundsource','payee');// Include the 'details' relationship
+        } else {
+            $createdprovinceByList = User::where('prov_code', $current_user->province->prov_code)
+            ->select('emp_id')
+            ->get()
+            ->pluck('emp_id')
+            ->toArray();
+
+        $model = ORSHeader::whereIn('created_by', $createdprovinceByList)
+            ->with('processed', 'details', 'fundsource', 'payee');
+        }
+
+        //dd($current_user);
+        // if($request['filter_year']!=null) {
+        //     $model->where('ors_date',$request['filter_year']);
+        // }
+        if ($request['filter_year'] != null) {
+            // Assuming $request['filter_year'] contains a valid year (e.g., '2023')
+            $year = $request['filter_year'];
+
+            // You can use the "LIKE" operator to match the year portion of the date
+            $model->whereRaw("YEAR(ors_date) = ?", [$year]);
+        }
+
+        if ($request['filter_month'] != null) {
+            // Assuming $request['filter_month'] contains a valid month (e.g., '07' for July)
+            $month = $request['filter_month'];
+
+            // Use a SQL pattern to match the month in the ors_no column
+            $model->where('ors_no', 'LIKE', "%-$month-%");
+        }
+
+        if($request['filter_payee']!=null) {
+            $model->where('payee_id',$request['filter_payee']);
+        }
+        if($request['filter_auth']!=null) {
+            $model->where('budget_type',$request['filter_auth']);
+        }
+        if($request['filter_no']!=null) {
+            $model->where('ors_no',$request['filter_no']);
+        }
+        // if($request['filter_allotment']!=null) {
+        //     $model->where('cluster_code',$request['filter_payee']);
+        // }
+        if($request['filter_fundsource']!=null) {
+            $model->where('fund_source_id',$request['filter_fundsource']);
+        }
+        if($request['filter_fundcluster']!=null) {
+            $model->where('fund_cluster_id',$request['filter_fundcluster']);
+        }
         return DataTables::eloquent($model)
 
             ->addColumn('action',function($ors){
@@ -94,10 +145,24 @@ class ORSHeaderController extends \Illuminate\Routing\Controller
 }
 
 public function create()
-{
+ {
+//     $current_user = Auth::guard('admin')->user();
+//     $current_user->refresh(); // Refresh the user data
+//     $current_user->load('province');
+//     $createdprovinceByList = User::where('prov_code', $current_user->province->prov_code)
+//     ->select('emp_id')
+//     ->get()
+//     ->pluck('emp_id')
+//     ->toArray();
+
+// $model = ORSHeader::whereIn('created_by', $createdprovinceByList)
+//     ->with('processed', 'details', 'fundsource', 'payee');
+//     dd($model);
+
          $rescenter=ResponsibilityCenter::all();
          $paps=PAP::all();
          $ors= new ORSHeader();
+
     return view('admin.orsheaders.create', compact('paps','rescenter','ors'));
 }
 function store (Request $request){
@@ -111,8 +176,9 @@ if (empty($ors_last_no)) {
 } else {
     $ors_last_no->ors_hdr_id += 1;
 }
+//$user= Auth::guard('admin')->user();
 $user_id =     Auth::guard('admin')->user()->emp_id;
- $ors->office_id= $request->office_id;
+ //$ors->office_id= $request->office_id;
 $ors->ors_type = $request->input('ors_type') == '1' ? '1' : '2';
 
 //  $ors->ors_id= $request->ors_id;
@@ -150,8 +216,6 @@ if ($ors->save()) {
 
 try{
 foreach ($request->details as $detail) {
-
-
         $max_amount=0;
             if($detail['allotment_class_id'] == 2){
             $sub=ApproSetup::where('sub_allotment_no',$detail['sub_allotment_id'])->first();
@@ -172,7 +236,7 @@ foreach ($request->details as $detail) {
             ->first();
             $max_amount= $sub_amount;
             }
-
+        //if c mam con diri ma withdrawal ang
         if ($detail['amount'] <=  $max_amount) {
             ORSDetails::create([
                 'ors_id' => $ors->ors_hdr_id,
@@ -182,6 +246,7 @@ foreach ($request->details as $detail) {
                 'uacs_id' => $detail['uacs_id'],
                 'sub_allotment_id' => ($detail['allotment_class_id'] == 2) ? $detail['sub_allotment_id'] : ' ',
                 'amount' => $detail['amount'],
+                'running_balance' => $detail['amount'],
             ]);
 
         } else {

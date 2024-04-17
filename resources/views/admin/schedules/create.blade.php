@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appSchedule')
 
 @section('title')
 {{__('Create Schedule')}}
@@ -24,6 +24,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">{{__('Home')}}</a></li>
             <li class="breadcrumb-item "><a href="{{route('admin.schedules.index')}}">{{__('Schedule')}}</a></li>
+          
             <li class="breadcrumb-item active">{{__('Create schedule')}}</li>
           </ol>
         </div><!-- /.col -->
@@ -38,19 +39,35 @@
       <h3 class="card-title">{{__('Create Schedule')}}</h3>
     </div>
    
-    <form method="POST" action="{{route('admin.schedules.store')}}" enctype='multipart/form-data'>
-        <!-- /.card-header -->
+    <form method="POST"  action="{{route('admin.schedules.store')}}" enctype='multipart/form-data'>
+      {{ csrf_field() }}
+      <fieldset>
         <div class="card-body">
             @csrf
             @include('admin.schedules._form')
         </div>
         <!-- /.card-body -->
+      
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">
-              <i class="fa fa-check"></i> {{__('Save')}}
+
+        @can('view_encoder_schedule')
+            <button type="submit" class="btn btn-primary" name="action" value="draft">
+              <i class="fa fa-check"></i> {{__('Save as Draft')}}
+            </button>
+        @endcan
+              <button type="submit" class="btn btn-primary" name="action" value="submit">
+              <i class="fa fa-check"></i> {{__('Submit')}}
             </button>
         </div>
+        
+          {{-- @canany(['View_SRMU_Button_Submit','View_RD_Button_Submit']) --}}
+          {{-- <div class="card-footer">
+          
+        </div> --}}
+        {{-- @endcan --}}
+      </fieldset>
     </form>
+    
  
     
 
@@ -58,30 +75,18 @@
 @endsection
 @section('scripts')
   <script src="{{url('js/admin/schedules.js')}}"></script>
-
   <script src="{{url('plugins/ekko-lightbox/ekko-lightbox.js')}}"></script>
-  {{-- <script src="{{url('js/admin/disableInspectElecment.js')}}"></script> --}}
+ 
+  <script src="{{url('js/select2.js')}}"></script>
+ 
+  <script src="{{ asset('assets/js/js1/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/js1/bootstrap.min.js') }}"></script>
 
 
-
-  
   @parent
-  <script>
-      $('.date').datepicker({
-          autoclose: true,
-          dateFormat: "{{ config('app.date_format_js') }}"
-      });
-  </script>
-   <script src="{{url('js/admin/timepicker.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
-  <script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>    
-  <script>
-      $('.timepicker').datetimepicker({
-          autoclose: true,
-          timeFormat: "HH:mm:ss",
-          timeOnly: true
-      });
-  </script>
+
+
 
 
 @endsection
+

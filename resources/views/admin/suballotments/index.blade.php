@@ -1,110 +1,68 @@
 @extends('layouts.app')
 
 @section('title')
-{{ __('Encode Sub-Allotment') }}
-@endsection
-
-@section('css')
-    <link rel="stylesheet" href="{{url('plugins/datetimepicker/css/jquery.datetimepicker.min.css')}}">
+    {{__('Fund Disbursement Monitoring System')}}
 @endsection
 
 @section('breadcrumb')
 <div class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">
-                    <i class="fa fa-home"></i>
-                    {{__('FDMS')}}
-                </h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.orsheaders.index')}}">{{__('FDMS Dashboard')}}</a></li>
-                    {{-- <li class="breadcrumb-item">
-                        <a href="{{route('admin.orsheader_list')}}">{{ __('FDMS') }}</a>
-                    </li> --}}
-                    <li class="breadcrumb-item active">{{ __('Encode Sub-Allotment') }}</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">
+            <i class="nav-icon fas fa-layer-group"></i>
+            {{__('Fund Disbursement Monitoring System')}}
+          </h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{route('admin.orsheaders.index')}}">{{__('FDMS Dashboard')}}</a></li>
+            <li class="breadcrumb-item active"><a href="#">{{__('Sub-Allotment Listing')}}</a></li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
     </div><!-- /.container-fluid -->
-</div>
+  </div>
 @endsection
 
 @section('content')
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
-        <h3 class="card-title">{{ __('Create Sub-Allotment') }}</h3>
+      <h3 class="card-title">{{__('Sub-Allotment Listing Table')}}</h3>
+      @can('create_suballotment')
+        <a href="{{route('admin.suballotments.create')}}" class="btn btn-primary btn-sm float-right">
+          <i class="fa fa-plus"></i> {{ __('Create') }}
+        </a>
+      @endcan
     </div>
     <!-- /.card-header -->
-    <form method="POST" action="{{route('admin.suballotments.store')}}" enctype="multipart/form-data">
-        @csrf
-        <div class="card-body">
-            <div class="col-lg-12">
-                @include('admin.suballotments._form_suballotment')
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="col-lg-12">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fa fa-check"></i>  {{__('Save')}}
-                </button>
-            </div>
-        </div>
-    </form>
+    <div class="card-body">
+
+       <div class="col-lg-12 table-responsive">
+          <table id="sub_table" class="table table-striped table-hover table-bordered"  width="100%">
+            <thead>
+              <tr>
+                {{-- <th width="10px">#</th> --}}
+                <th>{{__('Sub-allotment No')}}</th>
+                <th>{{__('Particulars')}}</th>
+                <th>{{__('UACS')}}</th>
+                <th>{{__('Allotment Received')}}</th>
+                <th>{{__('Date')}}</th>
+                <th>{{__('Unobligated Balance of Allotment')}}</th>
+                {{-- <th width="100px">{{__('Action')}}</th> --}}
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+       </div>
+    </div>
     <!-- /.card-body -->
-</div>
-
-
+  </div>
 
 @endsection
 @section('scripts')
-
-<script>
-    //components
-    var count=$('#count').val();
- $('.add_component').on('click',function(){
-   count++;
-   console.log(count);
-   $('.components .items').append(`
-   <tr dtl_id="approdtls${count}" num="${count}">
-    <td>
-        <div class="form-group">
-        <select class="form-control" id="uacs_subobject_code" name="approdtls[${count}][uacs_subobject_code]" >
-        <option value="">Select</option>
-        @foreach ($uacs as $row)
-        <option value="{{$row->uacs_subobject_id}}">{{ $row->code}} - {{ $row->description}}</option>
-        @endforeach
-        </select>
-        </div>
-    </td>
-                                                <td>
-                                            <div class="form-group">
-                                                                <div class="input-group form-group mb-3">
-                                                                    <input type="number" class="form-control" name="approdtls[${count}][allotment_received]"  min="0" class="allotment_received" required>
-                                                                    <div class="input-group-append">
-                                                                    <span class="input-group-text">
-                                                                        {{get_currency()}}
-                                                                    </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger delete_row">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-   </tr>
-   `);
-   //initialize text editor
-   $('#component_'+count).find('textarea').summernote({
-       toolbar: []
-   });
-});
-</script>
-    <script src="{{url('plugins/datetimepicker/js/jquery.datetimepicker.full.js')}}"></script>
-    <script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
-    <script src="{{url('js/admin/suballotment.js')}}"></script>
+  <script src="{{url('js/admin/suballotment.js')}}"></script>
+  <script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
 @endsection

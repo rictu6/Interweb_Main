@@ -66,17 +66,18 @@
 
 </div>
 {{-- Top Menu Start --}}
- 
+
 
 {{-- Top Menu End --}}
 <br>
+
 
 <div class="row">
     <div class="col-lg-6 table-responsive">
         <div class="card card-danger">
             <div class="card-header">
                 <h5 class="card-title">
-                    <i class="fas fa-bell"></i> {{__('Anouncements')}} 
+                    <i class="fas fa-bell"></i> {{__('Anouncements')}}
                 </h5>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -95,7 +96,7 @@
         <div class="card card-danger">
             <div class="card-header">
                 <h5 class="card-title">
-                    <i class="fas fa-calendar"></i> {{__('Events')}} 
+                    <i class="fas fa-calendar"></i> {{__('Events')}}
                 </h5>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -296,11 +297,15 @@
 @endcan
 @endsection
 
+
 @section('scripts')
 <!-- Switch -->
 <script src="{{url('plugins/swtich-netliva/js/netliva_switch.js')}}"></script>
 <script src="{{url('js/admin/dashboard.js')}}"></script>
 <script src="{{url('js/admin/slider.js')}}"></script>
 
-
+{{-- <script>
+    // Display jQuery version in an alert box
+    alert(jQuery.fn.jquery);
+  </script> --}}
 @endsection

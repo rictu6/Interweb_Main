@@ -18,6 +18,7 @@ class ReportDTO
     public $withholding_tax;
     public $other_deductions;
 
+
     public function __construct($date, $dv_no, $check_no,$ors_no,$payee,
     $deposits, $payments,$balance, $account_desc, $uacs_code)//,$amount, $withholding_tax, $other_deductions
     {
@@ -31,8 +32,7 @@ class ReportDTO
         $this->balance = $balance;
         $this->account_desc = $account_desc;
         $this->uacs_code = $uacs_code;
-        // $this->amount = $amount;
-        // $this->withholding_tax = $withholding_tax;
+ 
         // $this->other_deductions = $other_deductions;
 
     }

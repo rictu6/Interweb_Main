@@ -19,6 +19,7 @@ use App\Models\AllotmentClass;
 use App\Models\ApproSetupDetail;
 use App\Models\ResponsibilityCenter;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class AllotmentController extends \Illuminate\Routing\Controller
 {
@@ -49,16 +50,16 @@ class AllotmentController extends \Illuminate\Routing\Controller
 
 
     }
-    public function orsheader_list()
-    {try {
-        return view('admin.orsheaders.orsheader_list');
-    } catch (\Exception $th) {
-        dd($th->getMessage());
-    }
+    // public function orsheader_list()
+    // {try {
+    //     return view('admin.orsheaders.orsheader_list');
+    // } catch (\Exception $th) {
+    //     dd($th->getMessage());
+    // }
 
 
 
-    }
+    //}
     /**
     * get users datatable
     *
@@ -68,38 +69,31 @@ class AllotmentController extends \Illuminate\Routing\Controller
 
 
     public function ajax(Request $request)
-{
+    {
     try {
-        $model = ORSHeader::query();
+        $allotment_class_id=1;
+        $appro_allot_id_List = ApproSetup::where('allotment_class_id',  $allotment_class_id)
+        ->select('appro_setup_id')
+        ->get()
+        ->pluck('appro_setup_id')
+        ->toArray();
+        $model = ApproSetupDetail::whereIn('appro_setup_id', $appro_allot_id_List)
+        ->with('uacs', 'approsetup');
 
-
-
-
+        //$model = ApproSetupDetail::query()->with('uacs','aprrosetup');
         return DataTables::eloquent($model)
-
-            ->addColumn('action',function($fta){
-                return view('admin.ftas._action',compact('fta'));
-            })
             ->toJson();
-
     } catch (\Exception $th) {
         dd($th->getMessage());
     }
-}
+    }
 
 public function create()
 {
-    $payees=Payee::all();
-        $responsibilitycenters=ResponsibilityCenter::all();
-        $allotments=AllotmentClass::all();
-        $fundclusters=FundCluster::all();
-        $budgettypes=BudgetType::all();
-        $fundsources=FundSource::all();
-        $paps=PAP::all();
+
         $uacs=UACS::all();
 
-    return view('admin.orsheaders.create',compact('payees','responsibilitycenters',
-    'allotments','fundclusters','budgettypes','fundsources','paps','uacs'));
+    return view('admin.allotments.create',compact('uacs'));
 }
 
 function store(Request $request){

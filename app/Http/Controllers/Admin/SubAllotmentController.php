@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\PAP;
 use App\Models\UACS;
-
+use App\Models\SaroDTO;
 use App\Models\Payee;
 use App\Models\Employee;
 use App\Models\ORSHeader;
@@ -19,6 +19,7 @@ use App\Models\AllotmentClass;
 use App\Models\ApproSetupDetail;
 use App\Models\ResponsibilityCenter;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class SubAllotmentController extends \Illuminate\Routing\Controller
 {
@@ -40,25 +41,33 @@ class SubAllotmentController extends \Illuminate\Routing\Controller
     public function index()
     {
         try {
-            $uacs=UACS::all();//for next uacs ke hindi ya ma load
-            return view('admin.suballotments.index',compact('uacs'));
+            //$uacs=UACS::all();//for next uacs ke hindi ya ma load
+            return view('admin.suballotments.index');
         } catch (\Exception $th) {
 
             dd($th->getMessage());
         }
-
-
     }
-    public function orsheader_list()
-    {try {
-        return view('admin.orsheaders.orsheader_list');
-    } catch (\Exception $th) {
-        dd($th->getMessage());
+    public function create()
+    {
+        try {
+            $uacs=UACS::all();//for next uacs ke hindi ya ma load
+            return view('admin.suballotments.create',compact('uacs'));
+        } catch (\Exception $th) {
+
+            dd($th->getMessage());
+        }
     }
 
+    // public function sub_list()
+    // {
+    //     try {
+    //     return view('admin.suballotments.sub_list');
+    // } catch (\Exception $th) {
+    //     dd($th->getMessage());
+    // }
+    // }
 
-
-    }
     /**
     * get users datatable
     *
@@ -66,50 +75,28 @@ class SubAllotmentController extends \Illuminate\Routing\Controller
     * @var  @Request $request
     */
 
-
     public function ajax(Request $request)
-{
-    try {
-        $model = ORSHeader::query();
-
-
-
-
+    {
+        $allotment_class_id=2;
+        $appro_allot_id_List = ApproSetup::where('allotment_class_id',  $allotment_class_id)
+        ->select('appro_setup_id')
+        ->get()
+        ->pluck('appro_setup_id')
+        ->toArray();
+        $model = ApproSetupDetail::whereIn('appro_setup_id', $appro_allot_id_List)
+        ->with('uacs', 'approsetup');
+        //$model = ApproSetupDetail::query()->with('approsetup','uacs');
+     
         return DataTables::eloquent($model)
-
-            ->addColumn('action',function($fta){
-                return view('admin.ftas._action',compact('fta'));
-            })
             ->toJson();
-
-    } catch (\Exception $th) {
-        dd($th->getMessage());
     }
-}
-
-public function create()
-{
-    $payees=Payee::all();
-        $responsibilitycenters=ResponsibilityCenter::all();
-        $allotments=AllotmentClass::all();
-        $fundclusters=FundCluster::all();
-        $budgettypes=BudgetType::all();
-        $fundsources=FundSource::all();
-        $paps=PAP::all();
-        $uacs=UACS::all();
-
-    return view('admin.orsheaders.create',compact('payees','responsibilitycenters',
-    'allotments','fundclusters','budgettypes','fundsources','paps','uacs'));
-}
-
 function store(Request $request){
 
     //   dd($request);
 
-     $user =     Auth::guard('admin')->user()->emp_id;// +' '+ Auth::guard('admin')->user()->last_name;
+$user =     Auth::guard('admin')->user()->emp_id;// +' '+ Auth::guard('admin')->user()->last_name;
 
 $appro=new ApproSetup();
-
 $appro->budget_year=$request->budget_year;
 $appro->month=$request->month;
 $appro->fund_source_id=$request->fund_source_id;
@@ -117,7 +104,6 @@ $appro->pap_code=$request->pap_id;
 $appro->allotment_class_id=2;
 $appro->sub_allotment_no=$request->sub_allotment_no;
 $appro->remarks=$request->remarks;
-
 $appro->budget_type=$request->budget_type;
 $appro->processedby=  $user;
 
@@ -129,6 +115,7 @@ $appro->processedby=  $user;
                 'appro_setup_id' => $appro['appro_setup_id'],
                 'uacs_subobject_code' => $detail['uacs_subobject_code'],
                 'allotment_received' => $detail['allotment_received'],
+                'running_balance' => $detail['allotment_received'],
             ]);
         }
      }

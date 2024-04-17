@@ -21,7 +21,7 @@
 
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">{{__('Legal Opinion Dashboard')}}</li>
+            <li class="breadcrumb-item active">{{__('')}}</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->

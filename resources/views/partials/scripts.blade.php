@@ -39,7 +39,7 @@
 <script src="{{url('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{url('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{url('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-<script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
+{{-- <script src="{{url('js/admin/disableInspectElecment.js')}}"></script> --}}
 <script src="{{url('js/admin/preventbackbutton.js')}}"></script>
 <!-- Toastr-->
 <script src="{{ url('js/toastr.min.js')}}"></script>
@@ -63,7 +63,7 @@
 <!-- Main dashboard -->
 @if(auth()->guard('admin')->check())
   <script src="{{ url('js/admin/main.js')}}"></script>
-@else 
+@else
   <script src="{{ url('js/patient/main.js')}}"></script>
 @endif
 <!-- Flash messages -->

@@ -1,4 +1,8 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
+
 Route::group(['prefix'=>'ajax','as'=>'ajax.'],function(){
 
 
@@ -9,6 +13,8 @@ Route::group(['prefix'=>'ajax','as'=>'ajax.'],function(){
     Route::get('get_module_by_name','AjaxController@get_module_by_name')->name('get_module_by_name');
     Route::get('get_folder_by_name','AjaxController@get_folder_by_name')->name('get_folder_by_name');
 
+    //invetory
+    Route::get('get_property_type','AjaxController@get_property_type')->name('get_property_type');
 
  //get lce
  Route::get('get_lce','AjaxController@get_lce')->name('get_lce');
@@ -21,6 +27,8 @@ Route::get('get_payee_by_name','AjaxController@get_payee_by_name')->name('get_pa
  //get ors
  Route::get('get_orsheaders','AjaxController@get_orsheaders')->name('get_orsheaders');
  Route::get('get_orsheaders_by_filter','AjaxController@get_orsheaders_by_filter')->name('get_orsheaders_by_filter');
+ Route::get('get_orsdetails','AjaxController@get_orsdetails')->name('get_orsdetails');
+
 //allotment class
 Route::get('get_alot_by_desc','AjaxController@get_alot_by_desc')->name('get_alot_by_desc');
 //fund cluster
@@ -45,6 +53,8 @@ Route::get('get_sub_allotment_by_pap','AjaxController@get_sub_allotment_by_pap')
 Route::get('get_uacs_by_sub_allotment','AjaxController@get_uacs_by_sub_allotment')->name('get_uacs_by_sub_allotment');
 //uacs by pap
 Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_by_pap');
+//services
+Route::get('get_services','AjaxController@get_services')->name('get_services');
 
     //delete option
     Route::get('delete_option/{option_id}','AjaxController@delete_option')->name('delete_option');
@@ -88,7 +98,9 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
  //create filecategory
  Route::post('create_filecategory','AjaxController@create_filecategory')->name('create_filecategory');
 
-
+ Route::get('get_schedule_view','AjaxController@schedule_view')->name('schedule_view');
+ Route::get('get_schedules','AjaxController@get_schedules')->name('get_schedules');
+ Route::get('get_schedules_encoder','AjaxController@get_schedules_encoder')->name('get_schedules_encoder');
 
     //get agendass
     Route::get('get_agendas','AjaxController@get_agendas')->name('get_agendas');

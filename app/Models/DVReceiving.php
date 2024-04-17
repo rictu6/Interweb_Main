@@ -47,5 +47,8 @@ class DVReceiving extends Model
           {
               return $this->hasMany(ORSHeader::class,'ors_hdr_id','ors_hdr_id')->withTrashed();
           }
-
+          public function obli()
+          {
+              return $this->hasMany(DVObli::class,'dv_id','dv_received_id')->withTrashed();
+          }
 }

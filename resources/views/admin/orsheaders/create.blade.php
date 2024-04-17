@@ -71,10 +71,13 @@
     var uacsOption = "{{ isset($ors) && isset($ors['details']['approsetupdtl_uacs']['uacs_subobject_code']) ? $ors['details']['approsetupdtl_uacs']['uacs_subobject_code'] : '' }}";
     var currency =" {{get_currency()}}"
 </script>
+
+
 {{-- <script>
-    var orsheadersStoreRoute = '{{ route("admin.orsheaders.store") }}';
-</script>
-<script>
+    var userId = {{ Auth::guard('admin')->user()->emp_id }};
+</script> --}}
+
+{{--<script>
     var orstype = {!! json_encode($ors->ors_type) !!}; // Assign initial value from PHP variable
 </script> --}}
 

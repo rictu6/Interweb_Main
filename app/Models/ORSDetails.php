@@ -14,7 +14,7 @@ class ORSDetails extends Model
     protected $fillable=['ors_dtl_id','allotment_class_id',
     'ors_id','responsibility_center','pap_id',
     'uacs_id', 'sub_allotment_id',
-     'subsidiary_ledger', 'amount',
+     'subsidiary_ledger', 'amount', 'running_balance',
      'updated_at',
     'created_at',
     'deleted_at'];
@@ -23,6 +23,18 @@ class ORSDetails extends Model
     //  {
     //    return $this->belongsTo(ORSHeader::class,'ors_hdr_id','ors_dtl_id');
     //  }
+    public function _orstype()
+    {
+      return $this;
+    }
+    public function uacs_code()
+    {
+      return $this;
+    }
+    public function identifier()
+    {
+      return $this;
+    }
      public function responsibilitycenter()
      {
        return $this->belongsTo(ResponsibilityCenter::class,'res_center_id','responsibility_center');
@@ -51,6 +63,10 @@ class ORSDetails extends Model
      public function uacs()
      {
        return $this->belongsTo(UACS::class,'uacs_id','uacs_subobject_id');
+     }
+     public function allotment_class()
+     {
+       return $this->belongsTo(AllotmentClass::class,'allotment_class_id','uacs_subclass_id');
      }
      public function getDepositAttribute()
      {

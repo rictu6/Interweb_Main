@@ -60,7 +60,12 @@
 
 @endsection
 @section('scripts')
+<script>
 
+
+    var uacsOption = "{{ isset($ors) && isset($ors['details']['approsetupdtl_uacs']['uacs_subobject_code']) ? $ors['details']['approsetupdtl_uacs']['uacs_subobject_code'] : '' }}";
+    var currency =" {{get_currency()}}"
+</script>
 <script src="{{url('plugins/datetimepicker/js/jquery.datetimepicker.full.js')}}"></script>
 <script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
 <script src="{{url('js/admin/dvreceivings.js')}}"></script>

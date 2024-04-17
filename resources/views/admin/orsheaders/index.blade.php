@@ -36,7 +36,7 @@
         <div class="card-header" style="display: flex; justify-content: center; align-items: center;">
         <a class="btn btn-primary btn-sm text-uppercase" href="{{route('admin.orsheader_list')}}" >
             <i class="fa fa-list"></i>
-            {{__('ORS Encoding')}}
+            {{__('ORS Encodingssssss')}}
           </a>
 
         </div>

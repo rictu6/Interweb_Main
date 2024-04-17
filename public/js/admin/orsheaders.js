@@ -11,8 +11,7 @@
     var formattedDate = currentDate.toISOString().split('T')[0];
     var dynamic_fund_source;
     var dynamic_budget_type;
-    var pap_datas;
-   //active
+
 
     //datatable
     var table=$('#ordheaders_table').DataTable( {
@@ -54,14 +53,17 @@
               url:url("admin/get_orsheaders"),
               data:function(data)
               {
+                data.filter_year=$('#filter_year').val();
+                data.filter_month=$('#filter_month').val();
 
                 data.filter_payee=$('#filter_payee').val();
-               // data.filter_auth=$('#filter_auth').val();
-               // data.filter_no=$('#filter_no').val();
-                //  data.filter_year=$('#filter_year').val();
+                data.filter_auth=$('#filter_auth').val();
+                data.filter_no=$('#filter_no').val();
+                //data.filter_no=$('#filter_no').val();
+                data.filter_fundcluster=$('#filter_fundcluster').val();
+                data.filter_fundsource=$('#filter_fundsource').val();
+                //data.filter_date=$('#filter_date').val();
 
-                //  data.filter_month=$('#filter_month').val();
-                // data.filter_date=$('#filter_date').val();
               }
           },
           // orderCellsTop: true,
@@ -134,21 +136,32 @@
         }
   });
 
+  $('#filter_year').on('change',function(){
+    table.draw();
+ });
+ $('#filter_month').on('change',function(){
+    table.draw();
+ });
 
-    //  $('#filter_auth').on('change',function(){
-    //     table.draw();
-    //  });
      $('#filter_payee').on('change',function(){
         table.draw();
      });
-    //  $('#filter_year').on('change',function(){
-    //     table.draw();
-    //  });
-     // Attach the change event handler outside the AJAX configuration
-        // $('#filter_no').on('change', function () {
+     $('#filter_auth').on('change',function(){
+        table.draw();
+     });
+     $('#filter_no').on('change',function(){
+        table.draw();
+     });
+        // $('#filter_allotment').on('change', function () {
         // table.draw();
         // });
-   // filter date
+        $('#filter_fundcluster').on('change', function() {
+            table.draw();
+        });
+        $('#filter_fundsource').on('change', function() {
+            table.draw();
+        });
+   //filter date
 //    $('#filter_date').on( 'cancel.daterangepicker', function(){
 //     $(this).val('');
 //     table.draw();
@@ -432,7 +445,7 @@ $('#budget_type').select2({
                    results: $.map(data, function (item) {
                       return {
                          text: item.code,
-                         id: item.code
+                         id: item.fund_source_id
                       }
                    })
              };

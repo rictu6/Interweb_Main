@@ -114,6 +114,112 @@
                 </li>
                 @endcan
 
+                <li class="nav-item">
+                    <a href="{{route('admin.property_issued.index')}}" class="nav-link" id="ftas">
+                                          <i class="far fa-circle nav-icon"></i>
+                                          <p>{{__('Property Management System')}}
+                                          </p>
+                                      </a>
+                                      <ul class="nav nav-treeview">
+
+
+                                          <li class="nav-item">
+                                              <a href="{{route('admin.property_issued.index')}}" class="nav-link">
+                                                  {{-- <i class="fas fa-edit fa-lg"></i> --}}
+                                                  <i class="fas fa-edit fa-2x"></i>
+                                                  <p>{{__('Property Issued Dashboard')}}
+                                                  </p>
+                                              </a>
+                                          </li>
+
+                                     <li class="nav-item">
+                                      <a class="nav-link">
+                                          <i class="fas fa-chart-line nav-icon"></i> <!-- Change the icon here -->
+                                          <p>{{ __('Inventory Reports') }}</p>
+                                      </a>
+                                      <ul class="nav nav-treeview">
+                                          <li class="nav-item">
+                                              <a href="{{ route('admin.regsepi.index') }}" class="nav-link">
+                                                  <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                  <p>{{ __('Registry of Semi-Expendable Property Issued') }}</p>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      <ul class="nav nav-treeview">
+                                          <li class="nav-item">
+                                              <a href="{{ route('admin.property_issued.index') }}" class="nav-link">
+                                                  <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                  <p>{{ __('Semi-Expendable Property Card') }}</p>
+                                              </a>
+                                          </li>
+                                      </ul>
+
+
+                                  </li>
+
+                                      </ul>
+                                    </li>
+                {{-- @can('CSS') --}}
+                <li class="nav-item">
+                    <a href="{{route('admin.citcha.index')}}" class="nav-link" id="ftas">
+                                          <i class="far fa-circle nav-icon"></i>
+                                          <p>{{__('DILG 6 Client Satisfaction Survey')}}
+                                          </p>
+                                      </a>
+                                      <ul class="nav nav-treeview">
+
+
+                                          <li class="nav-item">
+                                              <a href="{{route('admin.citcha.index')}}" class="nav-link">
+                                                  {{-- <i class="fas fa-edit fa-lg"></i> --}}
+                                                  <i class="fas fa-edit fa-2x"></i>
+                                                  <p>{{__('Client Satisfaction Survey')}}
+                                                  </p>
+                                              </a>
+                                          </li>
+
+                                     <li class="nav-item">
+                                      <a class="nav-link">
+                                          <i class="fas fa-chart-line nav-icon"></i> <!-- Change the icon here -->
+                                          <p>{{ __('CSS REPORTS') }}</p>
+                                      </a>
+                                      <ul class="nav nav-treeview">
+                                          <li class="nav-item">
+                                              <a href="{{ route('admin.citcha_report.index') }}" class="nav-link">
+                                                  <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                  <p>{{ __('Consolidated CSR page 1') }}</p>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      <ul class="nav nav-treeview">
+                                          <li class="nav-item">
+                                              <a href="{{ route('admin.accounting.field') }}" class="nav-link">
+                                                  <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                  <p>{{ __('Consolidated CSR page 2') }}</p>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                      <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.accounting.field') }}" class="nav-link">
+                                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                <p>{{ __('Consolidated CSR page 3') }}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.accounting.field') }}" class="nav-link">
+                                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                <p>{{ __('Consolidated CSR page 4') }}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                  </li>
+
+                                      </ul>
+                                  </li>
+                {{-- @endcan --}}
 
                 <li class="nav-item">
                     {{-- <a href="{{route('admin.files.index')}}" class="nav-link" id="legalopinion">
@@ -187,28 +293,9 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- @endcan --}}
 
-                       {{--  @can('view_calendar')
-                        <li class="nav-item">
-                            <a href="{{route('admin.divisions.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{__('CALENDAR')}}
-                                </p>
-                            </a>
-                        </li>
-                        @endcan --}}
                     </ul>
-
-
-
-
-
-
-
-
-
-                </li>
+                    </li>
 
 
                 @can('view_orsheader','view_dvreceive')
@@ -218,6 +305,79 @@
                         <p>{{__('FUND DISBURSEMENT MONITORING SYSTEM')}}
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+
+                        {{-- @can('view_agenda') --}}
+                        <li class="nav-item">
+                            <a href="{{route('admin.orsheader_list')}}" class="nav-link">
+                                {{-- <i class="fas fa-edit fa-lg"></i> --}}
+                                <i class="fas fa-edit fa-2x"></i>
+                                <p>{{__('ORS ENCODING')}}
+                                </p>
+                            </a>
+                        </li>
+                        {{-- @endcan --}}
+
+                        {{-- @can('view_timetable') --}}
+                        <li class="nav-item">
+                            <a href="{{route('admin.suballotments.index')}}" class="nav-link">
+                                <i class="fas fa-edit fa-2x"></i>
+                                <p>{{__('SUB-ALLOTMENT ENCODING')}}
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+
+                                <a href="{{route('admin.allotments.index')}}" class="nav-link">
+                                    <i class="fas fa-edit fa-2x"></i>
+                                {{-- calendar_show --}}
+                                <p>{{__('ALLOTMENT ENCODING')}}
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a href="{{route('admin.dvreceivings.index')}}" class="nav-link">
+                                <i class="fas fa-edit fa-2x"></i>
+                            {{-- calendar_show --}}
+                            <p>{{__('DV ENCODING')}}
+                            </p>
+                        </a>
+                    </li>
+                   {{-- @can('view_agenda') --}}
+                   {{-- href="{{route('admin.accounting.index')}}"  --}}
+                   <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fas fa-chart-line nav-icon"></i> <!-- Change the icon here -->
+                        <p>{{ __('FDMS REPORTS') }}</p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.accounting.index') }}" class="nav-link">
+                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                <p>{{ __('RO Report') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.accounting.field') }}" class="nav-link">
+                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                <p>{{ __('SARO Incurred of Field Report') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.accounting.cash_register') }}" class="nav-link">
+                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                <p>{{ __('Cash Register Report') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- @endcan --}}
+                    </ul>
                 </li>
                 @endcan
 
@@ -472,7 +632,7 @@
         </li>
         @endcan
 
-        @canany(['view_accounting_reports','view_expense','view_expense_category'])
+        {{-- @canany(['view_accounting_reports','view_expense','view_expense_category'])
         <li class="nav-item has-treeview" id="accounting">
             <a href="#" class="nav-link" id="accounting_link">
                 <i class="nav-icon fas fa-calculator"></i>
@@ -505,21 +665,11 @@
                 </li>
                 @endcan
 
-                @can('view_accounting_reports')
-                <li class="nav-item">
-                    <a href="{{route('admin.accounting.index')}}" class="nav-link" id="accounting_reports">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>
-                            {{__('Accounting Report')}}
-                        </p>
-                    </a>
-                </li>
 
-                @endcan
 
             </ul>
         </li>
-        @endcan
+        @endcan --}}
 
 
 
@@ -661,7 +811,17 @@
               </form>
         </li>
 
-
+ <li class="nav-item">
+        <a href="#" class="nav-link" role="button" onclick="document.getElementById('sign_out').submit();">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>
+                {{__('LOGOUT')}}
+            </p>
+        </a>
+        <form id="sign_out" method="POST" action="{{route('admin.logout')}}">
+            @csrf
+        </form>
+    </li>
 
 
 

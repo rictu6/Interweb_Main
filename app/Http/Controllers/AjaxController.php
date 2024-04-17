@@ -10,6 +10,7 @@ use App\Models\DVType;
 use App\Models\FundCluster;
 use App\Models\FundSource;
 use App\Models\LCE;
+use App\Models\ORSDetails;
 use App\Models\ORSHeader;
 use App\Models\PAP;
 use App\Models\Payee;
@@ -45,7 +46,8 @@ use App\Models\Branch;
 
 
 use App\Models\Language;
-
+use App\Models\PropertyType;
+use App\Models\Service;
 use Yajra\DataTables\Html\Button;
 
 use DataTables;
@@ -55,6 +57,20 @@ use Illuminate\Validation\Rule;
 
 class AjaxController extends Controller
 {
+    // //Inventory
+    public function get_property_type(Request $request)
+    {
+
+        if(isset($request->term))
+        {
+            $propertytype=PropertyType::where('property_type_description','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $propertytype=PropertyType::All();
+        }
+
+        return response()->json($propertytype);
+    }
     //FTA
     public function get_lces(Request $request)
     {
@@ -96,7 +112,21 @@ class AjaxController extends Controller
         return response()->json($lces);
 
     }
+    //css services
+    public function get_services(Request $request)
+    {
+        if(isset($request->term))
+        {
 
+            $lces=Service::where('description','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $lces = Service::take(22)->get();
+        }
+
+        return response()->json($lces);
+
+    }
     //FDMS
     public function get_dv_type(Request $request)
     {
@@ -140,6 +170,17 @@ class AjaxController extends Controller
 
         return response()->json($allotmentclasses);
 
+    }
+    public function get_suballotments(Request $request)
+    {
+        if(isset($request->term))
+        {
+        $appro=ApproSetup::where('particulars','like','%'.$request->term.'%')->get();
+    }
+        else{
+            $appro=ApproSetup::all();
+        }
+        return response()->json($ors);
     }
     public function get_sub_allotment_by_pap(Request $request){
         if(isset($request->pap_code))
@@ -350,44 +391,16 @@ public function delete_uacs($dtl_id)
     //get ors
     public function get_orsheaders_by_filter(Request $request)
     {
-       // dd($request);
-       $ors = ORSHeader::query();
-
-
-
-    // Add more filters as needed, e.g., for year, month, payee, authorization, etc.
-    // For example, to filter by year and month if these are columns in your table:
-        if (isset($request->year)) {
-            $ors->whereRaw('YEAR(ors_date) = ?', [$request->year]);
+        if(isset($request->term))
+        {
+        $ors=ORSHeader::where('particulars','like','%'.$request->term.'%')->get();
         }
+        else{
+            $ors=ORSHeader::all();
+        }
+        return response()->json($ors);
 
-    if (isset($request->month)) {
-        $ors->where('month_column', $request->month);
     }
-    // if (isset($request->term)) {
-    //     $ors->where('ors_no', 'like', '%' . $request->term . '%');
-    // }
-    // You can continue adding filters for other fields in a similar manner.
-
-    $filteredORS = $ors->get();
-
-    // Organize the filtered data into categories
-    $result = [
-        'year' => $filteredORS->pluck('year_column')->unique(),
-        'month' => $filteredORS->pluck('month_column')->unique(),
-        'payee' => $filteredORS->pluck('payee_column')->unique(),
-        'authorization' => $filteredORS->pluck('authorization_column')->unique(),
-        'ors_no' => $filteredORS->pluck('ors_no')->unique(),
-        'date' => $filteredORS->pluck('date_column')->unique(),
-        'allotment_class' => $filteredORS->pluck('allotment_class_column')->unique(),
-        'fund' => $filteredORS->pluck('fund_column')->unique(),
-        'cluster' => $filteredORS->pluck('cluster_column')->unique(),
-        'fundsource' => $filteredORS->pluck('fundsource_column')->unique(),
-        'filtered_ors' => $filteredORS,
-    ];
-
-    return response()->json($ors);
-}
 
     public function get_orsheaders(Request $request)
     {
@@ -399,6 +412,21 @@ public function delete_uacs($dtl_id)
             $ors=ORSHeader::all();
         }
         return response()->json($ors);
+    }
+    public function get_orsdetails(Request $request)
+    {    $orsdetails=new ORSDetails();
+        if(isset($request->ors_no)){
+            $ors=ORSHeader::with('details')->where('ors_no','=',$request->ors_no)->first();
+            //$ors=ORSHeader::with('details')->get()->find($request->ors_no);
+            //$orsdtl=ORSDetails::where('ors_id','=',$ors->ors_hdr_id)->get();
+            foreach ($ors->details as $deet) {
+                $uacs = UACS::where('uacs_subobject_id', $deet->uacs_id)->first();
+                $deet->uacs_code = $uacs->code;
+            }
+
+            return response()->json($ors->details);
+        }
+
     }
     public function get_muncits(Request $request)
     {
@@ -1258,6 +1286,3 @@ public function delete_uacs($dtl_id)
 
 
 }
-
-
-

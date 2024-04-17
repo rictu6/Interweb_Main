@@ -30,34 +30,43 @@
   <div class="card-header">
     <h3 class="card-title">{{__('Schedules Table')}}</h3>
     @can('create_schedule')
+    @can('view_encoder_schedule')
     <a href="{{route('admin.schedules.create')}}" class="btn btn-primary btn-sm float-right">
      <i class="fa fa-plus"></i> {{__('Create')}}
     </a>
     @endcan
+    @endcan
   </div>
-  <!-- /.card-header -->
+  {{-- <!-- /.card-header @if(isset($user)&&$user['is_drafted']==1&&isset($user)&&$user['is_submitted']==0) selected display  @else hidden @endif --> --}}
   <div class="card-body">
     <div class="row table-responsive">
       <div class="col-12">
-        <table id="schedules_table" class="table table-striped table-hover table-bordered"  width="100%">
+    
+        <table id="schedules_table" class="table table-striped table-hover table-bordered"  width="100%" >
           <thead>
             <tr>
-              <th width="10px">#</th>
-              <th>{{__('Posted By')}}</th>
+              <th>#</th>
+              {{-- <th>{{__('Posted By')}}</th> --}}
               {{-- <th>{{__('Posted Date')}}</th> --}}
-              <th>{{__('Title/Description')}}</th>
-              <th>{{__('Location/Venue')}}</th>
+              <th>{{__('Title')}}</th>
+              <th>{{__('Venue')}}</th>
               {{-- <th>{{__('Office')}}</th>
               <th width="50px">{{__('Division')}}</th>
               <th>{{__('Section')}}</th>
               <th>{{__('Position')}}</th> --}}
               <th>{{__('Start Date')}}</th>
               <th>{{__('End Date')}}</th>
-             
+              <th>{{__('Start Time')}}</th>
+              <th>{{__('End Time')}}</th>
               <th>{{__('Attendee')}}</th>
-              <th>{{__('Action')}}</th>
+             
+               <th>{{__('SRMU Action')}}</th>
+                  <th>{{__('RDs Action')}}</th>
+                    <th>{{__('Event Status')}}</th>
+                     <th>{{__('Action')}}</th>
             </tr>
           </thead>
+          
           <tbody>
 
             {{-- @foreach($file as $data)
@@ -73,6 +82,7 @@
           
           </tbody>
         </table>
+       
       </div>
     </div>
   </div>

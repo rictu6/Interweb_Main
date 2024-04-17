@@ -1,12 +1,65 @@
 <?php
-use Twilio\Rest\Client;
-use App\Models\Setting;
-use App\Models\Patient;
 use App\Models\Group;
 use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Setting;
+use Twilio\Rest\Client;
 use App\Mail\PatientCode;
 use App\Mail\TestsNotification;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+//use PDF;
 
+function generate_excel($data, $type = 1)
+{
+    // File name for the Excel file
+    $excel_name = time() . '.xlsx';
+
+    // Create the Excel file
+    \Maatwebsite\Excel\Facades\Excel::store(new CsrExcelExport($data), 'uploads/excel/' . $excel_name);
+
+    // Return the URL to the generated Excel file
+    return url('uploads/excel/' . $excel_name);
+}
+
+class CsrExcelExport implements FromView
+{
+    protected $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+    public function view(): View
+    {
+        return view('excel.csr', ['data' => $this->data]);
+    }
+}
+function generate_pdf($data, $type = 1)
+{
+    // reports settings
+    $reports_settings = setting('reports');
+    // info setting
+    $info_settings = setting('info');
+    $citcha = $data;
+    // pdf file name
+    $pdf_name = time() . '.pdf';
+
+   //dd($data);
+
+    $pdf = PDF::loadView('pdf.csr', compact('data', 'reports_settings', 'info_settings', 'type'));
+    // $pdf = PDF::loadView('pdf.csr', array_merge($data, [
+    //     'reports_settings' => $reports_settings,
+    //     'info_settings' => $info_settings,
+    //     'type' => $type,
+    // ]));
+
+
+    $pdf->save('uploads/pdf/' . $pdf_name);
+
+
+     return url('uploads/pdf/' . $pdf_name);
+}
 //get system currency
 if (!function_exists('get_currency'))
 {
@@ -84,60 +137,7 @@ if (!function_exists('send_sms'))
 }
 
 
-//send notifications via mail and sms
-if (!function_exists('send_notification'))
-{
-   function send_notification($type,$patient)
-   {
-       //send mail notification
-       $email_settings=setting('emails');
 
-       if($email_settings[$type]['active']==true)
-       {
-           if(!empty($patient['email']))
-           {
-               if($type=='patient_code')
-               {
-                   try{
-                        \Mail::to($patient['email'])->send(new PatientCode($patient));
-                   }
-                   catch(\Exception $e)
-                   {
-                       //
-                   }
-               }
-               elseif($type=='tests_notification')
-               {
-                    try{
-                        \Mail::to($patient['email'])->send(new TestsNotification($patient));
-                    }
-                    catch(\Exception $e){
-                        //
-                    }
-               }
-           }
-
-       }
-
-       //send sms
-       $sms_settings=setting('sms');
-
-       if($sms_settings[$type]['active']==true)
-       {
-           if(!empty($patient['phone']))
-           {
-                $message=str_replace(
-                    ['{patient_code}','{patient_name}'],
-                    [$patient['code'],$patient['name']],
-                    $sms_settings[$type]['message']
-                );
-
-                send_sms($patient['phone'],$message);
-           }
-       }
-
-   }
-}
 
 //get json setting as array
 if (!function_exists('setting'))
@@ -151,61 +151,11 @@ if (!function_exists('setting'))
     }
 }
 
-//generate  pdf
-if (!function_exists('generate_pdf'))
-{
-    //type (1) => tests report
-    //type (2) => receipt
-    //type (3) => accounting report
-    //type (4) => accounting doctor report
 
-    function generate_pdf($data='',$type=1)
-    {
-        //reports settings
-        $reports_settings=setting('reports');
 
-        //info setting
-        $info_settings=setting('info');
 
-        $pdf_name=time().'.pdf';
 
-        if($type==1)
-        {
-            $group=$data;
-            $pdf = PDF::loadView('pdf.report',compact('group','reports_settings','info_settings','type'));
-        }
-        elseif($type==2){
-            $group=$data;
-            $pdf = PDF::loadView('pdf.receipt',compact('group','reports_settings','info_settings','type'));
-        }
-        elseif($type==3)
-        {
-            $pdf = PDF::loadView('pdf.accounting',compact('data','reports_settings','info_settings','type'));
-        }
-        elseif($type==4)
-        {
-            $pdf = PDF::loadView('pdf.doctor_report',compact('data','reports_settings','info_settings','type'));
-        }
 
-        $pdf->save('uploads/pdf/'.$pdf_name);//save pdf file
-
-        return url('uploads/pdf/'.$pdf_name);//return pdf url
-    }
-}
-
-if (!function_exists('print_barcode'))
-{
-    function print_barcode($group,$number,$barcode_image)
-    {
-        $pdf_name=time().'.pdf';
-
-        $pdf = PDF::loadView('pdf.barcode',compact('group','number','barcode_image'));
-
-        $pdf->save('uploads/pdf/'.$pdf_name);//save pdf file
-
-        return url('uploads/pdf/'.$pdf_name);
-    }
-}
 
 
 

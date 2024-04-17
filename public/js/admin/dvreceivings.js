@@ -54,8 +54,8 @@
               url:url("admin/get_dvreceivings"),
               data:function(data)
               {
-                // data.filter_destination=$('#filter_destination').val();
-                // data.filter_leave=$('#filter_leave').val();
+                data.filter_year=$('#filter_year').val();
+                data.filter_month=$('#filter_month').val();
                 // data.filter_status=$('#filter_status').val();
                 // data.filter_date=$('#filter_date').val();
               }
@@ -64,8 +64,27 @@
           fixedHeader: true,
           "columns": [
             {data:"dv_no"},
-            {data:"ors_hdr_id"},
+            {data:"obli"}
 
+//           {
+//     data: null,
+//     render: function(data, type, row) {
+//    var orsHdrIds = data.ors_hdr_id.split(',');
+//         if (data.o_r_s.length===0) {
+//             var orsNos = data.ors_hdr_id.map(function(no) {
+//                 //get ors by ors_hdr_id here
+//                 return no.ors_no;
+//             });
+//             return 'None';
+//         } else {
+//             var orsNos = data.o_r_s.map(function(no) {
+//                 return no.ors_no;
+//             });
+//             return orsNos.join(', '); // Display a comma-separated list of ors_no values
+//         }
+//     }
+// }
+,
               {
                 data: null,
                 render: function(data, type, row) {
@@ -107,16 +126,13 @@
             },
           }
     });
+    $('#filter_year').on('change',function(){
+        table.draw();
+     });
+     $('#filter_month').on('change',function(){
+        table.draw();
+     });
 
-    // $('#filter_status').on('change',function(){
-    //     table.draw();
-    //  });
-    //  $('#filter_leave').on('change',function(){
-    //     table.draw();
-    //  });
-    //  $('#filter_destination').on('change',function(){
-    //     table.draw();
-    //  });
 
    // filter date
    $('#filter_date').on( 'cancel.daterangepicker', function(){
@@ -141,7 +157,7 @@
       });
       console.log(roles);
 
-      $('#ors_assign').val(o_r_s).trigger('change');
+     // $('#ors_assign').val(o_r_s).trigger('change');
   }
 
 
@@ -623,124 +639,90 @@ $('#pap_id'+count).val('');
     });
 });
 
+//$('#ors_assign').val(o_r_s).trigger('change')
 //componenst
-$('.add_component').on('click', function() {
+//var detailsData = {};
 
-    count++;
-   //console.log(count);
-    $('.components .items').append(`
-     <tr  num="${count}" >
-     <td>
-     <div class="form-group">
-         <select class="form-control responsibility_center" name="details[${count}][responsibility_center]" id="responsibility_center${count}">
-             <option value="" disabled selected>- SELECT -</option>
-            <option value="1" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                OFFICE OF THE REGIONAL DIRECTOR (ORD)</option>
-            <option value="2" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                OFFICE OF THE ASSISTANT REGIONAL DIRECTOR</option>
-            <option value="3" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                PROJECT DEVELOPMENT AND MANAGEMENT UNIT</option>
-            <option value="4" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                PLANNING UNIT</option>
-            <option value="5" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                LOCAL GOVERNMENT MONITORING AND EVALUATION DIVISION (LGMED)
-            </option>
-            <option value="6" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                LOCAL GOVERNMENT CAPACITY DEVELOPMENT DIVISION (LGCDD)</option>
-            <option value="7" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                PROJECT DEVELOPMENT AND MANAGEMENT UNIT</option>
-            <option value="8" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                FINANCE AND ADMINISTRATIVE DIVISION (FAD)</option>
-            <option value="9" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                AKLAN PROVINCIAL OFFICE</option>
-            <option value="10" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                ANTIQUE PROVINCIAL OFFICE</option>
-            <option value="11" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-                CAPIZ PROVINCIAL OFFICE</option>
-            <option value="12" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-                GUIMARAS PROVINCIAL OFFICE</option>
-            <option value="13" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-            ILOILO PROVINCIAL OFFICE</option>
-            <option value="14" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-            ILOILO CITY OFFICE</option>
-            <option value="15" {{ old('responsibility_center') =="ALLOTMENT"? "selected" : '' }}>
-            NEGROS OCCIDENTAL PROVINCIAL OFFICE</option>
-            <option value="16" {{ old('responsibility_center') =="SUB- ALLOTMENT"? "selected" : '' }}>
-            BACOLOD CITY OFFICE</option>
-
- </select>
-     </div>
- </td>
- <td>
- <div class="form-group">
-
- <select class="form-control allotment_class_id" name="details[${count}][allotment_class_id]" placeholder="{{__(' to')}}"
- id="allotment_class_id${count}" required>
-     <option value="" disabled selected>CHARGE TO</option>
-     <option value="1" {{ old('allotment_class_id') =="ALLOTMENT"? "selected" : '' }}>
-             ALLOTMENT</option>
-     <option value="2" {{ old('allotment_class_id') =="SUB- ALLOTMENT"? "selected" : '' }}>
-             SUB- ALLOTMENT</option>
-
- </select>
-</div>
- </td>
-
-      <td>
-           <div class="form-group">
-
-                  <select class="form-control pap_id" name="details[${count}][pap_id]" id="pap_id${count}">
-                  <option value=""  disabled selected>- SELECT-</option>
-                <option value="${papOption}" selected>${papOption}</option>
-                  </select>
-           </div>
-      </td>
-
-    <td>
-                                    <div class="form-group">
-
-                                        <select class="form-control sub_allotment_id" name="details[${count}][sub_allotment_id]"
-                                         id="sub_allotment_id${count}">
-                                         <option value=""  disabled selected>-- SELECT--</option>
-                                         <option value="${subOption}" selected>${subOption}</option>
-
-                                        </select>
-                                    </div>
-                                </td>
-        <td>
-           <div class="form-group">
-
-                                            <select class="form-control uacs_subobject_code" name="details[${count}][uacs_id]"
-                                            id="uacs_id${count}">
-                                            <option value="">-SELECT-</option>
-                                            <option value="${uacsOption}" selected>${uacsOption}</option>
-                                            </select>
-           </div>
-      </td>
-      <td>
-                                        <div class="form-group">
-                                                            <div class="input-group form-group mb-3">
-                                                                <input type="number" class="form-control amount" name="details[${count}][amount]"  min="0" class="amount" required>
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text">
-                                                                    ${currency}
-                                                                </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-      <td>
-           <button type="button" class="btn btn-danger delete_row">
-               <i class="fa fa-trash"></i>
-           </button>
-      </td>
-   </tr>
-   `);
-    //initialize text editor
-    $('#component_' + count).find('textarea').summernote({
-        toolbar: []
+$(document).on('select2:select','#ors_assign', function (e) {
+    var el=$(e.target);
+    var data = e.params.data;
+    $.ajax({
+        url:ajax_url('get_orsdetails'+'?ors_no='+data.id),
+        beforeSend:function()
+        {
+            $('.preloader').show();
+            $('.loader').show();
+        },
+        success:function(data)
+        { //detailsData = data;
+            $.each(data, function(index, item) {
+                count++;
+            
+                var currency = "PHP";
+                var newRow = `
+                <tr num="${count}">
+                    <td>
+                        <div class="form-group">
+                            <select class="form-control uacs_subobject_code" name="details[${count}][uacs_id]" id="uacs_id${count}" readonly>
+                                <option value="${item.uacs_id}" selected>${item.uacs_code}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="input-group form-group mb-3">
+                                <input type="number" class="form-control amount" name="details[${count}][amount]" min="0" id="amount${count}" value="${item.running_balance}" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">${currency}</span>
+                                </div>
+                            </div>
+                            <div class="error-message" id="error-message${count}" style="color: red;"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger delete_row">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                `;
+            
+                // Append the new row to the table
+                $('.components .items').append(newRow);
+            
+                // Get the initial value of the amount input field
+                var initial_amount = parseFloat(item.running_balance);
+                item.identifier=count;
+                $('#amount' + count).on('input', function() {
+                  
+                    var inputValue = parseFloat($(this).val());
+                    var errorMessage = '';
+                    //var currentCount = $(this).data('count');
+                    // Check the condition for displaying an error message
+                    if (inputValue >  initial_amount) {
+                        errorMessage = 'Amount must be less than or equal to ' + initial_amount;
+                    }
+                    // else{
+                    //     errorMessage='test';
+                    // }
+                    console.log('initial_amount:', initial_amount);
+                    console.log('Count:', item.identifier);
+                    console.log('Input Value:', inputValue);;
+                    // Display or clear the error message
+                    $('#error-message' + item.identifier).text(errorMessage);
+                    //alert(errorMessage); 
+                    //$('#error-message' + currentCount).text(errorMessage);
+                });
+            });
+        },
+        complete:function(){
+            $('.preloader').hide();
+            $('.loader').hide();
+        
+        }
     });
+    
 });
+
 
 })(jQuery);
