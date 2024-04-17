@@ -21,11 +21,11 @@ class FilesController extends Controller
     public function __construct()
     {
         $this->middleware('can:view_legal_dash',     ['only' => ['index']]);
-        $this->middleware('can:view_file',     ['only' => ['show','ajax','file_list']]);
-        $this->middleware('can:create_file',   ['only' => ['create', 'store']]);
-        $this->middleware('can:edit_file',     ['only' => ['edit', 'update','fileview']]);
-        $this->middleware('can:download_file',     ['only' => ['download']]);
-        $this->middleware('can:delete_file',   ['only' => ['destroy']]);
+        $this->middleware('can:view_legal',     ['only' => ['show','ajax','file_list']]);
+        $this->middleware('can:create_legal',   ['only' => ['create', 'store']]);
+        $this->middleware('can:edit_legal',     ['only' => ['edit', 'update','fileview']]);
+        $this->middleware('can:download_legal',     ['only' => ['download']]);
+        $this->middleware('can:delete_legal',   ['only' => ['destroy']]);
     }
 
     /**
@@ -129,7 +129,7 @@ class FilesController extends Controller
             {
                 $pic_emp=$request->file('file');
                 $pic_emp_name=$pic_emp->getClientOriginalName();
-                $pic_emp->move('assets/Legal',$pic_emp_name);
+                $pic_emp->move('assets/ScheduleAttachments',$pic_emp_name);
                 $data->file=$pic_emp_name;
             }
 

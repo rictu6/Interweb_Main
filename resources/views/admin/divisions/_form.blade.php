@@ -8,8 +8,8 @@
     
         <div class="col-lg-12">
             <div class="form-group">
-             <label for="acronym">{{__('Acronym')}}</label>
-             <input type="text" placeholder="Acronym" name="acronym" id="acronym" class="form-control" @if(isset($division)) value="{{$division['acronym']}}" @endif required>
+             <label for="div_acronym">{{__('Acronym')}}</label>
+             <input type="text" placeholder="Acronym" name="div_acronym" id="div_acronym" class="form-control" @if(isset($division)) value="{{$division['div_acronym']}}" @endif required>
             </div>
          </div>
  

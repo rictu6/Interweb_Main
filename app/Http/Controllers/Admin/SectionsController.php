@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Section;
-
+use App\Models\Division; 
+use App\Models\Office;
 use App\Http\Requests\Admin\SectionRequest;
 use DataTables;
 
@@ -42,7 +43,7 @@ class SectionsController extends Controller
     */
     public function ajax(Request $request)
     {
-        $model=Section::query();
+        $model=Section::query()->with('office','division');
 
         return DataTables::eloquent($model)
       
@@ -50,6 +51,7 @@ class SectionsController extends Controller
             return view('admin.sections._action',compact('section'));
         })
         ->toJson();
+
     }
     /**
      * Show the form for creating a new resource.
@@ -58,7 +60,12 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        return view('admin.sections.create');
+        $offices = Office::all();
+        $divisions = Division::all();
+      
+
+
+        return view('admin.sections.create',compact('offices','divisions'));
     }
 
     /**
@@ -93,8 +100,13 @@ class SectionsController extends Controller
      */
     public function edit($id)
     {
+        $offices = Office::all();
+        $divisions = Division::all();
+      
+
+
         $section=Section::findOrFail($id);
-        return view('admin.sections.edit',compact('section'));
+        return view('admin.sections.edit',compact('section','offices','divisions'));
     }
 
     /**

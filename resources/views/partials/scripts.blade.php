@@ -63,7 +63,7 @@
 <!-- Main dashboard -->
 @if(auth()->guard('admin')->check())
   <script src="{{ url('js/admin/main.js')}}"></script>
-@else
+@else 
   <script src="{{ url('js/patient/main.js')}}"></script>
 @endif
 <!-- Flash messages -->

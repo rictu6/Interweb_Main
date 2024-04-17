@@ -14,6 +14,8 @@ class User extends Authenticatable
     use LogsActivity;
     use SoftDeletes;
 
+    public $guarded=[];
+
     protected $table = 'tbl_employee';
 
     protected $primaryKey = 'emp_id';
@@ -128,6 +130,10 @@ class User extends Authenticatable
     public function gender()
     {
         return $this->belongsTo(Gender::class,'gen_id','gender')->withTrashed();
+    }
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class,'emp_id','emp_id')->withTrashed();
     }
     public function roles()
     {

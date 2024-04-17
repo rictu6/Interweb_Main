@@ -43,7 +43,8 @@ return [
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'patients',
+            'provider' => 'users',
+            'hash' => false,
         ],
 
         'admin'=>[

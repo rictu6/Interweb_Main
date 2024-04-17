@@ -327,7 +327,7 @@
                     @endcan --}}
                     <select class="form-control" name="div_id" id="division">
                         @if(isset($user)&&isset($user['division']))
-                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['acronym']}}
+                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['div_acronym']}}
                         </option>
                         @endif
                     </select>
@@ -421,7 +421,7 @@
                     </div>
 
 
-                    <input  type="text" class="form-control" placeholder="{{__('Username')}}" name="user_name" @if(isset($user)) value="{{$user['user_name']}}"readonly @endif required>
+                    <input  type="text" class="form-control" placeholder="{{__('Username')}}" name="user_name" @if(isset($user)) value="{{$user['user_name']}}" readonly  @endif required>
                 </div>
                 <label for="email">{{__('Email Address')}}</label>
                 <div class="input-group mb-3">

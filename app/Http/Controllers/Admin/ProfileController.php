@@ -97,7 +97,7 @@ public function edit(){
        $user->prov_code=$request->prov_code;
        $user->div_id=$request->div_id;
 
-       $user->remarks=$request->remarks;
+       $user->emp_remarks=$request->emp_remarks;
        $user->nationality="Filipino";
        $user->fb=$request->fb;
        $user->payee_id=$request->payee_id;

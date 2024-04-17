@@ -1,6 +1,6 @@
 
 
-@can('view_file')
+@can('view_legal')
 
 
 <a href="{{route('admin.files.show',$file['id'])}}" target="_blank"  class="btn btn-primary btn-sm">
@@ -13,14 +13,14 @@
 
 @endcan
 
-@can('edit_file')
+@can('edit_legal')
 <a href="{{route('admin.files.edit',$file['id'])}}" class="btn btn-primary btn-sm">
   <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 
-@can('delete_file')
+@can('delete_legal')
 <form method="POST" action="{{route('admin.files.destroy',$file['id'])}}" class="d-inline">
   <input type="hidden" name="_method" value="delete">
   <button type="submit" class="btn btn-danger btn-sm delete_file">

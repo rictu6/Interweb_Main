@@ -44,8 +44,8 @@
             <tr>
               <th width="10px">#</th>
               <th>{{__('Description')}}</th>
-          
-
+              <th>{{__('Office')}}</th>
+              <th>{{__('Division')}}</th>
               <th width="100px">{{__('Action')}}</th>
             </tr>
           </thead>

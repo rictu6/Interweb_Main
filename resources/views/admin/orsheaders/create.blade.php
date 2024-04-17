@@ -38,15 +38,13 @@
         <h3 class="card-title">{{ __('Create ORS ') }}</h3>
     </div>
     <!-- /.card-header -->
-    <form method="POST" action="{{route('admin.orsheaders.store')}}" enctype="multipart/form-data" id="ors_form">
+    <form method="POST" action="{{route('admin.orsheaders.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
-
             <div class="col-lg-12">
                 @include('admin.orsheaders._form_test')
             </div>
         </div>
-
         <div class="card-footer">
             <div class="col-lg-12">
                 <button type="submit" class="btn btn-primary">
@@ -64,23 +62,109 @@
 @section('scripts')
 <script>
 
-    var rcOption = "{{ isset($ors) && isset($ors['details']['responsibilitycenter']['code']) ? $ors['details']['responsibilitycenter']['code'] : '' }}";
-    var papOption = "{{ isset($ors) && isset($ors['details']['pap']['code']) ? $ors['details']['pap']['code'] : '' }}";
-    var subOption = "{{ isset($ors) && isset($ors['details']['appro_sub_allotment']['sub_allotment_no']) ? $ors['details']['appro_sub_allotment']['sub_allotment_no'] : '' }}";
-    // var rcOption = "       @foreach ($rescenter as $row)<option value="{{$row->code}}">{{ $row->code}} - {{ $row->description}}</option>@endforeach";
-    var uacsOption = "{{ isset($ors) && isset($ors['details']['approsetupdtl_uacs']['uacs_subobject_code']) ? $ors['details']['approsetupdtl_uacs']['uacs_subobject_code'] : '' }}";
-    var currency =" {{get_currency()}}"
+    $('.add_component').on('click', function() {
+
+    count++;
+    $('.components .items').append(`
+     <tr  num="${count}" >
+      <td>
+
+        <div class="form-group">
+
+                                            <select class="form-control responsibility_center" name="ORSDetails[${count}][responsibility_center]"
+                                                id="responsibility_center${count}">
+                                                @if(isset($ors)&&isset($ors['orsdetails']))
+                                                <option value="{{$ors['orsdetails']['responsibilitycenter']}}" selected>
+                                                    {{$ors['orsdetails']['responsibilitycenter']['code']}} -
+                                                    {{$ors['orsdetails']['responsibilitycenter']['description']}}
+                                                </option>
+                                                @endif
+                                            </select>
+      </td>
+
+      <td>
+      <div class="form-group">
+
+
+
+      <select class="form-control allotment_class_id" name="ORSDetails[${count}[allotment_class_id]" placeholder="{{__(' to')}}"
+      id="allotment_class_id${count}" required>
+          <option value="" disabled selected>CHARGE TO</option>
+          <option value="1" {{ old('charallotment_class_id') =="ALLOTMENT"? "selected" : '' }}>
+                  {{__('ALLOTMENT')}}</option>
+          <option value="2" {{ old('allotment_class_id') =="SUB- ALLOTMENT"? "selected" : '' }}>
+                  {{__('SUB- ALLOTMENT')}}</option>
+
+      </select>
+  </div>
+      </td>
+
+      <td>
+           <div class="form-group">
+
+                                            <select class="form-control pap_id" name="ORSDetails[${count}][pap_id]" id="pap_id${count}">
+                                            @if(isset($ors)&&isset($ors['pap_id']))
+                                            <option value="{{$ors['orsdetails']['pap_id']}}" selected>
+                                                {{$ors['orsdetails']['pap']['code']}} -
+                                                {{$ors['orsdetails']['pap']['description']}}
+                                            </option>
+                                            @endif
+                                            </select>
+           </div>
+      </td>
+
+    <td>
+                                    <div class="form-group">
+
+                                        <select class="form-control sub_allotment_id" name="ORSDetails[${count}][sub_allotment_id]"
+                                         id="sub_allotment_id${count}">
+                                            @if(isset($ors)&&isset($ors['suballotment']))
+                                            <option value="{{$ors['ORSDetails']['sub_allotment_id']}}" selected>
+                                            {{$ors['ORSDetails']['appro_sub_allotment']['sub_allotment_no']}}
+                                        </option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </td>
+        <td>
+           <div class="form-group">
+
+                                            <select class="form-control uacs_subobject_code" name="ORSDetails[${count}][uacs_subobject_code]"
+                                            id="uacs_subobject_code${count}">
+                                                @if(isset($ors)&&isset($ors['fundsource']))
+                                                <option value="{{$ors['ORSDetails']['uacs_id']}}" selected>
+                                                {{$ors['ORSDetails']['approsetupdtl_uacs']['uacs_subobject_code']}}
+                                            </option>
+                                                @endif
+                                            </select>
+           </div>
+      </td>
+      <td>
+                                        <div class="form-group">
+                                                            <div class="input-group form-group mb-3">
+                                                                <input type="number" class="form-control amount" name="ORSDetails[${count}][amount]"  min="0" class="amount" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text">
+                                                                    {{get_currency()}}
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+      <td>
+           <button type="button" class="btn btn-danger delete_row">
+               <i class="fa fa-trash"></i>
+           </button>
+      </td>
+   </tr>
+   `);
+    //initialize text editor
+    $('#component_' + count).find('textarea').summernote({
+        toolbar: []
+    });
+});
 </script>
-
-
-{{-- <script>
-    var userId = {{ Auth::guard('admin')->user()->emp_id }};
-</script> --}}
-
-{{--<script>
-    var orstype = {!! json_encode($ors->ors_type) !!}; // Assign initial value from PHP variable
-</script> --}}
-
 <script src="{{url('plugins/datetimepicker/js/jquery.datetimepicker.full.js')}}"></script>
 <script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
 <script src="{{url('js/admin/orsheaders.js')}}"></script>

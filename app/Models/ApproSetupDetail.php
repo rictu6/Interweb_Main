@@ -29,24 +29,13 @@ class ApproSetupDetail extends Model
         'appro_setup_id',
         'uacs_subobject_code',
         'allotment_received',
-        'running_balance',
+
     'updated_at',
     'created_at',
     'deleted_at'
-
     ];
-    public function approsetup()
+    public function aprrosetup()
     {
         return $this->belongsTo(ApproSetup::class,'appro_setup_id','appro_setup_id')->withTrashed();
     }
-       public function uacs()
-     {
-       return $this->belongsTo(UACS::class,'uacs_subobject_code','uacs_subobject_id');
-     }
-     public function remarks()
-    {
-        return $this;
-    }
-   
-    
 }

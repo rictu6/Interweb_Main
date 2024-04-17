@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Carbon\Carbon;
 class Schedule extends Model
 {
+
+    use Notifiable;
     use SoftDeletes;
     use LogsActivity;
 
@@ -16,25 +18,32 @@ class Schedule extends Model
     protected $table = 'tbl_schedule';
 
     public $timestamps=false;
-    protected $dates = ['date'];
+   
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'posted_by',
         'posted_date',
         'title',
-'venue',
+        'venue',
         'office_id',
         'div_id',
         'sec_id',
         'emp_id',
        'attendee',
-     'color',
+       'color',
         'start',
-        'end'
-     
+        'end',
+        'time_start',
+        'time_end',
+        'pos_id',
+        'attendee_id',
+        'cat_id',
+        'stat_id',
+        'file',
+        'is_drafted',
+        'is_submitted'
     ];
-   
     public function getDescriptionForEvent(string $eventName): string
     {
         return "Schedule was {$eventName}";
@@ -55,17 +64,23 @@ class Schedule extends Model
     {
         return $this->belongsTo(Position::class,'pos_id','pos_id')->withTrashed();
     }
-
-
-	
-   
+    public function attendee()
+    {
+        return $this->belongsTo(User::class,'emp_id','emp_id')->withTrashed();
+    }
+    public function scheduleuser()
+    {
+        return $this->belongsTo(ScheduleUser::class,'schedule_id','id')->withTrashed();
+    }
     public function roles()
     {
         return $this->hasMany(ScheduleUser::class,'schedule_id','id');
     }
-
-    // public function att()
-    // {
-    //     return $this->hasMany(ScheduleUser::class,'schedule_id','id');
-    // }
+    public function userrole_schedule()
+    {
+        return $this->belongsTo(UserRole_Schedule::class,'user_id','emp_id')->withTrashed();
+    }
 }
+
+
+// $model = FTA::query()->with('local_chief_exec.province','local_chief_exec.muncit');

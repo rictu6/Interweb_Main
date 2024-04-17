@@ -163,8 +163,8 @@
                 </div>
             </div>
 
-
-
+          
+         
 
 
             <div class="col-lg-3">
@@ -282,7 +282,7 @@
                     @endcan --}}
                     <select class="form-control" name="div_id" id="division" required>
                         @if(isset($user)&&isset($user['division']))
-                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['acronym']}}
+                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['div_acronym']}}
                         </option>
                         @endif
                     </select>
@@ -342,7 +342,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <label for="remarks">{{__('Remarks')}}</label>
+                <label for="emp_remarks">{{__('Remarks')}}</label>
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -351,7 +351,7 @@
                             </span>
                         </div>
 
-                            <input type="text" class="form-control" placeholder="{{__('Remarks')}}" name="remarks" @if(isset($user)) value="{{$user['remarks']}}" @endif >
+                            <input type="text" class="form-control" placeholder="{{__('Remarks')}}" name="emp_remarks" @if(isset($user)) value="{{$user['emp_remarks']}}" @endif >
 
 
                     </div>
@@ -395,6 +395,7 @@
                 <h5 class="card-title">
                     {{__('Account Information')}}
                 </h5>
+                
             </div>
             <div class="card-body">
                 <label for="user_name">{{__('Username')}}</label>

@@ -11,29 +11,24 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class ORSHeader extends Model
 { use SoftDeletes;
 
-
     use LogsActivity;
 
     protected $table = 'tbl_ors_hdr';
     protected $primaryKey = 'ors_hdr_id';
-    protected $fillable=['office_id', 'ors_type',
+    protected $fillable=['office_id', 'type',
     'ors_hdr_id', 'ors_no', 'ors_date',
      'particulars', 'budget_type_id', 'fund_cluster_id',
-      'fund_source_id', 'uacs_subclass_id', 'payee_id',
+      'fund_source_id', 'uacs_subclass_id', 'payee',
        'office', 'address',
         'status_code', 'created_by',
          'date_created', 'date_received',
           'dv_received_id', 'cms_submission_history_id',
-     'dv_trust_receipts_id',
+          'payee_id', 'dv_trust_receipts_id',
            'updated_at',
           'created_at',
           'deleted_at'];
 
-          public function processed()
-          {
-              return $this->belongsTo(User::class,'created_by','emp_id')->withTrashed();
-          }
-          public function details()
+          public function ORSDetails()
           {
             return $this->hasMany(ORSDetails::class,'ors_id','ors_hdr_id');
           }
@@ -57,9 +52,4 @@ class ORSHeader extends Model
           {
               return $this->belongsTo(AllotmentClass::class,'uacs_subclass_id','uacs_subclass_id')->withTrashed();
           }
-          public function disbursement()
-          {
-              return $this->belongsTo(DVReceiving::class,'dv_received_id','dv_received_id')->withTrashed();
-          }
-
 }

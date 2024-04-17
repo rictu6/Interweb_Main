@@ -29,7 +29,7 @@ class Permission extends Model
  
     public function module()
     {
-        return $this->belonsTo(Module::class,'module_id','id');
+        return $this->belongsTo(Module::class,'module_id','id')->withTrashed();
     }
     public function getDescriptionForEvent(string $eventName): string
     {

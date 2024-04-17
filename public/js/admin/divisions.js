@@ -49,7 +49,7 @@
     // orderCellsTop: true,
     fixedHeader: true,
     "columns": [
-       {data:"div_id"},
+       {data:"div_id" },
        {data:"div_desc"},
       
        {data:"action",searchable:false,orderable:false,sortable:false}//action

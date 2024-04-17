@@ -67,7 +67,15 @@ a {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
+select {
+  display: block;
+  margin: 2rem 0;
+}
 
+select[aria-readonly="true"] {
+  pointer-events: none;
+  opacity: 0.25;
+}
 a:focus {
 	outline: none !important;
 }

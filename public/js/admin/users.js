@@ -181,7 +181,7 @@
                 return {
                       results: $.map(data, function (item) {
                          return {
-                            text: item.acronym,
+                            text: item.div_acronym,
                             id: item.div_id
                          }
                       })

@@ -46,12 +46,12 @@
           <div id="collapseOne" class="panel-collapse in collapse">
             <div class="card-body">
               <div class="row justify-content-center">
-                {{-- <div class="col-lg-3">
+                <div class="col-lg-3">
                    <div class="form-group">
                      <label for="filter_date">{{__('Date')}}</label>
                      <input type="text" class="form-control datepickerrange" id="filter_date" placeholder="{{__('Date')}}">
                   </div>
-                </div> --}}
+                </div>
                 <div class="col-lg-3">
                     <div class="form-group">
                        <label for="filter_status">{{__('Leave Type')}}</label>

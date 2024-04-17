@@ -86,7 +86,7 @@
                     <div class="col-lg-12" style="overflow-x: auto">
                         <table class="table table-striped table-bordered table-hover components" width="100%">
                             <thead class="btn-primary">
-                                <th width="400px">{{__('UACS')}}</th>
+                                <th width="400px">{{__('UACShh')}}</th>
                                 <th width="100px">{{__('Allotment Received')}}</th>
                                 <th width="10px">{{__('Action')}}</th>
                             </thead>
