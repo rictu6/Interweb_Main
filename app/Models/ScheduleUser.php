@@ -24,15 +24,10 @@ class ScheduleUser extends Model
         'emp_id',
        'schedule_id',
        'attendee_name',
-       'title',
-       'venue',
        'start',
        'end',
-       'time_start',
-       'time_end',
         'created_at',
         'updated_at',
-        'status','status2','status3',
         'deleted_at'
      
     ];
@@ -42,13 +37,5 @@ class ScheduleUser extends Model
     {
         return $this->belongsTo(User::class,'emp_id','emp_id');
     }
-    public function role()
-    {
-        return $this->belongsTo(Attendee::class,'emp_id','emp_id');
-    }
-    public function attendees()
-    {
-        return $this->belongsTo(Attendee::class,'emp_id','emp_id');
-    }
-    
+  
 }

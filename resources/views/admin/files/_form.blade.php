@@ -29,7 +29,7 @@
     <label for="images" class="drop-container">
         <span class="drop-title">Drop files here</span>
         or
-        <input type="file" name="file">
+        <input type="file" name="file" required>
     </label>
 </div>
 <script type="application/javascript">

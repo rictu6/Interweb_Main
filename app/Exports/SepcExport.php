@@ -24,7 +24,7 @@ class SepcExport implements WithMultipleSheets
   {
     $sheets=[];
     foreach($this->data as $sepc){
-        $sheets[]=new PropertyIssued($sepc->entity_name);
+        $sheets[]=new PropertyIssued($sepc->property_issued_id);
     }
     return $sheets;
   }

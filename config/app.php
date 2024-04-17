@@ -161,8 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
-
+       
         /*
          * Package Service Providers...
          */
@@ -181,7 +180,7 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         App\Providers\MailServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
-        LaravelQRCode\Providers\QRCodeServiceProvider::class,
+        LaravelQRCode\Providers\QRCodeServiceProvider::class,     
         Maatwebsite\Excel\ExcelServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
@@ -237,7 +236,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
-        'QRCode' => LaravelQRCode\Facades\QRCode::class,
+        'QRCode' => LaravelQRCode\Facades\QRCode::class,   
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
 

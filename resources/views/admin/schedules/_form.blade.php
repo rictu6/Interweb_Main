@@ -1,51 +1,50 @@
-<input type="hidden" class="form-control" name="emp_id" value="{{Auth::guard('admin')->user()->emp_id}}" required>
-<input hidden readonly type="text" class="form-control" placeholder="{{__('Posted By')}}" name="posted_by"
-    value="{{Auth::guard('admin')->user()->user_name}}" required>
-<input hidden readonly type="date" class="form-control" placeholder="{{__('Posted Date')}}" name="posted_date"
-    value="<?php echo date('Y-m-d'); ?>" required>
+<div class="form-group">
+    <label for="name">{{__('Posted By')}}</label>
 
+    <input type="hidden" class="form-control" name="emp_id" value="{{Auth::guard('admin')->user()->emp_id}}" required>
+    <input readonly type="text" class="form-control" placeholder="{{__('Posted By')}}" name="posted_by"
+        value="{{Auth::guard('admin')->user()->user_name}}" required>
+</div>
 
+<div class="form-group">
+    <label for="name">{{__('Posted Date')}}</label>
+    <input readonly type="date" class="form-control" placeholder="{{__('Posted Date')}}" name="posted_date"
+        value="<?php echo date('Y-m-d'); ?>" required>
+</div>
 
+<div class="form-group">
+    <label for="category">{{__('Category')}}</label>
+    <div class="input-group form-group mb-3">
 
-
-
-<div class="row">
-    <div class="col-lg-4">
-        <label for="category">{{__('Category')}}</label>
-        <div class="input-group form-group mb-3">
-
-            <select class="form-control" name="category" placeholder="{{__('Category')}}" id="category"
-                @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif>
-                <option value="" disabled selected>{{__('Select Category')}}</option>
-                <option value="Travel" @if(isset($user)&&$user['category']=='Travel' ) selected @endif>
-                    {{__('Travel')}}
-                </option>
-                <option value="Meeting" @if(isset($user)&&$user['category']=='Meeting' ) selected @endif>
-                    {{__('Meeting')}}
-                </option>
-                <option value="Activity" @if(isset($user)&&$user['category']=='Activity' ) selected @endif>
-                    {{__('Activity')}}
-                </option>
-                <option value="Others" @if(isset($user)&&$user['category']=='Others' ) selected @endif>
-                    {{__('Others')}}
-                </option>
-
-            </select>
-        </div>
+        <select class="form-control" name="category" placeholder="{{__('Category')}}" id="category"
+            @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif>
+            <option value="" disabled selected>{{__('Select Category')}}</option>
+            <option value="Travel" @if(isset($user)&&$user['category']=='Travel' ) selected @endif>{{__('Travel')}}
+            </option>
+            <option value="Meeting" @if(isset($user)&&$user['category']=='Meeting' ) selected @endif>{{__('Meeting')}}
+            </option>
+            <option value="Activity" @if(isset($user)&&$user['category']=='Activity' ) selected @endif>
+                {{__('Activity')}}
+            </option>
+            <option value="Others" @if(isset($user)&&$user['category']=='Others' ) selected @endif>{{__('Others')}}
+            </option>
+            <option value="N/A" @if(isset($user)&&$user['gender']=='N/A' ) selected @endif>{{__('N/A')}}
+            </option>
+        </select>
     </div>
-    <div class="col-lg-4">
-        <label for="name">{{__('Title/Description')}}</label>
-        <input type="text" placeholder="Title/Description" name="title" id="title" class="form-control"
-            @if(isset($user)) value="{{$user['title']}}" @if(isset($user)&&$user['is_submitted']==1) selected readonly
-            @endif @endif required>
+</div>
 
-    </div>
+<div class="form-group">
+    <label for="name">{{__('Title/Description')}}</label>
+    <input type="text" placeholder="Title/Description" name="title" id="title" class="form-control" @if(isset($user))
+        value="{{$user['title']}}" @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif @endif required>
 
-    <div class="col-lg-4">
-        <label for="name">{{__('Venue')}}</label>
-        <input type="text" placeholder="Venue" name="venue" id="venue" class="form-control" @if(isset($user))
-            value="{{$user['venue']}}" @endif @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif>
-    </div>
+</div>
+
+<div class="form-group">
+    <label for="name">{{__('Venue')}}</label>
+    <input type="text" placeholder="Venue" name="venue" id="venue" class="form-control" @if(isset($user))
+        value="{{$user['venue']}}" @endif @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif>
 </div>
 
 
@@ -62,28 +61,27 @@
 
         <div class="row">
             <div class="col-lg-4">
-                <div class="form-group" @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly"
-                    style="pointer-events: none;" @endif required>
+                <div class="form-group"  @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif required >
                     <label>{{__('Select Office')}}</label>
 
 
 
-                    <select class="form-control" name="office_id" id="office">
+                    <select   class="form-control" name="office_id" id="office" 
+                       >
                         @if(isset($user)&&isset($user['office']))
-                        <option value="{{$user['office']['office_id']}}" selected>{{$user['office']['office_desc']}}
+                        <option  value="{{$user['office']['office_id']}}" selected>{{$user['office']['office_desc']}}
                         </option>
                         @endif
                     </select>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="form-group" @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly"
-                    style="pointer-events: none;" @endif required>
+                <div class="form-group"  @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif required>
                     <label>{{__('Select Division')}}</label>
-                    <select class="form-control" name="div_id" id="division" @if(isset($user)&&$user['is_submitted']==1)
-                        selected @endif>
+                    <select  class="form-control" name="div_id" id="division"
+                        @if(isset($user)&&$user['is_submitted']==1) selected  @endif>
                         @if(isset($user)&&isset($user['division']))
-                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['div_acronym']}}
+                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['acronym']}}
                         </option>
                         @endif
                     </select>
@@ -92,11 +90,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="form-group" @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly"
-                    style="pointer-events: none;" @endif required>
+                <div class="form-group"  @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif required>
                     <label>{{__('Select Unit/Section')}}</label>
-                    <select class="form-control" name="sec_id" id="sec_id" @if(isset($user)&&$user['is_submitted']==1)
-                        selected @endif>
+                    <select  class="form-control" name="sec_id" id="sec_id"
+                        @if(isset($user)&&$user['is_submitted']==1) selected  @endif>
                         @if(isset($user)&&isset($user['section']))
                         <option value="{{$user['section']['sec_id']}}" selected>{{$user['section']['sec_desc']}}
                         </option>
@@ -110,8 +107,8 @@
 </div>
 {{-- <div class="form-group">
     <label for="name">{{__('Color Description (Calendar)')}}</label>
-<input type="color" placeholder="Color" name="color" id="color" class="form-control" @if(isset($user))
-    value="{{$user['color']}}" @endif @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif required>
+    <input type="color" placeholder="Color" name="color" id="color" class="form-control" @if(isset($user))
+        value="{{$user['color']}}" @endif @if(isset($user)&&$user['is_submitted']==1) selected readonly @endif required>
 </div> --}}
 <div class="row">
     <div class="col-lg-6">
@@ -160,17 +157,31 @@
         </div>
     </div>
 </div>
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">{{__('Select Attendees By Position')}}</h3>
+    </div>
 
 
-        <div class="form-group" @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly"
-            style="pointer-events: none; " @endif>
+
+    <div class="card-body">
+
+
+        <!-- {{-- 
+<button type="button" class="btn btn-warning btn-sm add_patient float-right"  >
+    <i class="fa fa-exclamation-triangle" ><a href="{{route('admin.divisions.index')}}" ></a></i>
+        {{__('Override Attendees ?')}}
+        </button> --}} -->
+
+
+        <div class="form-group"  @if(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none; " @endif>
             <label>{{__('Select Position')}}</label>
 
-            <select name="position" id="position" class="form-control select2">
+            <select name="position" id="position" class="form-control select2" >
                 <option value="">Select Position</option>
-                @if (!empty($positions))
+                @if (!empty($positions)) 
                 @foreach ($positions as $position)
-                <option value="{{$position->pos_id}}">{{$position->pos_desc}}</option>
+                <option  value="{{$position->pos_id}}">{{$position->pos_desc}}</option>
                 @endforeach
                 @endif
             </select>
@@ -179,15 +190,18 @@
 
 
 
-        <div class="form-group" @if(isset($user)&&$user['status']=='Returned' ) selected
-            @elseif(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;"
-            @endif>
 
+
+{{-- @if(isset($user)&&$user['status']=='Returned' ) selected @endif isset($user)&&$user['is_submitted']==1 readonly="readonly" style="pointer-events: none;"--}}
+  {{-- <div class="form-group" @if(isset($user)&&$user['status']=='Returned') selected @elseif(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif> --}}
+      
+       <div class="form-group" @if(isset($user)&&$user['status']=='Returned') selected @elseif(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif>
+   
             <label>{{__('Select Attendee/s')}}</label>
-
+        
 
             <select name="roles[]" id="role" placeholder="{{__('Roles')}}" class="form-control select2" multiple
-                required>
+             required>
                 @foreach($roles as $role)
                 <option value="{{$role['emp_id']}}">{{$role->last_name}}, {{$role->first_name}}
                     {{$role->middle_name}}</option>
@@ -195,8 +209,8 @@
             </select>
 
         </div>
-    </div>
 
+    </div>
 
 
 </div>
@@ -238,140 +252,7 @@
 
 {{--start for Encoder --}}
 @can('view_encoder_schedule')
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>
-    'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected
-            display readonly="readonly" style="pointer-events: none;"
-            @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display
-            readonly="readonly" style="pointer-events: none;" @else hidden @endif>
-            <div class="card-header">
-                <h3 class="card-title">{{__('RDs Action')}}</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="status">{{__('Status')}}</label>
-                    <div class="input-group form-group mb-3">
-                        <select class="form-control" name="status2" placeholder="{{__('Status')}}" id="status2"
-                            @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']
-                            <>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display
-                                    readonly="readonly" style="pointer-events: none;"
-                                    @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved')
-                                    selected display readonly="readonly" style="pointer-events: none;" @else hidden
-                                    @endif>
-                                    <option value="" disabled selected>{{__('Select Status')}}</option>
-                                    <option value="Approved" @if(isset($user)&&$user['status2']=='Approved' ) selected
-                                        @endif>
-                                        {{__('Approved')}}
-                                    </option>
-                                    <option value="Disapproved" @if(isset($user)&&$user['status2']=='Disapproved' )
-                                        selected @endif>
-                                        {{__('Disapproved')}}
-                                    </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" id="remarks2" style="display:none">
-                    <label for="name">{{__('Remarks')}}</label>
-                    <input type="text" placeholder="Remarks" name="remarks2" id="remarks2" class="form-control"
-                        @if(isset($user)) value="{{$user['remarks2']}}" @endif>
-                </div>
-            </div>
-</div>
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>
-    'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected
-            display readonly="readonly" style="pointer-events: none;"
-            @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display
-            readonly="readonly" style="pointer-events: none;" @else hidden @endif>
-            <div class="card-header">
-                <h3 class="card-title">{{__('SRMU Actions')}}</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="input-group form-group mb-3">
-
-                        <select class="form-control" name="status" placeholder="{{__('Status')}}" id="status"
-                            @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']
-                            <>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display
-                                    readonly="readonly" style="pointer-events: none;"
-                                    @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved')
-                                    selected display readonly="readonly" style="pointer-events: none;" @else hidden
-                                    @endif>
-
-                                    <option value="" disabled selected>{{__('Select Status')}}</option>
-                                    <option value="Approval" @if(isset($user)&&$user['status']=='Approval' ) selected
-                                        @endif>
-                                        {{__('For RDs Approval')}}
-                                    </option>
-                                    <option value="Returned" @if(isset($user)&&$user['status']=='Returned' ) selected
-                                        @endif>
-                                        {{__('Returned')}}
-                                    </option>
-                                    <option value="Reconsideration" @if(isset($user)&&$user['status']=='Reconsideration'
-                                        ) selected @endif>
-                                        {{__('For RDs Reconsideration')}}
-                                    </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" @if(isset($user)&&$user['status']=="Returned" ) selected display @else
-                    id="remarks" style="display:none" @endif>
-                    <label for="name">{{__('Remarks')}}</label>
-                    <input type="text" placeholder="Remarks" name="remarks" id="remarks" class="form-control"
-                        @if(isset($user)&&$user['status']=="Returned" ) selected display @endif @if(isset($user))
-                        value="{{$user['remarks']}}" @endif>
-                </div>
-            </div>
-</div>
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>
-    'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected
-            display readonly="readonly" style="pointer-events: none;"
-            @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display
-            @else hidden @endif>
-            <div class="card-header">
-                <h3 class="card-title">{{__('Event Status')}}</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="status">{{__('Status')}}</label>
-                    <div class="input-group form-group mb-3">
-                        <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3"
-                            @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']
-                            <>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display
-                                    readonly="readonly" style="pointer-events: none;"
-                                    @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved')
-                                    selected display @else hidden @endif>
-                                    <option value="" disabled selected>{{__('Select Status')}}</option>
-                                    <option value="Conducted" @if(isset($user)&&$user['status3']=='Conducted' ) selected
-                                        @endif>
-                                        {{__('Completed')}}
-                                    </option>
-                                    <option value="Cancelled" @if(isset($user)&&$user['status3']=='Cancelled' ) selected
-                                        @endif>
-                                        {{__('Cancelled')}}
-                                    </option>
-                                    <option value="Rescheduled" @if(isset($user)&&$user['status3']=='Rescheduled' )
-                                        selected @endif>
-                                        {{__('Rescheduled')}}
-                                    </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" id="remarks3" style="display:none">
-                    <label for="name">{{__('Remarks')}}</label>
-                    <input type="text" placeholder="Remarks" name="remarks3" id="remarks3" class="form-control"
-                        @if(isset($user)) value="{{$user['remarks3']}}" @endif>
-                </div>
-            </div>
-</div>
-@endcan
-{{--end for Encoder --}}
-
-
-{{--start for SRMU --}}
-@can('view_schedule_SRMU')
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    &&isset($user)&&$user['status']=="Returned" &&isset($user)&&$user['status']=="Reconsideration" ) selected display
-    readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"  @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
     <div class="card-header">
         <h3 class="card-title">{{__('RDs Action')}}</h3>
     </div>
@@ -379,11 +260,98 @@
         <div class="form-group">
             <label for="status">{{__('Status')}}</label>
             <div class="input-group form-group mb-3">
-                <select class="form-control" name="status2" placeholder="{{__('Status')}}" id="status2"
-                    @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-                    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-                    &&isset($user)&&$user['status']=="Returned" &&isset($user)&&$user['status']=="Reconsideration" )
-                    selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+                <select class="form-control" name="status2" placeholder="{{__('Status')}}" id="status2" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"  @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+                    <option value="" disabled selected>{{__('Select Status')}}</option>
+                    <option value="Approved" @if(isset($user)&&$user['status2']=='Approved' ) selected @endif>
+                        {{__('Approved')}}
+                    </option>
+                    <option value="Disapproved" @if(isset($user)&&$user['status2']=='Disapproved' ) selected @endif>
+                        {{__('Disapproved')}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="remarks2" style="display:none">
+            <label for="name">{{__('Remarks')}}</label>
+            <input type="text" placeholder="Remarks" name="remarks2" id="remarks2" class="form-control"
+                @if(isset($user)) value="{{$user['remarks2']}}" @endif>
+        </div>
+    </div>
+</div>
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"   @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+    <div class="card-header">
+        <h3 class="card-title">{{__('SRMU Actions')}}</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="input-group form-group mb-3">
+
+                <select class="form-control" name="status" placeholder="{{__('Status')}}" id="status" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"   @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+
+                    <option value="" disabled selected>{{__('Select Status')}}</option>
+                    <option value="Approval" @if(isset($user)&&$user['status']=='Approval' ) selected @endif>
+                        {{__('For RDs Approval')}}
+                    </option>
+                    <option value="Returned" @if(isset($user)&&$user['status']=='Returned' ) selected @endif>
+                        {{__('Returned')}}
+                    </option>
+                    <option value="Reconsideration" @if(isset($user)&&$user['status']=='Reconsideration' ) selected
+                        @endif>
+                        {{__('For RDs Reconsideration')}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="remarks" style="display:none">
+            <label for="name">{{__('Remarks')}}</label>
+            <input type="text" placeholder="Remarks" name="remarks" id="remarks" class="form-control" >
+        </div>
+    </div>
+</div>
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"  @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display  @else hidden @endif>
+    <div class="card-header">
+        <h3 class="card-title">{{__('Event Status')}}</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="status">{{__('Status')}}</label>
+            <div class="input-group form-group mb-3">
+                <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']<>'Approval'&&isset($user)&&$user['status']<>'Returned'&&isset($user)&&$user['status']<>'Reconsideration' ) selected display readonly="readonly" style="pointer-events: none;"  @elseif(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']='Approved') selected display  @else hidden @endif>
+                    <option value="" disabled selected>{{__('Select Status')}}</option>
+                    <option value="Conducted" @if(isset($user)&&$user['status3']=='Conducted' ) selected @endif>
+                        {{__('Completed')}}
+                    </option>
+                    <option value="Cancelled" @if(isset($user)&&$user['status3']=='Cancelled' ) selected @endif>
+                        {{__('Cancelled')}}
+                    </option>
+                    <option value="Rescheduled" @if(isset($user)&&$user['status3']=='Rescheduled' ) selected @endif>
+                        {{__('Rescheduled')}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="remarks3" style="display:none">
+            <label for="name">{{__('Remarks')}}</label>
+            <input type="text" placeholder="Remarks" name="remarks3" id="remarks3" class="form-control"
+                @if(isset($user)) value="{{$user['remarks3']}}" @endif>
+        </div>
+    </div>
+</div>
+@endcan
+{{--end for Encoder --}}
+
+
+{{--start for SRMU --}}
+@can('view_schedule_SRMU')
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"&&isset($user)&&$user['status']=="Returned"&&isset($user)&&$user['status']=="Reconsideration") selected display  readonly="readonly" style="pointer-events: none;"   @else hidden @endif>
+    <div class="card-header">
+        <h3 class="card-title">{{__('RDs Action')}}</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="status">{{__('Status')}}</label>
+            <div class="input-group form-group mb-3">
+                <select class="form-control" name="status2" placeholder="{{__('Status')}}" id="status2" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"&&isset($user)&&$user['status']=="Returned"&&isset($user)&&$user['status']=="Reconsideration") selected display  readonly="readonly" style="pointer-events: none;"   @else hidden @endif>
                     <option value="" disabled selected>{{__('Select Status')}}</option>
                     <option value="Approved" @if(isset($user)&&$user['status2']=='Approved' ) selected @endif>
                         {{__('Approved')}}
@@ -425,19 +393,14 @@
                 </select>
             </div>
         </div>
-        <div class="form-group" @if(isset($user)&&$user['status']=="Returned" ) selected display @else id="remarks"
-            style="display:none" @endif>
+        <div class="form-group" @if(isset($user)&&$user['status']=="Returned") selected display @else id="remarks" style="display:none"  @endif>
             <label for="name">{{__('Remarks')}}</label>
-            <input type="text" placeholder="Remarks" name="remarks" id="remarks" class="form-control"
-                @if(isset($user)&&$user['status']=="Returned" ) selected display @endif @if(isset($user))
-                value="{{$user['remarks']}}" @endif>
+            <input type="text" placeholder="Remarks" name="remarks" id="remarks" class="form-control"  @if(isset($user)&&$user['status']=="Returned") selected display @endif @if(isset($user))
+                value="{{$user['remarks']}}" @endif >
         </div>
     </div>
 </div>
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    &&isset($user)&&$user['status']=="Returned" &&isset($user)&&$user['status']=="Reconsideration" ) selected display
-    readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"&&isset($user)&&$user['status']=="Returned"&&isset($user)&&$user['status']=="Reconsideration") selected display  readonly="readonly" style="pointer-events: none;"  @else hidden @endif>
     <div class="card-header">
         <h3 class="card-title">{{__('Event Status')}}</h3>
     </div>
@@ -445,11 +408,7 @@
         <div class="form-group">
             <label for="status">{{__('Status')}}</label>
             <div class="input-group form-group mb-3">
-                <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3"
-                    @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-                    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-                    &&isset($user)&&$user['status']=="Returned" &&isset($user)&&$user['status']=="Reconsideration" )
-                    selected display readonly="readonly" style="pointer-events: none;" @else hidden @endif>
+                <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"&&isset($user)&&$user['status']=="Returned"&&isset($user)&&$user['status']=="Reconsideration") selected display  readonly="readonly" style="pointer-events: none;"  @else hidden @endif>
                     <option value="" disabled selected>{{__('Select Status')}}</option>
                     <option value="Conducted" @if(isset($user)&&$user['status3']=='Conducted' ) selected @endif>
                         {{__('Completed')}}
@@ -476,11 +435,7 @@
 
 {{--start for RD --}}
 @can('view_RD_schedule')
-<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']=="Approved"
-    ||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"
-    &&isset($user)&&$user['status']=="Returned" &&isset($user)&&$user['status']=="Reconsideration" ) selected display
-    @else hidden @endif>
+<div class="card card-primary" @if(isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status2']=="Approved"||isset($user)&&$user['is_submitted']==1&&isset($user)&&$user['status']=="Approval"&&isset($user)&&$user['status']=="Returned"&&isset($user)&&$user['status']=="Reconsideration") selected display @else hidden @endif>
     <div class="card-header">
         <h3 class="card-title">{{__('RDs Action')}}</h3>
     </div>
@@ -506,8 +461,7 @@
         </div>
     </div>
 </div>
-<div class="card card-primary" @if(isset($user)&&$user['status2']=="Approved"
-    ||isset($user)&&$user['status2']=="Disapproved" ) selected display @else hidden @endif>
+<div class="card card-primary" @if(isset($user)&&$user['status2']=="Approved"||isset($user)&&$user['status2']=="Disapproved") selected display @else hidden  @endif>
     <div class="card-header">
         <h3 class="card-title">{{__('SRMU Actions')}}</h3>
     </div>
@@ -515,9 +469,7 @@
         <div class="form-group">
             <div class="input-group form-group mb-3">
 
-                <select class="form-control" name="status" placeholder="{{__('Status')}}" id="status"
-                    @if(isset($user)&&$user['status2']=="Approved" ||isset($user)&&$user['status2']=="Disapproved" )
-                    selected readonly="readonly" style="pointer-events: none;" @endif>
+                <select class="form-control" name="status" placeholder="{{__('Status')}}" id="status" @if(isset($user)&&$user['status2']=="Approved"||isset($user)&&$user['status2']=="Disapproved") selected  readonly="readonly" style="pointer-events: none;"   @endif>
 
                     <option value="" disabled selected>{{__('Select Status')}}</option>
                     <option value="Approval" @if(isset($user)&&$user['status']=='Approval' ) selected @endif>
@@ -540,8 +492,7 @@
         </div>
     </div>
 </div>
-<div class="card card-primary" @if(isset($user)&&$user['status2']=="Approved"
-    ||isset($user)&&$user['status2']=="Disapproved" ) selected display @else hidden @endif>
+<div class="card card-primary" @if(isset($user)&&$user['status2']=="Approved"||isset($user)&&$user['status2']=="Disapproved") selected  display  @else hidden  @endif>
     <div class="card-header">
         <h3 class="card-title">{{__('Event Status')}}</h3>
     </div>
@@ -549,9 +500,7 @@
         <div class="form-group">
             <label for="status">{{__('Status')}}</label>
             <div class="input-group form-group mb-3">
-                <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3"
-                    @if(isset($user)&&$user['status2']=="Approved" ||isset($user)&&$user['status2']=="Disapproved" )
-                    selected readonly="readonly" style="pointer-events: none;" @endif>
+                <select class="form-control" name="status3" placeholder="{{__('Status')}}" id="status3" @if(isset($user)&&$user['status2']=="Approved"||isset($user)&&$user['status2']=="Disapproved") selected  readonly="readonly" style="pointer-events: none;"   @endif>
                     <option value="" disabled selected>{{__('Select Status')}}</option>
                     <option value="Conducted" @if(isset($user)&&$user['status3']=='Conducted' ) selected @endif>
                         {{__('Completed')}}

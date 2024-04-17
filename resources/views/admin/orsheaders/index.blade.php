@@ -30,33 +30,13 @@
 @endsection
 
 @section('content')
-@can('view_orsheader')
+@can('view_orsheader','view_accounting_reports','generate_report_accounting')
 <div class="row">
-    <!-- Column -->
-    {{-- <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Ongoing Travel/s</h4>
-                <div class="text-end">
-                    <h2 class="font-light mb-0"><i class="ti-arrow-up text-success"></i> {{$fta_count_ongoing}}</h2>
-
-                </div>
-
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar"
-                        style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-
     <div class="card card-primary" style="width: 400px; margin: 0 auto;">
         <div class="card-header" style="display: flex; justify-content: center; align-items: center;">
         <a class="btn btn-primary btn-sm text-uppercase" href="{{route('admin.orsheader_list')}}" >
             <i class="fa fa-list"></i>
-            {{__('ORS Encoding')}}
+            {{__('ORS Encodingssssss')}}
           </a>
 
         </div>
@@ -78,6 +58,23 @@
             {{__('Allotment Encoding')}}
           </a>
 
+        </div>
+    </div>
+
+    <div class="card card-primary" style="width: 400px; margin: 0 auto;">
+        <div class="card-header" style="display: flex; justify-content: center; align-items: center;">
+        <a class="btn btn-primary btn-sm text-uppercase" href="{{route('admin.accounting.index')}}" >
+            <i class="fa fa-list"></i>
+            {{__('Reports')}}
+          </a>
+        </div>
+    </div>
+    <div class="card card-primary" style="width: 400px; margin: 0 auto;">
+        <div class="card-header" style="display: flex; justify-content: center; align-items: center;">
+        <a class="btn btn-primary btn-sm text-uppercase" href="{{route('admin.dvreceivings.index')}}" >
+            <i class="fa fa-list"></i>
+            {{__('DV Entry')}}
+          </a>
         </div>
     </div>
 </div>

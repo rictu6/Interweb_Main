@@ -6,9 +6,11 @@ use App\Models\AllotmentClass;
 use App\Models\ApproSetup;
 use App\Models\ApproSetupDetail;
 use App\Models\BudgetType;
+use App\Models\DVType;
 use App\Models\FundCluster;
 use App\Models\FundSource;
 use App\Models\LCE;
+use App\Models\ORSDetails;
 use App\Models\ORSHeader;
 use App\Models\PAP;
 use App\Models\Payee;
@@ -19,14 +21,16 @@ use App\Http\Requests\Admin\PatientRequest;
 use App\Http\Requests\Admin\DoctorRequest;
 use App\Http\Requests\Admin\DivisionRequest;
 
-use App\Models\Attendee;
+
 use App\Models\Role;
 use App\Models\Nationality;
 use App\Models\User;
+
+
 use App\Models\Division;
 use App\Models\Folder;
 use App\Models\File;
-
+use App\Models\Timetable;
 use App\Models\FileCategory;
 use App\Models\Module;
 use App\Models\Province;
@@ -42,7 +46,8 @@ use App\Models\Branch;
 
 
 use App\Models\Language;
-
+use App\Models\PropertyType;
+use App\Models\Service;
 use Yajra\DataTables\Html\Button;
 
 use DataTables;
@@ -52,6 +57,21 @@ use Illuminate\Validation\Rule;
 
 class AjaxController extends Controller
 {
+    // //Inventory
+    public function get_property_type(Request $request)
+    {
+
+        if(isset($request->term))
+        {
+            $propertytype=PropertyType::where('property_type_description','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $propertytype=PropertyType::All();
+        }
+
+        return response()->json($propertytype);
+    }
+    //FTA
     public function get_lces(Request $request)
     {
 
@@ -89,9 +109,37 @@ class AjaxController extends Controller
             $lces = LCE::take(20)->get();
         }
 
+        return response()->json($lces);
+
+    }
+    //css services
+    public function get_services(Request $request)
+    {
+        if(isset($request->term))
+        {
+
+            $lces=Service::where('description','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $lces = Service::take(22)->get();
+        }
 
         return response()->json($lces);
 
+    }
+    //FDMS
+    public function get_dv_type(Request $request)
+    {
+
+        if(isset($request->term))
+        {
+            $dvtypes=DVType::where('title','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $dvtypes=DVType::All();
+        }
+
+        return response()->json($dvtypes);
     }
     //payee
     public function get_payee_by_name(Request $request)
@@ -123,6 +171,17 @@ class AjaxController extends Controller
         return response()->json($allotmentclasses);
 
     }
+    public function get_suballotments(Request $request)
+    {
+        if(isset($request->term))
+        {
+        $appro=ApproSetup::where('particulars','like','%'.$request->term.'%')->get();
+    }
+        else{
+            $appro=ApproSetup::all();
+        }
+        return response()->json($ors);
+    }
     public function get_sub_allotment_by_pap(Request $request){
         if(isset($request->pap_code))
     {
@@ -139,8 +198,12 @@ class AjaxController extends Controller
         if (isset($request->sub_allotment_no)) {
             $appro_setup = ApproSetup::where('sub_allotment_no', '=', $request->sub_allotment_no)->first();
             if ($appro_setup) {
-                $uacs = ApproSetupDetail::where('appro_setup_id', '=', $appro_setup->appro_setup_id)->get();
-               // $uacs= UACS::whereIn('code','=',$detail->uacs_subobject_code)->get();
+                $appdtl = ApproSetupDetail::where('appro_setup_id', '=', $appro_setup->appro_setup_id)->get();
+
+                $uacsSubobjectCodes = $appdtl->pluck('uacs_subobject_code')->toArray();
+
+                $uacs = UACS::whereIn('uacs_subobject_id', $uacsSubobjectCodes)->get();
+
             } else {
                 $uacs = [];
             }
@@ -152,9 +215,19 @@ class AjaxController extends Controller
       public function get_uacs_by_pap(Request $request){
         if(isset($request->pap_code))
     {
-        $appro_setup=ApproSetup::where('pap_code','=',$request->pap_code && 'allotment_class','=',1)->get();
-        $uacs=ApproSetupDetail::where('appro_setup_id','=',$appro_setup->appro_setup_id )->get();
+        $appro_setup = ApproSetup::where('pap_code', $request->pap_code)
+    ->where('allotment_class_id', 1)
+    ->first();
+        if ($appro_setup) {
+            $appdtl = ApproSetupDetail::where('appro_setup_id', '=', $appro_setup->appro_setup_id)->get();
 
+            $uacsSubobjectCodes = $appdtl->pluck('uacs_subobject_code')->toArray();
+
+            $uacs = UACS::whereIn('uacs_subobject_id', $uacsSubobjectCodes)->get();
+
+        } else {
+            $uacs = [];
+        }
     }
     return response()->json($uacs);
     }
@@ -259,6 +332,20 @@ public function get_fundsource_by_auth(Request $request)
 
     return response()->json($fundsources);
 }
+//get fundsource
+public function get_fundsource(Request $request)
+{
+    if(isset($request->term))
+   {
+        $fundsources=FundSource::where('code','like','%'.$request->term.'%')->get();
+   }
+    else{
+        $fundsources=FundSource::All();
+    }
+
+    return response()->json($fundsources);
+
+}
 //get responsibility center
 public function get_res_center(Request $request)
 {
@@ -302,12 +389,44 @@ public function delete_uacs($dtl_id)
     }
 
     //get ors
+    public function get_orsheaders_by_filter(Request $request)
+    {
+        if(isset($request->term))
+        {
+        $ors=ORSHeader::where('particulars','like','%'.$request->term.'%')->get();
+        }
+        else{
+            $ors=ORSHeader::all();
+        }
+        return response()->json($ors);
+
+    }
+
     public function get_orsheaders(Request $request)
     {
-
-        $ors=ORSHeader::all();
-
+        if(isset($request->term))
+        {
+        $ors=ORSHeader::where('particulars','like','%'.$request->term.'%')->get();
+    }
+        else{
+            $ors=ORSHeader::all();
+        }
         return response()->json($ors);
+    }
+    public function get_orsdetails(Request $request)
+    {    $orsdetails=new ORSDetails();
+        if(isset($request->ors_no)){
+            $ors=ORSHeader::with('details')->where('ors_no','=',$request->ors_no)->first();
+            //$ors=ORSHeader::with('details')->get()->find($request->ors_no);
+            //$orsdtl=ORSDetails::where('ors_id','=',$ors->ors_hdr_id)->get();
+            foreach ($ors->details as $deet) {
+                $uacs = UACS::where('uacs_subobject_id', $deet->uacs_id)->first();
+                $deet->uacs_code = $uacs->code;
+            }
+
+            return response()->json($ors->details);
+        }
+
     }
     public function get_muncits(Request $request)
     {
@@ -350,34 +469,6 @@ public function delete_uacs($dtl_id)
         return response()->json($folders);
 
     }
-    public function get_attendees(Request $request)
-    {
-        if(isset($request->term))
-        {
-            $attendees=User::where('first_name','like','%'.$request->term.'%')->get();
-        }
-        else{
-            $attendees=User::All();
-        }
-
-        return response()->json($attendees);
-    }
-    public function get_attendees_by_name(Request $request)
-    {
-        if(isset($request->term))
-
-        {
-            $attendees=Attendee::where('last_name','like','%'.$request->term.'%')->get();
-        }
-        else{
-        
-            $attendees=Attendee::All();
-        }
-
-        return response()->json($attendees);
-
-    }
-    
     public function get_division_by_desc(Request $request)
     {
         if(isset($request->term))
@@ -449,7 +540,7 @@ public function delete_uacs($dtl_id)
         return response()->json($agendas);
 
     }
-   
+
     public function get_permission_by_desc(Request $request)
     {
         if(isset($request->term))
@@ -489,7 +580,7 @@ public function delete_uacs($dtl_id)
         return response()->json($muncits);
     }
     public function get_muncits_by_prov(Request $request)
-    {
+    {//wala sya ng gana pag omit ko muncit::all kay didti sya ga dirirtso after ka if condition
         if(isset($request->prov_code))
         {
 
@@ -509,7 +600,16 @@ public function delete_uacs($dtl_id)
         return response()->json($secs);
 
     }
-  
+    public function get_attendees_by_pos(Request $request)
+    {//wala sya ng gana pag omit ko muncit::all kay didti sya ga dirirtso after ka if condition
+        if(isset($request->pos_id))
+        {
+            $attendees=User::query()->where('pos_id','=',$request->pos_id)->get();
+        }
+
+        return response()->json($secs);
+
+    }
     public function get_province_by_desc(Request $request)
     {
         if(isset($request->term))
@@ -543,7 +643,6 @@ public function delete_uacs($dtl_id)
         else{
             $empstatuss=EmpStatus::All();
         }
-
 
         return response()->json($empstatuss);
 
@@ -601,32 +700,6 @@ public function delete_uacs($dtl_id)
         return response()->json($modules);
 
     }
-    public function get_division_by_name(Request $request)
-    {
-        if(isset($request->term))
-        {
-            $divisions=Division::where('div_desc','like','%'.$request->term.'%')->get();
-        }
-        else{
-            $divisions=Division::All();
-        }
-
-        return response()->json($divisions);
-
-    }
-    public function get_office_by_name(Request $request)
-    {
-        if(isset($request->term))
-        {
-            $offices=Office::where('office_desc','like','%'.$request->term.'%')->get();
-        }
-        else{
-            $offices=Office::All();
-        }
-
-        return response()->json($offices);
-
-    }
     public function get_filecategory_by_name(Request $request)
     {
         if(isset($request->term))
@@ -654,7 +727,7 @@ public function delete_uacs($dtl_id)
 
     }
 
-  
+
 
     public function get_users(Request $request)
     {
@@ -668,7 +741,6 @@ public function delete_uacs($dtl_id)
 
         return response()->json($users);
     }
-    
     public function get_offices(Request $request)
     {
         if(isset($request->term))
@@ -681,7 +753,7 @@ public function delete_uacs($dtl_id)
 
         return response()->json($offices);
     }
-  
+
     public function get_empstatuss(Request $request)
     {
         if(isset($request->term))
@@ -694,7 +766,6 @@ public function delete_uacs($dtl_id)
 
         return response()->json($empstatuss);
     }
- 
     public function get_positions(Request $request)
     {
         if(isset($request->term))
@@ -733,7 +804,6 @@ public function delete_uacs($dtl_id)
 
         return response()->json($filecategories);
     }
-   
     public function get_divisions(Request $request)
     {
         if(isset($request->term))
@@ -748,7 +818,6 @@ public function delete_uacs($dtl_id)
 
         return response()->json($divisions);
     }
-   
      public function get_nationalities(Request $request)
     {
         if(isset($request->term))
@@ -804,8 +873,8 @@ public function delete_uacs($dtl_id)
 
         return response()->json($agendas);
     }
- 
-   
+
+
     public function get_permissions(Request $request)
     {
         if(isset($request->term))
@@ -937,7 +1006,6 @@ public function delete_uacs($dtl_id)
 
         return response()->json($module);
     }
-    
     public function create_user(Request $request)
     {
         $request->validate([
@@ -984,21 +1052,6 @@ public function delete_uacs($dtl_id)
         return response()->json($muncit);
     }
     public function create_section(Request $request)
-    {
-        $request->validate([
-            'sec_desc'=>[
-                'required',
-                Rule::unique('sections')->whereNull('deleted_at')
-            ],
-        ]);
-
-        $request['section_desc']=section_description();
-
-        $section=Section::create($request->except('_token'));
-
-        return response()->json($section);
-    }
-    public function create_schedule(Request $request)
     {
         $request->validate([
             'sec_desc'=>[
@@ -1233,6 +1286,3 @@ public function delete_uacs($dtl_id)
 
 
 }
-
-
-

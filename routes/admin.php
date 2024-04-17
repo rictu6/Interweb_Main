@@ -25,14 +25,7 @@ Route::group(['namespace'=>'Auth','prefix'=>'admin/reset','as'=>'admin.reset.'],
 
 
 
-//Inventory
-Route::resource('property_issued','PropertyIssuedController')->except(['show']);
-Route::get('property_issued_list','PropertyIssuedController@ajax')->name('property_issued_list');
-Route::get('getStatusContent','PropertyIssuedController@getStatusContent')->name('getStatusContent');
-// Route::get('property_issued_dashboard','PropertyIssuedController@property_issued_dash')->name('property_issued_dashboard');
-// Route::get('property_issued_report','PropertyIssuedController@generate_report')->name('property_issued.property_issued_report');
-Route::resource('inventory_report','InventoryController')->except(['show']);
-Route::get('property_issued_registry','InventoryController@generate_report')->name('inventory_report.property_issued_registry');
+
 
 
 
@@ -42,7 +35,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','namespace'=>'Admin','middleware'
     Route::get('/','IndexController@index')->name('index');
     // Route::get('/','IndexController@show')->name('show');
     //dashboard
-    Route::resource('tests','TestsController');
+   // Route::resource('tests','TestsController');
 
     //profile
     Route::group(['prefix'=>'profile','as'=>'profile.'],function(){
@@ -64,11 +57,39 @@ Route::get('get_fta_list','FTAsController@fta_list')->name('fta_list');
 //ORS
 Route::resource('orsheaders','ORSHeaderController');
 Route::get('get_orsheaders','ORSHeaderController@ajax')->name('get_orsheaders');
-Route::get('get_orsheader_list','ORSHeaderController@orsheader_list')->name('orsheader_list');
+Route::get('orsheader_list','ORSHeaderController@orsheader_list')->name('orsheader_list');
 //Sub Allotment
-Route::resource('suballotments','SubAllotmentController');
+    Route::resource('suballotments','SubAllotmentController');
+    Route::get('get_suballotments','SubAllotmentController@ajax')->name('get_suballotments');
+   // Route::get('suballotment_list','SubAllotmentController@sub_list')->name('suballotment_list');
 //Allotment
 Route::resource('allotments','AllotmentController');
+Route::get('get_allotments','AllotmentController@ajax')->name('get_allotments');
+//DV
+Route::resource('dvreceivings','DVReceivingController');
+Route::get('get_dvreceivings','DVReceivingController@ajax')->name('get_dvreceivings');
+//Route::get('dvreceiving_list','DVReceivingController@dvreceiving_list')->name('dvreceiving_list');
+
+//citcha
+Route::resource('citcha','CitChaController')->except(['show']);
+Route::get('get_citcha_list','CitChaController@ajax')->name('get_citcha_list');
+Route::get('getSurveyContent','CitChaController@getSurveyContent')->name('getSurveyContent');
+
+Route::resource('citcha_report','CitChaReportController')->except(['show']);
+Route::get('citcha_report_list','CitChaController@ajax')->name('citcha_report_list');
+//CSS  Reports
+
+  Route::get('citcha_report','CitChaReportController@index')->name('citcha_report.index');
+  Route::get('generate_report','CitChaReportController@generate_report')->name('citcha_report.generate_report');
+//Inventory
+Route::resource('property_issued','PropertyIssuedController')->except(['show']);
+Route::get('property_issued_list','PropertyIssuedController@ajax')->name('property_issued_list');
+Route::get('getStatusContent','PropertyIssuedController@getStatusContent')->name('getStatusContent');
+// Route::get('property_issued_dashboard','PropertyIssuedController@property_issued_dash')->name('property_issued_dashboard');
+// Route::get('property_issued_report','PropertyIssuedController@generate_report')->name('property_issued.property_issued_report');
+Route::resource('regsepi','RegSepiController')->except(['show']);
+Route::get('get_regsepi','RegSepiController@ajax')->name('get_regsepi');
+Route::get('regsepi_export','RegSepiController@export')->name('regsepi.export');
 
 Route::resource('menus','MenusController');
 Route::get('get_contactus','MenusController@contactus')->name('contactus');
@@ -99,28 +120,19 @@ Route::get('get_keyofficials','MenusController@keyofficials')->name('keyofficial
  //schedules
  Route::resource('schedules','SchedulesController');
  Route::get('get_schedules','SchedulesController@ajax')->name('get_schedules');
+ Route::get('get_schedule_list','SchedulesController@schedule_list')->name('schedule_list');
+ Route::get('get_calendar_show','SchedulesController@calendar_show')->name('calendar_show');
+
  Route::get('get_schedules_encoder','SchedulesController@ajax')->name('get_schedules_encoder');
  Route::get('get_schedule_list','SchedulesController@schedule_list')->name('schedule_list');
-
  Route::get('get_schedule_list_encoder','SchedulesController@schedule_list_encoder')->name('schedule_list_encoder');
  Route::get('get_schedule_list_srmu','SchedulesController@schedule_list_srmu')->name('schedule_list_srmu');
  Route::get('get_schedule_list_rd','SchedulesController@schedule_list_rd')->name('schedule_list_rd');
-
-
  Route::get('get_schedule_view/{id}','SchedulesController@schedule_view')->name('schedule_view');
 
-  //attendees
-
-  Route::get('get_attendees','UsersController@ajax')->name('get_attendees');
-
- //sections
-
-
- Route::get('get_calendar_show','SchedulesController@calendar_show')->name('calendar_show');
-
-      //nationality
-    Route::resource('nationalities','NationalitiesController');
-    Route::get('get_nationalities','NationalitiesController@ajax')->name('get_nationalities');
+    //   //nationality
+    // Route::resource('nationalities','NationalitiesController');
+    // Route::get('get_nationalities','NationalitiesController@ajax')->name('get_nationalities');
 
 
 
@@ -135,12 +147,10 @@ Route::get('get_keyofficials','MenusController@keyofficials')->name('keyofficial
     Route::resource('agendas','AgendasController');
     Route::get('get_agendas','AgendasController@ajax')->name('get_agendas');
 
-
-
     //users
     Route::resource('users','UsersController');
     Route::get('get_users','UsersController@ajax')->name('get_users');
-   
+
 
     //employee
     Route::resource('employees','EmployeesController');
@@ -150,9 +160,10 @@ Route::get('get_keyofficials','MenusController@keyofficials')->name('keyofficial
      Route::resource('positions','PositionsController');
      Route::get('get_positions','PositionsController@ajax')->name('get_positions');
 
-    
+
+     //sections
      Route::resource('sections','SectionsController');
-     Route::get('get_sections','SectionsController@ajax')->name('get_sections');
+     Route::get('get_sections','SectionsController@ajax')->name('get_sectionss');
 
 
 
@@ -178,20 +189,21 @@ Route::get('get_keyofficials','MenusController@keyofficials')->name('keyofficial
     Route::get('get_empstatuss','EmpStatussController@ajax')->name('get_empstatuss');
 
 
+    //accounting reports
+    Route::get('accounting','AccountingController@index')->name('accounting.index');
+    Route::get('accounting/field','AccountingController@field')->name('accounting.field');
+    //Route::get('generate_report','AccountingController@generate_report')->name('accounting.generate_report');
+    Route::get('accounting/cash_register','AccountingController@cash_register')->name('accounting.cash_register');
 
 
 
 
-
-
-
-
-    //reports
-    Route::resource('reports','ReportsController');
-    Route::post('reports/pdf/{id}','ReportsController@pdf')->name('reports.pdf');
-    Route::post('reports/update_culture/{id}','ReportsController@update_culture')->name('reports.update_culture');//update cultures
-    Route::get('get_reports','ReportsController@ajax')->name('get_reports');
-    Route::get('sign_report/{id}','ReportsController@sign')->name('reports.sign');
+    // //reports
+    // Route::resource('reports','ReportsController');
+    // Route::post('reports/pdf/{id}','ReportsController@pdf')->name('reports.pdf');
+    // Route::post('reports/update_culture/{id}','ReportsController@update_culture')->name('reports.update_culture');//update cultures
+    // Route::get('get_reports','ReportsController@ajax')->name('get_reports');
+    // Route::get('sign_report/{id}','ReportsController@sign')->name('reports.sign');
 
     //roles
     Route::resource('roles','RolesController');
@@ -203,18 +215,18 @@ Route::get('get_keyofficials','MenusController@keyofficials')->name('keyofficial
     //chat
     Route::get('chat','ChatController@index')->name('chat.index');
 
-    //visits
-    Route::resource('visits','VisitsController');
-    Route::get('visits/create_tests/{id}','VisitsController@create_tests')->name('visits.create_tests');
-    Route::get('get_visits','VisitsController@ajax')->name('get_visits');
+    // //visits
+    // Route::resource('visits','VisitsController');
+    // Route::get('visits/create_tests/{id}','VisitsController@create_tests')->name('visits.create_tests');
+    // Route::get('get_visits','VisitsController@ajax')->name('get_visits');
 
     //branches
     Route::resource('branches','BranchesController');
     Route::get('get_branches','BranchesController@ajax')->name('get_branches');
 
-    //contracts
-    Route::resource('contracts','ContractsController');
-    Route::get('get_contracts','ContractsController@ajax')->name('get_contracts');
+    // //contracts
+    // Route::resource('contracts','ContractsController');
+    // Route::get('get_contracts','ContractsController@ajax')->name('get_contracts');
 
     //expenses
     Route::resource('expenses','ExpensesController');

@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Yajra\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Http\Requests\Admin\BranchRequest;
-use DataTables;
+//use DataTables;
 
 class BranchesController extends Controller
 {
@@ -109,7 +109,7 @@ class BranchesController extends Controller
     {
         $branch=Branch::findOrFail($id);
         $branch->update($request->except('_token','_method'));
-        
+
         session()->flash('success',__('Branch updated successfully'));
 
         return redirect()->route('admin.branches.index');

@@ -640,6 +640,46 @@ class SchedulesController extends Controller
  
     
     }
+  
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    
+      
+    
+  
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+         $scheduleuser=ScheduleUser::where('schedule_id',$id)->first();
+           
+         $user=Schedule::where('id',$id)->first();
+
+         $positions = \DB::table('tbl_util_position')->orderBy('pos_desc','asc')->get();
+
+         $roles = Attendee::all();  
+
+        return view('admin.schedules.edit',compact('user','roles','positions','scheduleuser'));
+      
+
+    }
+   
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $
+     * 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
 
@@ -910,46 +950,6 @@ class SchedulesController extends Controller
 
        
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-      
-    
-  
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-         $scheduleuser=ScheduleUser::where('schedule_id',$id)->first();
-           
-         $user=Schedule::where('id',$id)->first();
-
-         $positions = \DB::table('tbl_util_position')->orderBy('pos_desc','asc')->get();
-
-         $roles = Attendee::all();  
-
-        return view('admin.schedules.edit',compact('user','roles','positions','scheduleuser'));
-      
-
-    }
-   
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $
-     * 
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-   
     public function schedule_view($id)
     {
         $scheduleuser=ScheduleUser::where('schedule_id',$id)->first();

@@ -59,8 +59,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        $modules = Module::all();
-        return view('admin.permissions.create',compact('modules'));
+        return view('admin.permissions.create');
     }
 
     /**
@@ -98,9 +97,8 @@ class PermissionsController extends Controller
      */
     public function edit($id)
     {
-        $modules = Module::all();
         $permission=Permission::findOrFail($id);
-        return view('admin.permissions.edit',compact('permission','modules'));
+        return view('admin.permissions.edit',compact('permission'));
 
        
     }

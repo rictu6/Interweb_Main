@@ -367,7 +367,7 @@ $(document).on('select2:select','#office', function (e) {
                return {
                      results: $.map(data, function (item) {
                         return {
-                           text: item.div_acronym,
+                           text: item.acronym,
                            id: item.div_id
                         }
                      })

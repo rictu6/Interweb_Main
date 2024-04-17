@@ -21,9 +21,7 @@ class Attendee extends Model
 
     protected $fillable = [
         'emp_id',
-        'last_name',
-        'pos_id'
-
+        'last_name'
     ];
     
     public function getDescriptionForEvent(string $eventName): string

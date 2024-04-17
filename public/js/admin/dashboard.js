@@ -1,5 +1,5 @@
 (function($){
-      
+
   "use strict";
 
   //active
@@ -24,7 +24,7 @@
   //get online users
   get_online_users();
 
-  setInterval(function(){ 
+  setInterval(function(){
     get_online_users();
   }, 10000);
 
@@ -59,7 +59,11 @@ function get_online_users()
       }
 
       $('.online_count').text(users.length);
-      
+
     }
   });
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // Log the jQuery version to the console
+    console.log('jQuery version:', jQuery.fn.jquery);
+});

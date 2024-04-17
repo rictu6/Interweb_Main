@@ -46,11 +46,11 @@
             </div>
               <div class="card-footer">
                @can('view_encoder_schedule')
-            <button type="submit" class="btn btn-primary" name="action" value="draft">
+            <button type="submit" class="btn btn-primary">
               <i class="fa fa-check"></i> {{__('Save as Draft')}}
             </button>
             @endcan
-              <button type="submit" class="btn btn-primary" name="action" value="submit">
+              <button type="submit" class="btn btn-primary">
               <i class="fa fa-check"></i> {{__('Submit')}}
             </button>
         </div>

@@ -51,7 +51,7 @@
        {data:"id"},
        {data:"name"},
        {data:"key"},
-       {data:"module.name"},
+       {data:"module_name.name"},
        {data:"action",searchable:false,orderable:false,sortable:false}//action
     ],
     "language": {
@@ -76,7 +76,7 @@
  });
 
   //get patient by name select2
-  $('#name').select2({
+  $('#module_name').select2({
    width:"100%",
    placeholder:trans("Module Name"),
    ajax: {
@@ -133,6 +133,35 @@
          }
     });
   
+  
+   //get patient by name select2
+   $('#module_name').select2({
+      width:"100%",
+      placeholder:trans("Module Name"),
+      ajax: {
+         beforeSend:function()
+         {
+            $('.preloader').show();
+            $('.loader').show();
+         },
+         url: ajax_url('get_module_by_name'),
+         processResults: function (data) {
+               return {
+                     results: $.map(data, function (item) {
+                        return {
+                           text: item.name,
+                           id: item.id
+                        }
+                     })
+               };
+            },
+         complete:function()
+         {
+            $('.preloader').hide();
+            $('.loader').hide();
+         }
+      }
+   });
   
    //datatables
    $('.datatables').dataTable();

@@ -10,7 +10,6 @@ use App\Http\Requests\Admin\LoginRequest;
 use App\Models\User;
 use App\Models\Setting;
 use App\Mail\ResetPassword;
-
 use Hash;
 use Auth;
 use Mail;
@@ -34,7 +33,6 @@ class AdminController extends Controller
     * @request $request
     * @access public
     */
-    
     public function validateSessionAndUrl($request)
     {
 
@@ -75,7 +73,7 @@ class AdminController extends Controller
 
 
 
-            
+
              
 
 

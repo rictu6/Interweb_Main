@@ -2,7 +2,7 @@
 
     "use strict";
 
-    $('#ordheaders').addClass('active');
+
     $('#users_profiles_link').addClass('active');
     $('#users_profiles').addClass('menu-open');
     var count=$('#count').val();
@@ -11,7 +11,7 @@
    //active
 
     //datatable
-    var table=$('#ordheaders_table').DataTable( {
+    var table=$('#sub_table').DataTable( {
         dom: "<'row'<'col-sm-4'l><'col-sm-4'B><'col-sm-4'f>>" +
         "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-4'i><'col-sm-8'p>>",
@@ -47,7 +47,7 @@
         "serverSide": true,
         "bSort" : false,
           "ajax": {
-              url:url("admin/get_orsheaders"),
+              url:url("admin/get_allotments"),
               data:function(data)
               {
                 // data.filter_destination=$('#filter_destination').val();
@@ -59,11 +59,39 @@
           // orderCellsTop: true,
           fixedHeader: true,
           "columns": [
-            {data:"ors_no"},
-            {data:"office"},
-
-
-            {data:"action",searchable:false,orderable:false,sortable:false}
+            {
+                data: null,
+                render: function(data, type, row) {
+                if (data.approsetup == null) {
+                return "NONE";
+                } else {
+                return data.approsetup.sub_allotment_no;
+                }
+                }
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                if (data.approsetup == null) {
+                return "NONE";
+                } else {
+                return data.approsetup.remarks;
+                }
+                }
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                if (data.uacs == null) {
+                return "NONE";
+                } else {
+                    return data.uacs.code;
+                }
+                }
+            },
+            {data:"allotment_received"},
+            {data:"created_at"},
+            {data:"running_balance"},
           ],
           "language": {
             "sEmptyTable":     trans("No data available in table"),
@@ -334,7 +362,7 @@ $('#uacs_subobject_code').select2({
                    results: $.map(data, function (item) {
                       return {
                          text: item.uacs_subobject_code,
-                         id: item.uacs_subobject_code
+                         id: item.uacs_subobject_id
                       }
                    })
              };
@@ -364,7 +392,7 @@ $('#component_2_uacs_subobject_code').select2({
                    results: $.map(data, function (item) {
                       return {
                          text: item.description,
-                         id: item.uacs_subobject_id
+                         id: item.uacs_subobject_code
                       }
                    })
              };

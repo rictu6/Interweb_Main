@@ -89,5 +89,20 @@ return [
             'event_helper'      => '',
         ],
     ],
-  
+    'timetable'    => [
+        'title'          => 'School Classes',
+        'title_singular' => 'Time Table',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => '',
+            'name'              => 'Name',
+            'name_helper'       => '',
+            'created_at'        => 'Created at',
+            'created_at_helper' => '',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => '',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => '',
+        ],
+    ],
 ];

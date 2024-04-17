@@ -22,7 +22,7 @@ class Division extends Model
     protected $fillable = [
         'div_id',
         'div_desc',
-        'div_acronym'
+        'acronym'
      
     ];
     public function users()

@@ -1,21 +1,21 @@
-<div class="modal fade" id="schedule_modal" aria-hidden="true">
+<div class="modal fade" id="division_modal" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{__('Create schedule')}}</h4>
+        <h4 class="modal-title">{{__('Create Division')}}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <form action="{{route('ajax.create_schedule')}}" method="POST" id="create_schedule">
+      <form action="{{route('ajax.create_division')}}" method="POST" id="create_division">
           @csrf
-          <div class="text-danger" id="schedule_modal_error"></div>
-          <div class="modal-body" id="create_schedule_inputs">
+          <div class="text-danger" id="division_modal_error"></div>
+          <div class="modal-body" id="create_division_inputs">
               <div class="row">
                   <div class="col-lg-12">
                       <div class="form-group">
-                          {{-- <label for="create_div_desc">{{__('Name')}}</label>
-                          <input  id="create_division_div_desc" name="div_desc" placeholder="{{__('Division Name')}}" class="form-control" required> --}}
+                          <label for="create_div_desc">{{__('Name')}}</label>
+                          <input  id="create_division_div_desc" name="div_desc" placeholder="{{__('Division Name')}}" class="form-control" required>
                       </div> 
                   </div>
               </div>

@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\FileManagerController;
-
-use App\Http\Controllers\Admin\SchedulesController;
-
+use App\Http\Controllers\FileManagerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,17 +19,7 @@ Route::group(['middleware'=>['Install','Locale']],function(){
   include('admin.php');
   include('ajax.php');
  
-}); 
-
-
-
-Route::post('fetch-attendees/{id}',[SchedulesController::class,'fetchAttendees']);
-
-
-// Route::get('getUser/{id}', function ($id) {
-//   $user = App\Models\User::where('pos_id',$id)->get();
-//   return response()->json($user);
-// });
+});
 Route::get('filemanager', [FileManagerController::class, 'index']);
  Route::get('change_locale/{lang}','HomeController@change_locale')->name('change_locale');
 Route::get('clear-cache',function(){

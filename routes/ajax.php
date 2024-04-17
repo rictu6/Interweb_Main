@@ -1,4 +1,8 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
+
 Route::group(['prefix'=>'ajax','as'=>'ajax.'],function(){
 
 
@@ -7,20 +11,24 @@ Route::group(['prefix'=>'ajax','as'=>'ajax.'],function(){
     Route::get('get_weekday_by_name','AjaxController@get_weekday_by_name')->name('get_weekday_by_name');
     Route::get('get_filecategory_by_name','AjaxController@get_filecategory_by_name')->name('get_filecategory_by_name');
     Route::get('get_module_by_name','AjaxController@get_module_by_name')->name('get_module_by_name');
-    Route::get('get_division_by_name','AjaxController@get_division_by_name')->name('get_division_by_name');
-    Route::get('get_office_by_name','AjaxController@get_office_by_name')->name('get_office_by_name');
     Route::get('get_folder_by_name','AjaxController@get_folder_by_name')->name('get_folder_by_name');
 
+    //invetory
+    Route::get('get_property_type','AjaxController@get_property_type')->name('get_property_type');
 
  //get lce
  Route::get('get_lce','AjaxController@get_lce')->name('get_lce');
  Route::get('get_lces','AjaxController@get_lces')->name('get_lces');
  Route::get('get_lce_by_name','AjaxController@get_lce_by_name')->name('get_lce_by_name');
-
 //payee
 Route::get('get_payee_by_name','AjaxController@get_payee_by_name')->name('get_payee_by_name');
-//get ORs
-Route::get('get_orsheaders','AjaxController@get_orsheaders')->name('get_lces');
+//get dv type
+ Route::get('get_dv_type','AjaxController@get_dv_type')->name('get_dv_type');
+ //get ors
+ Route::get('get_orsheaders','AjaxController@get_orsheaders')->name('get_orsheaders');
+ Route::get('get_orsheaders_by_filter','AjaxController@get_orsheaders_by_filter')->name('get_orsheaders_by_filter');
+ Route::get('get_orsdetails','AjaxController@get_orsdetails')->name('get_orsdetails');
+
 //allotment class
 Route::get('get_alot_by_desc','AjaxController@get_alot_by_desc')->name('get_alot_by_desc');
 //fund cluster
@@ -29,6 +37,7 @@ Route::get('get_fund_cluster_by_desc','AjaxController@get_fund_cluster_by_desc')
 Route::get('get_budget_type_by_desc','AjaxController@get_budget_type_by_desc')->name('get_budget_type_by_desc');
 //fundsource
 Route::get('get_fundsource_by_auth','AjaxController@get_fundsource_by_auth')->name('get_fundsource_by_auth');
+Route::get('get_fundsource','AjaxController@get_fundsource')->name('get_fundsource');
 //ors details
 //rescenter
 Route::get('get_res_center','AjaxController@get_res_center')->name('get_res_center');
@@ -44,6 +53,8 @@ Route::get('get_sub_allotment_by_pap','AjaxController@get_sub_allotment_by_pap')
 Route::get('get_uacs_by_sub_allotment','AjaxController@get_uacs_by_sub_allotment')->name('get_uacs_by_sub_allotment');
 //uacs by pap
 Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_by_pap');
+//services
+Route::get('get_services','AjaxController@get_services')->name('get_services');
 
     //delete option
     Route::get('delete_option/{option_id}','AjaxController@delete_option')->name('delete_option');
@@ -58,7 +69,7 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
     //create modules
     Route::post('create_module','AjaxController@create_module')->name('create_module');
 
-    Route::get('create','SchedulesController@create');
+
 
     //get divisions
     Route::get('get_divisions','AjaxController@get_divisions')->name('get_divisions');
@@ -67,11 +78,7 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
 
 
     //get schedules
-    
-
-    Route::get('get_schedule_view','AjaxController@schedule_view')->name('schedule_view');
     Route::get('get_schedules','AjaxController@get_schedules')->name('get_schedules');
-    Route::get('get_schedules_encoder','AjaxController@get_schedules_encoder')->name('get_schedules_encoder');
     //create schedules
     Route::post('create_schedule','AjaxController@create_schedule')->name('create_schedule');
 
@@ -91,7 +98,9 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
  //create filecategory
  Route::post('create_filecategory','AjaxController@create_filecategory')->name('create_filecategory');
 
-
+ Route::get('get_schedule_view','AjaxController@schedule_view')->name('schedule_view');
+ Route::get('get_schedules','AjaxController@get_schedules')->name('get_schedules');
+ Route::get('get_schedules_encoder','AjaxController@get_schedules_encoder')->name('get_schedules_encoder');
 
     //get agendass
     Route::get('get_agendas','AjaxController@get_agendas')->name('get_agendas');
@@ -106,15 +115,13 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
 
     //get users
     Route::get('get_users','AjaxController@get_users')->name('get_users');
- 
     //create users
     Route::post('create_user','AjaxController@create_user')->name('create_user');
 
 
     //get positions
     Route::get('get_positions','AjaxController@get_positions')->name('get_positions');
-      //get attendees
-  
+    Route::get('get_attendees_by_pos','AjaxController@get_attendees_by_pos')->name('get_attendees_by_pos');
     //create positions
     Route::post('create_position','AjaxController@create_position')->name('create_position');
 
@@ -148,11 +155,8 @@ Route::get('get_uacs_by_pap','AjaxController@get_uacs_by_pap')->name('get_uacs_b
       //get muncit
       Route::get('get_muncits','AjaxController@get_muncits')->name('get_muncits');
       Route::get('get_muncits_by_prov','AjaxController@get_muncits_by_prov')->name('get_muncits_by_prov');
-     
-    //create empstatus
-    Route::get('get_attendees','AjaxController@get_attendees')->name('get_attendees');
-    Route::get('get_attendees_by_name','AjaxController@get_attendees_by_name')->name('get_attendees_by_name');
 
+    //create empstatus
     Route::post('create_muncit','AjaxController@create_muncit')->name('create_muncit');
 
 
