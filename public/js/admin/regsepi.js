@@ -56,21 +56,15 @@
         // orderCellsTop: true,
         fixedHeader: true,
         "columns": [
-            {data:"date_acquired"},
+          
             {data:"ics_rrsp_no"},
             {data:"semi_expendable_property_no"},
+            {data:"semi_expendable_property_no"},
             {data:"item_description"},
-            {data:"estimated_useful_life"},
+            {data:"property_type"},
             {data:"issued_qty"},
-            {data:"issued_office"},
-            {data:"returned_qty"},
-            {data:"returned_office"},
-            {data:"re_issued_qty"},
-            {data:"re_issued_office"},
-            {data:"disposed_qty"},
-            {data:"balance_qty"},
-            {data:"amount"},
-            {data:"remarks"},
+            {data:"property_type"},
+            {data:"amount"}
         //    {data:"action",searchable:false,orderable:false,sortable:false}//action
         ],
         "language": {
