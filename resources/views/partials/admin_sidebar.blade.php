@@ -141,7 +141,7 @@
                                           <li class="nav-item">
                                               <a href="{{ route('admin.regsepi.index') }}" class="nav-link">
                                                   <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
-                                                  <p>{{ __('Registry of Semi-Expendable Property Issued') }}</p>
+                                                  <p>{{ __('Report of Semi-Expendable Property Issued') }}</p>
                                               </a>
                                           </li>
                                       </ul>
