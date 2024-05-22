@@ -54,8 +54,6 @@ class SepcExport implements WithTitle
                 $propertyList->push($property);
             }
         }
-        $groupedPropertyList = $propertyList->groupBy('property_issued_id');
-       // dd($groupedPropertyList);
         $entityName ='DILG REGION VI, ILOILO CITY';
         return view('admin.sepc._export', [
             'sepc' => $propertyList

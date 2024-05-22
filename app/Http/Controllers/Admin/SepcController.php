@@ -57,7 +57,7 @@ class SepcController extends Controller
     public function export(Request $request)
     {             $property_list = PropertyIssued::
         with('property_type')
-        ->get()->groupBy('property_issued_id');
+        ->get()->groupBy('property_type_id');
         // $property_list = PropertyIssued::all()->groupBy
         // ('property_issued_id');
         return(new SepcSheetExport($property_list))->download('sepc.xlsx');

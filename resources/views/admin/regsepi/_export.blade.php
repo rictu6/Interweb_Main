@@ -44,26 +44,38 @@
             <th>{{__('Qty')}}</th>
             <th>{{__('Qty')}}</th>
         </tr>
+
+
     </thead>
+
     <tbody>
         @foreach($regsepi as $prop)
         <tr>
             <td align="center">{{ date('Y-m-d', strtotime($prop['date_acquired'])) ?? 'N/A' }}</td>
             <td align="center">{{$prop->ics_rrsp_no}}</td>
+             <td align="center">{{$prop->property_type }}</td>
             <td align="center">{{$prop->semi_expendable_property_no }}</td>
             <td align="center">{{$prop->item_description }}</td>
-            <td align="center">{{$prop->estimated_useful_life }}</td>
+            <td align="center">{{$prop->property_type }}</td>
             <td align="center">{{$prop->issued_qty}}</td>
-            <td align="center">{{$prop->issued_office }}</td>
-            <td align="center">{{$prop->returned_qty }}</td>
-            <td align="center">{{$prop->returned_office }}</td>
-            <td align="center">{{$prop->re_issued_qty}}</td>
-            <td align="center">{{$prop->re_issued_office}}</td>
-            <td align="center">{{$prop->disposed_qty }}</td>
-            <td align="center">{{$prop->balance_qty }}</td>
+            <td align="center">{{$prop->property_type }}</td>
             <td align="center">{{$prop->amount }}</td>
-            <td align="center">{{$prop->remarks }}</td>
+
         </tr>
         @endforeach
     </tbody>
+<<<<<<< Updated upstream
+     <tfoot>
+  <tr>
+
+    <td style="border-bottom:double black;" align="left" rowspan="3" colspan="6">{{__('')}}</td>
+
+      <td style="border-bottom:double black;" align="right" rowspan="3" colspan="2">{{__('')}}</td>
+
+  </tr>
+
+</tfoot>
+
+=======
+>>>>>>> Stashed changes
 </table>
