@@ -47,7 +47,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="property_type">Property Type</label>
-                        <select class="form-control" name="property_type" id="propertyType" required>
+                        <select class="form-control" name="property_type_id" id="propertyType" required>
                             @if(isset($property_type)&&isset($property_type['property_type_id']))
                             <option value="{{$property_type['property_type_id']}}" selected>
                                 {{$property_type['property_type_description']}}
