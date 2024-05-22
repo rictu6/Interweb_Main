@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{__('Property Issued Report')}}
+{{__('REGISTRY OF SEMI-EXPENDABLE PROPERTY ISSUED')}}
 @endsection
 
 @section('breadcrumb')
@@ -11,13 +11,13 @@
       <div class="col-sm-6">
         <h1 class="m-0 text-dark">
           <i class="nav-icon fas fa-calculator"></i>
-          {{__('Property Issued Report')}}
+          {{__('REGISTRY OF SEMI-EXPENDABLE PROPERTY ISSUED')}}
         </h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('admin.property_issued.index')}}">{{__('Property Issued Dashboard')}}</a></li>
-          <li class="breadcrumb-item active">{{__('Property Issued Report')}}</li>
+          <li class="breadcrumb-item active">{{__('REGISTRY OF SEMI-EXPENDABLE PROPERTY ISSUED')}}</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -29,7 +29,7 @@
     <div class="card card-primary">
         <!-- card-header -->
         <div class="card-header">
-        <h3 class="card-title">{{__('Property Issued Report')}}</h3>
+        <h3 class="card-title">{{__('REGISTRY OF SEMI-EXPENDABLE PROPERTY ISSUED')}}</h3>
         </div>
         <!-- /.card-header -->
         <!-- card-body -->
@@ -42,7 +42,7 @@
                 <div class="card card-info">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="btn btn-primary collapsed" aria-expanded="false">
                     <i class="fas fa-file-excel"></i>
-                    {{__('Import / Export')}}
+                    {{__('Export Report')}}
                   </a>
                   <div id="collapseOne" class="panel-collapse in collapse">
                     <div class="card-body">
@@ -52,10 +52,10 @@
                             <i class="fa fa-file-excel"></i>
                             {{__('Export')}}
                           </a>
-                          <a class="btn btn-success" href="{{route('admin.regsepi.export')}}">
+                          {{-- <a class="btn btn-success" href="{{route('admin.regsepi.export')}}">
                             <i class="fa fa-file-excel"></i>
                             {{__('Download template')}}
-                          </a>
+                          </a> --}}
                         </div>
                         <div class="col-lg-12">
                           <!-- import form -->
