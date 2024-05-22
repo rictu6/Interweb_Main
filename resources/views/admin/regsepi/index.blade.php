@@ -104,15 +104,21 @@
               <table id="prop_issued_table" class="table table-striped table-hover table-bordered" width="100%">
                 <thead>
                     <tr>
-                      
+                        <th>{{__('Date')}}</th>
                         <th>{{__('ICS/RRSP No.')}}</th>
-                          <th>{{__('Responsibility Center Code')}}</th>
                         <th>{{__('Semi-expendable Property No.')}}</th>
                         <th>{{__('Item Description')}}</th>
-                        <th>{{__('Unit')}}</th>
-                        <th>{{__('Qty Issued')}}</th>
-                        <th>{{__('Unit Cost')}}</th>
+                        <th>{{__('Estimated Useful Life')}}</th>
+                        <th>{{__('Issued Qty')}}</th>
+                        <th>{{__('Issued Office/Officer')}}</th>
+                        <th>{{__('Returned Qty')}}</th>
+                        <th>{{__('Returned Office/Officer')}}</th>
+                        <th>{{__('Re-Issued Qty')}}</th>
+                        <th>{{__('Re-Issued Office/Officer')}}</th>
+                        <th>{{__('Disposed Qty')}}</th>
+                        <th>{{__('Balance Qty')}}</th>
                         <th>{{__('Amount')}}</th>
+                        <th>{{__('Remarks')}}</th>
                       </tr>
 
                 </thead>
