@@ -1,31 +1,27 @@
-
 <table>
-    <!-- Additional rows -->
-    <tbody>
-        <tr>
-            <td align="right" colspan="15" style="font-style: italic;">{{__('Annex A.4')}}</td>
-
-        </tr>
-        <tr>
-            <td align="center" colspan="15">{{__('SEMI-EXPENDABLE PROPERTY CARD')}}</td>
-            <!-- Add other cells for the additional row -->
-        </tr>
-        <tr>
-            <td  align="left" colspan="5">{{__('Entity Name:___________________')}}</td>
-            <td   align="right" colspan="10">{{__('Fund Cluster:___________________')}}</td>
-        </tr>
-        <tr>
-            <td  align="left" colspan="5">{{__('Semi-expendable Property:___________________')}}</td>
-            <td   align="right" colspan="10">{{__('Sheet No.:_______________________')}}</td>
-        </tr>
-    </tbody>
-    <!-- Data rows -->
     <thead>
         <tr>
-            <th rowspan="2">{{__('Date')}}</th>
-            {{-- <th></th> --}}
-            <th colspan="2">{{__('Reference')}}</th>
+            <td align="right" colspan="15" style="font-style: italic;">{{ __('Annex A.4') }}</td>
+        </tr>
+        <tr>
+            <td align="center" colspan="15">{{ __('REGISTRY OF SEMI-EXPENDABLE PROPERTY ISSUED') }}</td>
 
+        </tr>
+        <tr></tr>
+        <tr>
+            <td align="left" colspan="5">{{ __('Entity Name:') }} </td>
+            <td align="right" colspan="10">{{ __('Fund Cluster:___________________') }}</td>
+        </tr>
+        {{-- @foreach($regsepi as $prop) --}}
+        <tr>
+            <td align="left" colspan="5">{{ __('Semi-expendable Property:') }} </td>
+            <td align="right" colspan="10" >{{ __('Sheet No.:') }} </td>
+        </tr>
+        {{-- @endforeach --}}
+
+        <tr>
+            <th rowspan="2">{{__('Date')}}</th>
+            <th colspan="2">{{__('Reference')}}</th>
             <th rowspan="2">{{__('Item Description')}}</th>
             <th rowspan="2">{{__('Estimated Useful Life')}}</th>
             <th colspan="2">{{__('Issued')}}</th>
@@ -35,14 +31,10 @@
             <th>{{__('Balance')}}</th>
             <th rowspan="2">{{__('Amount')}}</th>
             <th rowspan="2">{{__('Remarks')}}</th>
-            <!-- Add more table headers as needed -->
         </tr>
         <tr>
-            {{-- <th rowspan="2">{{__('Date')}}</th> --}}
             <th>{{__('ICS/RRSP No.')}}</th>
             <th>{{__('Semi-expendable Property No.')}}</th>
-            {{-- <th>{{__('Item Description')}}</th> --}}
-            {{-- <th>{{__('Estimated Useful Life')}}</th> --}}
             <th>{{__('Issued Qty')}}</th>
             <th>{{__('Issued Office/Officer')}}</th>
             <th>{{__('Returned Qty')}}</th>
@@ -51,14 +43,12 @@
             <th>{{__('Re-Issued Office/Officer')}}</th>
             <th>{{__('Qty')}}</th>
             <th>{{__('Qty')}}</th>
-            {{-- <th>{{__('Amount')}}</th>
-            <th>{{__('Remarks')}}</th> --}}
         </tr>
     </thead>
     <tbody>
         @foreach($regsepi as $prop)
         <tr>
-            <td align="center">{{$prop->date_acquired}}</td>
+            <td align="center">{{ date('Y-m-d', strtotime($prop['date_acquired'])) ?? 'N/A' }}</td>
             <td align="center">{{$prop->ics_rrsp_no}}</td>
             <td align="center">{{$prop->semi_expendable_property_no }}</td>
             <td align="center">{{$prop->item_description }}</td>
@@ -77,4 +67,3 @@
         @endforeach
     </tbody>
 </table>
-

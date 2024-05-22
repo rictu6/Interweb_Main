@@ -24,9 +24,9 @@
                             href="{{route('admin.property_issued.index')}}">{{__('Property Management System')}}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{route('admin.property_issued_list')}}">{{ __('Property Issued Listing') }}</a>
+                        <a href="{{route('admin.property_issued.index')}}">{{ __('Property Issued Listing') }}</a>
                     </li>
-                    <li class="breadcrumb-item active">{{ __('Encode ORS') }}</li>
+                    <li class="breadcrumb-item active">{{ __('Encode Property Issued') }}</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -80,6 +80,26 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
+                    <label for="">Reference</label>
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" name="reference" id="" @if(isset($property_issued))
+                            value="{{$property_issued->reference}}" @endif required>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="">Semi-expendable Property Name</label>
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" name="semi_expendable_property" id=""
+                            @if(isset($property_issued)) value="{{$property_issued->semi_expendable_property}}"
+                            @endif required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
                     <label for="">Semi-expendable Property No.</label>
                     <div class="form-group">
 
@@ -90,7 +110,6 @@
                 </div>
 
             </div>
-
             <div class="row">
 
                 <div class="col-lg-4">

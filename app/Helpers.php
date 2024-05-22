@@ -10,31 +10,6 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 //use PDF;
 
-function generate_excel($data, $type = 1)
-{
-    // File name for the Excel file
-    $excel_name = time() . '.xlsx';
-
-    // Create the Excel file
-    \Maatwebsite\Excel\Facades\Excel::store(new CsrExcelExport($data), 'uploads/excel/' . $excel_name);
-
-    // Return the URL to the generated Excel file
-    return url('uploads/excel/' . $excel_name);
-}
-
-class CsrExcelExport implements FromView
-{
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-    public function view(): View
-    {
-        return view('excel.csr', ['data' => $this->data]);
-    }
-}
 function generate_pdf($data, $type = 1)
 {
     // reports settings

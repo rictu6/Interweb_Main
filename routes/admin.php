@@ -91,6 +91,10 @@ Route::resource('regsepi','RegSepiController')->except(['show']);
 Route::get('get_regsepi','RegSepiController@ajax')->name('get_regsepi');
 Route::get('regsepi_export','RegSepiController@export')->name('regsepi.export');
 
+Route::resource('sepc','SepcController')->except(['show']);
+Route::get('get_sepc','SepcController@ajax')->name('get_sepc');
+Route::get('sepc_export','SepcController@export')->name('sepc.export');
+
 Route::resource('menus','MenusController');
 Route::get('get_contactus','MenusController@contactus')->name('contactus');
 Route::get('get_whoweare','MenusController@whoweare')->name('whoweare');
