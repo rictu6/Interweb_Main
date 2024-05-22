@@ -55,7 +55,7 @@ class RegSepiController extends Controller
          try {
              $propertyList = PropertyIssued::
              with('property_type')
-             ->get()->groupBy('property_type_id');
+             ->get()->groupBy('property_issued_id');
              return (new RegSepiSheetExport($propertyList))->download('regsepi.xlsx');
          } catch (\Exception $e) {
             dd($e->getMessage());
