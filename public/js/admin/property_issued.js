@@ -47,100 +47,11 @@
         "bSort" : false,
         "ajax": {
           url: url("admin/property_issued_list"),
-        //   data:function(data)
-        //   {
-        //     data.filter_service_cc=$('#filter_service_cc').val();
-        //     data.filter_month_cc=$('#filter_month_cc').val();
-        //   }
-        },
-        // orderCellsTop: true,
-        fixedHeader: true,
-        "columns": [
-            {data:"date_acquired"},
-            {data:"ics_rrsp_no"},
-            {data:"semi_expendable_property_no"},
-            {data:"item_description"},
-            {data:"estimated_useful_life"},
-            {data:"issued_qty"},
-            {data:"issued_office"},
-            {data:"returned_qty"},
-            {data:"returned_office"},
-            {data:"re_issued_qty"},
-            {data:"re_issued_office"},
-            {data:"disposed_qty"},
-            {data:"balance_qty"},
-            {data:"amount"},
-            {data:"remarks"},
-        //    {data:"action",searchable:false,orderable:false,sortable:false}//action
-        ],
-        "language": {
-          "sEmptyTable":     trans("No data available in table"),
-          "sInfo":           trans("Showing")+" _START_ "+trans("to")+" _END_ "+trans("of")+" _TOTAL_ "+trans("records"),
-          "sInfoEmpty":      trans("Showing")+" 0 "+trans("to")+" 0 "+trans("of")+" 0 "+trans("records"),
-          "sInfoFiltered":   "("+trans("filtered")+" "+trans("from")+" _MAX_ "+trans("total")+" "+trans("records")+")",
-          "sInfoPostFix":    "",
-          "sInfoThousands":  ",",
-          "sLengthMenu":     trans("Show")+" _MENU_ "+trans("records"),
-          "sLoadingRecords": trans("Loading..."),
-          "sProcessing":     trans("Processing..."),
-          "sSearch":         trans("Search")+":",
-          "sZeroRecords":    trans("No matching records found"),
-          "oPaginate": {
-              "sFirst":    trans("First"),
-              "sLast":     trans("Last"),
-              "sNext":     trans("Next"),
-              "sPrevious": trans("Previous")
-          },
-        }
-     });
-    //  $('#filter_service_cc').on('change',function(){
-    //     table.draw();
-    //  });
-    //  $('#filter_month_cc').on('change',function(){
-    //     table.draw();
-    //  });
-    var table=$('#prop_issued_table').DataTable( {
-        dom: "<'row'<'col-sm-4'l><'col-sm-4'B><'col-sm-4'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-4'i><'col-sm-8'p>>",
-        buttons: [
+          data:function(data)
           {
-              extend:    'copyHtml5',
-              text:      '<i class="fas fa-copy"></i> '+trans("Copy"),
-              titleAttr: 'Copy'
-          },
-          {
-              extend:    'excelHtml5',
-              text:      '<i class="fas fa-file-excel"></i> '+trans("Excel"),
-              titleAttr: 'Excel'
-          },
-          {
-              extend:    'csvHtml5',
-              text:      '<i class="fas fa-file-csv"></i> '+trans("CVS"),
-              titleAttr: 'CSV'
-          },
-          {
-              extend:    'pdfHtml5',
-              text:      '<i class="fas fa-file-pdf"></i> '+trans("PDF"),
-              titleAttr: 'PDF'
-          },
-          {
-            extend:    'colvis',
-            text:      '<i class="fas fa-eye"></i>',
-            titleAttr: 'PDF'
+            data.filter_property_type=$('#filter_property_type').val();
+            data.filter_year=$('#filter_year').val();
           }
-
-        ],
-        "processing": true,
-        "serverSide": true,
-        "bSort" : false,
-        "ajax": {
-          url: url("admin/property_issued_list"),
-        //   data:function(data)
-        //   {
-        //     data.filter_service_cc=$('#filter_service_cc').val();
-        //     data.filter_month_cc=$('#filter_month_cc').val();
-        //   }
         },
         // orderCellsTop: true,
         fixedHeader: true,
@@ -148,6 +59,8 @@
             {data:"date_acquired"},
             {data:"ics_rrsp_no"},
             {data:"semi_expendable_property_no"},
+            {data:"semi_expendable_property"},
+            {data:"reference"},
             {data:"item_description"},
             {data:"estimated_useful_life"},
             {data:"issued_qty"},
@@ -182,19 +95,25 @@
           },
         }
      });
+     $('#filter_property_type').on('change',function(){
+        table.draw();
+     });
+    $('#filter_year').on('input', function() {
+        table.draw();
+    });
 
 
-$('#filter_service_cc').select2({
+$('#filter_property_type').select2({
     width:"100%",
-    placeholder:trans("Filter Service Type"),
+    placeholder:trans("Filter Property Type"),
     ajax: {
-    url: ajax_url('get_services'),
+    url: ajax_url('get_property_type'),
     processResults: function (data) {
             return {
                 results: $.map(data, function (item) {
                     return {
-                        text: item.description,
-                        id: item.id
+                        text: item.property_type_description	,
+                        id: item.property_type_id
                     }
                 })
             };

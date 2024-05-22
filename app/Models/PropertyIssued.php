@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PropertyIssued extends Model
 {
+
+
     use SoftDeletes;
     protected $table = 'tbl_pms_semi_expendable_property_issued';
     protected $primaryKey = 'property_issued_id';
-    protected $fillable=['property_issued_id', 'date' ,'property_type','entity_name',
+    protected $fillable=['property_issued_id', 'date' ,'property_type_id','entity_name','status',
     'ics_rrsp_no',
     'semi_expendable_property_no' ,
     'item_description' ,
@@ -45,7 +47,7 @@ class PropertyIssued extends Model
         //   }
           public function property_type()
           {
-              return $this->belongsTo(PropertyType::class,'property_type','property_type_id')->withTrashed();
+              return $this->belongsTo(PropertyType::class,'property_type_id','property_type_id')->withTrashed();
           }
         //   public function division()
         //   {

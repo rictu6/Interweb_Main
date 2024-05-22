@@ -47,7 +47,16 @@ class PropertyIssuedController extends Controller
     public function ajax(Request $request)
     {
     $model = PropertyIssued::query();
+    if ($request['filter_year'] != null) {
+        // Assuming $request['filter_year'] contains a valid year (e.g., '2023')
+        $year = $request['filter_year'];
 
+        // You can use the "LIKE" operator to match the year portion of the date
+        $model->whereRaw("YEAR(date_acquired) = ?", [$year]);
+    }
+    if($request['filter_property_type']!=null) {
+        $model->where('property_type_id',$request['filter_property_type']);
+        }
     return DataTables::of($model)
 
         ->toJson();
@@ -119,7 +128,9 @@ class PropertyIssuedController extends Controller
 
         $property->date_acquired=$request->date_acquired;
         $property->semi_expendable_property_no=$request->semi_expendable_property_no;
+        $property->semi_expendable_property=$request->semi_expendable_property;
         $property->ics_rrsp_no=$request->ics_rrsp_no;
+        $property->reference=$request->reference;
         //$datefrom=Carbon::createFromFormat('m/d/Y', $request->datefrom)->format('Y-m-d');
         $property->item_description = $request->item_description;//$request->datefrom;//Carbon::createFromFormat('d/m/Y', $request->datefrom)->format('Y-m-d');//Carbon::parse($request->datefrom)->format('Y-m-d');
         $property->estimated_useful_life=$request->estimated_useful_life;
@@ -133,10 +144,10 @@ class PropertyIssuedController extends Controller
         $property->balance_qty=$request->balance_qty;
         $property->amount=$request->amount;
         $property->remarks=$request->remarks;
-        $property->property_type=$request->property_type;
+        $property->property_type_id=$request->property_type_id;
         $property->entity_name=$request->entity_name;
+        $property->status=$request->status;
 
-;
 
         //dd($property);
         $property->save();

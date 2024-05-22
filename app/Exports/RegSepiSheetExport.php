@@ -9,7 +9,7 @@ use App\Models\PropertyIssued;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class SepcSheetExport implements WithMultipleSheets
+class RegSepiSheetExport implements WithMultipleSheets
 
 {
     use Exportable;
@@ -32,9 +32,9 @@ class SepcSheetExport implements WithMultipleSheets
     // foreach($this->data as $sepc){
     //     $sheets[]=new SepcExport($sepc);
     // }
-    foreach ($this->data as $propertyIssuedId => $propertyList) {
+    foreach ($this->data as $propertyType => $propertyList) {
         $counter++;
-        $sheets[] = new SepcExport($propertyList,$counter);
+        $sheets[] = new RegSepiExport($propertyList, $propertyType,$counter);
     }
     return $sheets;
   }
