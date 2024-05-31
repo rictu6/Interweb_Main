@@ -105,17 +105,13 @@
                 <thead>
                     <tr>
                         <th>{{__('Date')}}</th>
-                        <th>{{__('ICS/RRSP No.')}}</th>
-                        <th>{{__('Semi-expendable Property No.')}}</th>
-                        <th>{{__('Item Description')}}</th>
-                        <th>{{__('Estimated Useful Life')}}</th>
-                        <th>{{__('Issued Qty')}}</th>
-                        <th>{{__('Issued Office/Officer')}}</th>
-                        <th>{{__('Returned Qty')}}</th>
-                        <th>{{__('Returned Office/Officer')}}</th>
-                        <th>{{__('Re-Issued Qty')}}</th>
-                        <th>{{__('Re-Issued Office/Officer')}}</th>
-                        <th>{{__('Disposed Qty')}}</th>
+                        <th>{{__('Reference')}}</th>
+                        <th>{{__('Receipt Qty')}}</th>
+                        <th>{{__('Receipt Unit Cost')}}</th>
+                        <th>{{__('Receipt Total Cost')}}</th>
+                        <th>{{__('Item No.')}}</th>
+                        <th>{{__('Issue/Transfer/Disposal Qty')}}</th>
+                        <th>{{__('Office/Officer')}}</th>
                         <th>{{__('Balance Qty')}}</th>
                         <th>{{__('Amount')}}</th>
                         <th>{{__('Remarks')}}</th>
@@ -143,5 +139,5 @@
 @section('scripts')
     <script src="{{ url('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ url('plugins/print/jQuery.print.min.js') }}"></script>
-<script src="{{ url('js/admin/regsepi.js') }}"></script>
+<script src="{{ url('js/admin/sepc.js') }}"></script>
 @endsection

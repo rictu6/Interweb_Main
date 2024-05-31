@@ -12,10 +12,6 @@
         </li>
         @endcan
 
-
-
-
-
         @canany(['view_profile','view_profileaccount'])
         <li class="nav-item has-treeview" id="users_profiles">
             <a href="#" class="nav-link" id="users_profiles_link">
@@ -98,8 +94,6 @@
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{__('PMS')}}
                             </p>
-
-
                         </a>
 
                 </li>
