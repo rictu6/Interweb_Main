@@ -327,7 +327,7 @@
                     @endcan --}}
                     <select class="form-control" name="div_id" id="division">
                         @if(isset($user)&&isset($user['division']))
-                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['acronym']}}
+                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['div_acronym']}}
                         </option>
                         @endif
                     </select>

@@ -1,23 +1,23 @@
 (function($){
 
     "use strict";
-  
+
     //active
     $('#schedules').addClass('active');
-   
+
 
 // define a render function
 function myCustomRenderFunctionfrom(data, type, row, meta) {
    if(type === 'display') {
        return row['start']// this is used to display in the table
-   } else { 
+   } else {
        return data; // original data of the cell from your source. this is used for functionalities other than display (like sorting, odering)
    }
 }
 function myCustomRenderFunctionto(data, type, row, meta) {
    if(type === 'display') {
        return row['end'] // this is used to display in the table
-   } else { 
+   } else {
        return data; // original data of the cell from your source. this is used for functionalities other than display (like sorting, odering)
    }
 }
@@ -52,7 +52,7 @@ function myCustomRenderFunctionto(data, type, row, meta) {
           text:      '<i class="fas fa-eye"></i>',
           titleAttr: 'PDF'
         }
-        
+
       ],
       "processing": true,
       "serverSide": true,
@@ -68,12 +68,12 @@ function myCustomRenderFunctionto(data, type, row, meta) {
          {data:"title"},
          {data:"venue"},
          {
-            data: null, 
+            data: null,
             render: myCustomRenderFunctionfrom
-           
+
         } ,
         {
-         data: null, 
+         data: null,
          render: myCustomRenderFunctionto
      },  {data:"time_start"},
          {data:"time_end"},
@@ -86,10 +86,10 @@ function myCustomRenderFunctionto(data, type, row, meta) {
              else if (row.status === "Returned") { return "Returned"; }
              else if (row.status === "Reconsideration") { return "For RD's Reconsideration"; }
              else { return "N/A"; }
-              
-              
-              
-           
+
+
+
+
 
           }
       },
@@ -98,37 +98,37 @@ function myCustomRenderFunctionto(data, type, row, meta) {
         render: function (data, type, row) {
             if (row.status2 === "Approved") { return "Approved"; }
            else if (row.status2 === "Disapproved") { return "Disapproved"; }
-           
+
            else { return "N/A"; }
-            
-            
-            
-         
+
+
+
+
 
         }
     },
 
-         
-       
-        
+
+
+
     {
       data: "status3",
       render: function (data, type, row) {
           if (row.status3 === "Conducted") { return "Conducted"; }
          else if (row.status3 === "Cancelled") { return "Cancelled"; }
          else if (row.status3 === "Rescheduled") { return "Rescheduled"; }
-         
+
          else { return "N/A"; }
-          
-          
-          
-       
+
+
+
+
 
       }
   },
          {data:"action",searchable:false,orderable:false,sortable:false}//action
 
-         
+
       ],
       "language": {
         "sEmptyTable":     trans("No data available in table"),
@@ -150,14 +150,14 @@ function myCustomRenderFunctionto(data, type, row, meta) {
         },
       }
 
-      
+
    });
-  
+
 
  $('#users_roles_link').addClass('active');
     $('#users_roles').addClass('menu-open');
-  
-   
+
+
    //prepare edit user page
    var user_roles=$('#user_roles').val();
 
@@ -168,12 +168,12 @@ function myCustomRenderFunctionto(data, type, row, meta) {
        console.log('yes');
        user_roles.forEach(function(role){
            roles.push(parseInt(role.emp_id));
-           
+
        });
        console.log(roles);
 
        $('#role').val(roles).trigger('change');
-       
+
    }
 
    $('.select2').select2();
@@ -183,7 +183,7 @@ function myCustomRenderFunctionto(data, type, row, meta) {
       $(this).val('');
       table.draw();
    });
- 
+
    $('#filter_date').on('apply.daterangepicker',function(){
       table.draw();
    });
@@ -194,75 +194,75 @@ function myCustomRenderFunctionto(data, type, row, meta) {
   $(function () {
 
     $('#status').on('change', function() {
-        
+
               if ( this.value == 'Returned')
                 {
                     $("#remarks").show();
-                  
+
                 }
               else  if ( this.value == 'Reconsideration')
                 {
                     $("#remarks").show();
-                  
+
                 }
                 else  if ( this.value == 'Approval')
                 {
                     $("#remarks").hide();
-                  
+
                 }
-          
-            
+
+
 
         });
-    }); 
+    });
 
   $(function () {
 
     $('#status2_').on('change', function() {
-        
+
                if ( this.value == 'Disapproved')
                 {
                     $("#remarks2").show();
-                   
+
                 }
               else  if ( this.value == 'Approved')
                 {
                     $("#remarks2").hide();
-                   
-                }
-          
-             
-            
-  
-        });
-    }); 
 
-    
+                }
+
+
+
+
+        });
+    });
+
+
   $(function () {
 
     $('#status3').on('change', function() {
-        
+
                if ( this.value == 'Rescheduled')
                 {
                     $("#remarks3").show();
-                   
+
                 }
               else  if ( this.value == 'Cancelled')
                 {
                     $("#remarks3").show();
-                   
+
                 }
                 else  if ( this.value == 'Conducted')
                 {
                     $("#remarks3").hide();
-                   
+
                 }
-          
-             
-            
-  
+
+
+
+
         });
-    }); 
+    });
 
 
 
@@ -297,7 +297,7 @@ $(document).on('select2:select','#office', function (e) {
           {//REGIONAL OFFICE-VI
               $('#division').prop('disabled', true);
               $('#sec_id').prop('disabled', true);
-             
+
           }
           else if(data.id===5)
           {//REGIONAL OFFICE-VI
@@ -367,7 +367,7 @@ $(document).on('select2:select','#office', function (e) {
                return {
                      results: $.map(data, function (item) {
                         return {
-                           text: item.acronym,
+                           text: item.div_acronym,
                            id: item.div_id
                         }
                      })
@@ -380,7 +380,7 @@ $(document).on('select2:select','#office', function (e) {
             }
          }
     });
-  
+
     $(document).on('select2:select','#division', function (e) {
       var el=$(e.target);
       var data = e.params.data;
@@ -408,7 +408,7 @@ $(document).on('select2:select','#office', function (e) {
           }
       });
     });
-  
+
 
 $(document).ready(function(){
   $("#position").change(function(){
@@ -416,18 +416,18 @@ $(document).ready(function(){
 
       if (pos_id == "") {
           var pos_id = 0;
-      } 
-    
+      }
+
       $.ajax
       ({
           url: '/fetch-attendees/'+pos_id,
           type: 'post',
           dataType: 'json',
-          success: function(response) {                    
+          success: function(response) {
            // $('#state').find('option:not(:first)').remove();
-            
 
-              if (response['roles'].length > 0) 
+
+              if (response['roles'].length > 0)
               {
                   $.each(response['roles'], function(key,value){
                       $("#role").append("<option value='"+value['emp_id']+"'>"+value['last_name']+ ', ' + value['first_name']+ ' ' +  value['middle_name']+"</option>")
@@ -435,13 +435,13 @@ $(document).ready(function(){
                 }
 
 
-            
-          }
-      }); 
-    
-      
 
-      
+          }
+      });
+
+
+
+
   });
 
 });
@@ -473,8 +473,7 @@ $(document).ready(function(){
           $(el).parent().submit();
         });
     });
-  
+
 
   })(jQuery);
-  
-  
+

@@ -66,7 +66,7 @@
 
 
 
-                    <select   class="form-control" name="office_id" id="office" 
+                    <select   class="form-control" name="office_id" id="office"
                        >
                         @if(isset($user)&&isset($user['office']))
                         <option  value="{{$user['office']['office_id']}}" selected>{{$user['office']['office_desc']}}
@@ -81,7 +81,7 @@
                     <select  class="form-control" name="div_id" id="division"
                         @if(isset($user)&&$user['is_submitted']==1) selected  @endif>
                         @if(isset($user)&&isset($user['division']))
-                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['acronym']}}
+                        <option value="{{$user['division']['div_id']}}" selected>{{$user['division']['div_acronym']}}
                         </option>
                         @endif
                     </select>
@@ -167,7 +167,7 @@
     <div class="card-body">
 
 
-        <!-- {{-- 
+        <!-- {{--
 <button type="button" class="btn btn-warning btn-sm add_patient float-right"  >
     <i class="fa fa-exclamation-triangle" ><a href="{{route('admin.divisions.index')}}" ></a></i>
         {{__('Override Attendees ?')}}
@@ -179,7 +179,7 @@
 
             <select name="position" id="position" class="form-control select2" >
                 <option value="">Select Position</option>
-                @if (!empty($positions)) 
+                @if (!empty($positions))
                 @foreach ($positions as $position)
                 <option  value="{{$position->pos_id}}">{{$position->pos_desc}}</option>
                 @endforeach
@@ -194,11 +194,11 @@
 
 {{-- @if(isset($user)&&$user['status']=='Returned' ) selected @endif isset($user)&&$user['is_submitted']==1 readonly="readonly" style="pointer-events: none;"--}}
   {{-- <div class="form-group" @if(isset($user)&&$user['status']=='Returned') selected @elseif(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif> --}}
-      
+
        <div class="form-group" @if(isset($user)&&$user['status']=='Returned') selected @elseif(isset($user)&&$user['is_submitted']==1) selected readonly="readonly" style="pointer-events: none;" @endif>
-   
+
             <label>{{__('Select Attendee/s')}}</label>
-        
+
 
             <select name="roles[]" id="role" placeholder="{{__('Roles')}}" class="form-control select2" multiple
              required>

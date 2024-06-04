@@ -22,8 +22,8 @@ class Division extends Model
     protected $fillable = [
         'div_id',
         'div_desc',
-        'acronym'
-     
+        'div_acronym'
+
     ];
     public function users()
     {
@@ -33,5 +33,5 @@ class Division extends Model
     {
         return "Division was {$eventName}";
     }
-    
+
 }
