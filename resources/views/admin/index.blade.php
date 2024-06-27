@@ -52,6 +52,11 @@
         <img src="slider/slider3.jpg" style="width:100%">
 
     </div>
+    <div class="mySlides fade">
+        <div class="numbertext"></div>
+        <img src="slider/slider4.jpg" style="width:100%">
+
+    </div>
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next_1" onclick="plusSlides(1)">&#10095;</a>
 </div>
@@ -61,6 +66,7 @@
     <span class="dot" onclick="currentSlide(1)"></span>
     <span class="dot" onclick="currentSlide(2)"></span>
     <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
 </div>
 
 

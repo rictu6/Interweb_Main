@@ -14,7 +14,7 @@ class PropertyIssued extends Model
 
 
     use SoftDeletes;
-    protected $table = 'tbl_pms_semi_expendable_property_issued';
+    protected $table = 'tbl_ims_semi_expendable_property_issued';
     protected $primaryKey = 'property_issued_id';
     protected $fillable=['property_issued_id', 'date' ,'property_type_id','entity_name','status',
     'ics_rrsp_no',

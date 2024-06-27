@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 @endcan
-
+                @can('view_property')
                 <li class="nav-item">
                     <a href="{{route('admin.property_issued.index')}}" class="nav-link" id="ftas">
                                           <i class="far fa-circle nav-icon"></i>
@@ -135,7 +135,7 @@
                                           <li class="nav-item">
                                               <a href="{{ route('admin.regsepi.index') }}" class="nav-link">
                                                   <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
-                                                  <p>{{ __('Report of Semi-Expendable Property Issued') }}</p>
+                                                  <p>{{ __('Registry of Semi-Expendable Property Issued') }}</p>
                                               </a>
                                           </li>
                                       </ul>
@@ -147,12 +147,35 @@
                                               </a>
                                           </li>
                                       </ul>
-
-
+                                      {{-- <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.repsepi.index') }}" class="nav-link">
+                                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                <p>{{ __('Report of Semi-expendable Property Issued') }}</p>
+                                            </a>
+                                        </li>
+                                    </ul> --}}
+                                      <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.ics.index') }}" class="nav-link">
+                                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                <p>{{ __('Inventory Custodian Slip') }}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.seplc.index') }}" class="nav-link">
+                                                <i class="fas fa-file-alt nav-icon"></i> <!-- Change the icon here -->
+                                                <p>{{ __('Semi-expendable Property Ledger Card') }}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                   </li>
 
                                       </ul>
                                     </li>
+                                    @endcan
                 {{-- @can('CSS') --}}
                 <li class="nav-item">
                     <a href="{{route('admin.citcha.index')}}" class="nav-link" id="ftas">

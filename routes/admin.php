@@ -95,6 +95,18 @@ Route::resource('sepc','SepcController')->except(['show']);
 Route::get('get_sepc','SepcController@ajax')->name('get_sepc');
 Route::get('sepc_export','SepcController@export')->name('sepc.export');
 
+Route::resource('ics','ICSController')->except(['show']);
+Route::get('get_ics','ICSController@ajax')->name('get_ics');
+Route::get('ics_export','ICSController@export')->name('ics.export');
+
+Route::resource('repsepi','RepSepiController')->except(['show']);
+Route::get('get_repsepi','RepSepiController@ajax')->name('get_repsepi');
+Route::get('repsepi_export','RepSepiController@export')->name('repsepi.export');
+
+Route::resource('seplc','SeplcController')->except(['show']);
+Route::get('get_seplc','SeplcController@ajax')->name('get_seplc');
+Route::get('seplc_export','SeplcController@export')->name('seplc.export');
+
 Route::resource('menus','MenusController');
 Route::get('get_contactus','MenusController@contactus')->name('contactus');
 Route::get('get_whoweare','MenusController@whoweare')->name('whoweare');

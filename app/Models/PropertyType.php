@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PropertyType extends Model
 {
     use SoftDeletes;
-    protected $table = 'tbl_pms_property_type';
+    protected $table = 'tbl_ims_property_type';
     protected $primaryKey = 'property_type_id';
     protected $fillable=['property_type_id', 'property_type_description'];
 
