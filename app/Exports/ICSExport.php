@@ -34,7 +34,7 @@ class ICSExport implements WithTitle
 ,WithColumnFormatting
 , WithCustomStartCell
 , WithEvents
-,ShouldAutoSize
+//,ShouldAutoSize
 {
     private $_counter = 0;
     public $_ics_data;
@@ -139,27 +139,73 @@ public function view(): View
                 ]);
             },
 
+            // AfterSheet::class => function(AfterSheet $event) {
+            //     // Define the text to search for
+            //     $searchTexts = [
+            //         'ANA LEA ALGER',
+            //         'AO V/Supply Officer'
+            //     ];
 
+            //     // Define the range to search in
+            //     $range = 'A1:A20'; // Adjust the range based on your sheet layout
+
+            //     /** @var Worksheet $sheet */
+            //     $sheet = $event->sheet;
+
+            //     // Loop through the specified range to find and style the text
+            //     foreach ($searchTexts as $text) {
+            //         $cellCollection = $sheet->getCellCollection();
+            //         foreach ($cellCollection as $cell) {
+            //             $cellValue = $sheet->getCell($cell)->getValue();
+            //             if (stripos($cellValue, $text) !== false) {
+            //                 // Apply underline style to the found cell
+            //                 $sheet->getStyle($cell)->applyFromArray([
+            //                     'font' => [
+            //                         'underline' => Font::UNDERLINE_SINGLE,
+            //                     ],
+            //                 ]);
+            //                 // Optionally, apply bottom alignment
+            //                 $sheet->getStyle($cell)->getAlignment()->setVertical(Alignment::VERTICAL_BOTTOM);
+            //             }
+            //         }
+            //     }
+            // },
             AfterSheet::class => function(AfterSheet $event) {
-                // Set orientation to landscape
-                $event->sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+                // Manually set the width for each column
+                $columnWidths = [
+                    'A' => 10, // Set column A width to 10 units
+                    'B' => 10, // Set column B width to 12 units
+                    'C' => 10, // Set column C width to 15 units
+                    'D' => 10, // Set column D width to approximately 5 cm
+                    'E' => 188 / 7, // Set column E width to 20 units
+                    'F' => 188 / 7,
+                    'G' => 10,
 
-                // Get the highest column index in the header row
+                    // '0' => 4,
+                    // Add more columns as needed
+                ];
+
+                foreach ($columnWidths as $column => $width) {
+                    $event->sheet->getDelegate()->getColumnDimension($column)->setWidth($width);
+                }
+
+                // Apply text wrapping to all data rows (starting from row 8 onwards)
                 $highestColumn = $event->sheet->getDelegate()->getHighestColumn();
-
-                // Get the highest row index in the header row
                 $highestRow = $event->sheet->getDelegate()->getHighestRow();
-
-                // Set borders for the entire header row
-                $event->sheet->getDelegate()->getStyle('A6:' . $highestColumn . $highestRow)->applyFromArray([
-                    'borders' => [
-                        'allBorders' => [
-                            'borderStyle' => Border::BORDER_THIN,
-                            'color' => ['rgb' => '000000'],
-                        ],
+                $event->sheet->getDelegate()->getStyle('A8:' . $highestColumn . $highestRow)->getAlignment()->setWrapText(true);
+                $event->sheet->getDelegate()->getStyle('C:D')->getNumberFormat()
+                ->setFormatCode('₱#,##0.00');
+                     // Apply borders to all cells
+             $event->sheet->getStyle('A1:' . $highestColumn . $highestRow)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => ['argb' => '000000'],
                     ],
-                ]);
+                ],
+            ]);
             },
+
         ];
     }
 }

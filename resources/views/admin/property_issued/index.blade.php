@@ -29,11 +29,11 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
       <h3 class="card-title">{{__('Semi Property Issued Table')}}</h3>
-      @can('create_orsheader')
+      {{-- @can('create_orsheader') --}}
         <a href="{{route('admin.property_issued.create')}}" class="btn btn-primary btn-sm float-right">
           <i class="fa fa-plus"></i> {{ __('Create') }}
         </a>
-      @endcan
+      {{-- @endcan --}}
     </div>
     <!-- /.card-header -->
     <div class="card-body">

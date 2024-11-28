@@ -1,31 +1,34 @@
 <table>
     <thead>
         <tr>
-            <td align="right" colspan="7" style="font-style: italic;">{{ __('Annex A.3') }}</td>
+            <td align="right" colspan="7" style="font-style: italic;">{{ __('Annex A.2') }}</td>
         </tr>
         <tr>
-            <td align="center" colspan="7">{{ __('INVENTORY CUSTODIAN SLIP') }}</td>
+            <td align="center" colspan="7">{{ __('SEMI-EXPENDABLE PROPERTY LEDGER CARD') }}</td>
 
         </tr>
         <tr></tr>
         <tr>
-            <td align="left" colspan="4">{{ __('Entity Name:') }} {{ $entityName }}</td>
-
+            <td align="left" colspan="6">{{ __('Entity Name:') }} {{ $entityName }}</td>
+            <td align="right" colspan="4">{{ __('Fund Cluster:___________________') }}</td>
         </tr>
         {{-- //@foreach($ics as $prop) --}}
         <tr>
-            <td align="left" colspan="4">{{ __('Fund Cluster:___________________') }}</td>
-            <td align="right"  colspan="2">{{ __('ICS No:') }} </td>
-            <
+            <td align="left" colspan="6">{{ __('Semi-expendable Property:___________________') }}</td>
+            <td align="right" colspan="4">{{ __('Semi-expendable Property No.:___________________') }}</td>
+        </tr>
+        <tr>
+            <td align="left" colspan="6">{{ __('Description:___________________') }}</td>
+            <td  colspan="2">{{ __('UACS Object Code:___________________') }}</td>
+            <td align="right" colspan="2">{{ __('Repair History:___________________') }}</td>
         </tr>
         {{-- @endforeach --}}
-
         <tr>
-            <th rowspan="2">{{ __('Quantity') }}</th>
-            <th rowspan="2">{{ __('Unit') }}</th>
-            <th colspan="2">{{ __('Amount') }}</th>
-            <th rowspan="2">{{ __('Description') }}</th>
-            <th rowspan="2">{{ __('Item No.') }}</th>
+            <th rowspan="2">{{ __('Date') }}</th>
+            <th rowspan="2">{{ __('Reference') }}</th>
+            <th colspan="3">{{ __('Receipt') }}</th>
+            <th rowspan="2">{{ __('Unit Cost') }}</th>
+            <th rowspan="2">{{ __('Total cost') }}</th>
             <th rowspan="2">{{ __('Estimated Useful Life') }}</th>
 
         </tr>

@@ -1,80 +1,63 @@
 @extends('layouts.app')
 
 @section('title')
-{{__('Schedules')}}
+{{__('Edit Schedule')}}
 @endsection
 
 @section('breadcrumb')
 <div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark">
-          <i class="fa fa-cogs nav-icon"></i>
-          {{__('Schedules')}}
-        </h1>
-      </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{route('admin.index')}}">{{__('Home')}}</a></li>
-          <li class="breadcrumb-item active">{{__('Schedules')}}</li>
-        </ol>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    {{__('Schedules')}}
+                </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('admin.index')}}">{{__('Home')}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.schedules.index')}}">{{__('Schedules')}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{__('Edit schedule')}}</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
 @endsection
 
 @section('content')
-<div class="card card-primary card-outline">
-  <div class="card-header">
-    <h3 class="card-title">{{__('View Schedules')}}</h3>
-    @can('create_schedule')
-  
-    @endcan
-  </div>
-  
-  <div class="card-body">
-    <div class="row table-responsive">
-      <div class="col-12">
-        <table id="schedules_table" class="table table-striped table-hover table-bordered"  width="100%">
-          <thead>
-            <tr>
-             
-             
-              <th  width="150px">{{__('What')}}</th>
-              <th width="150px">{{__('Date Range')}}</th>
-              <th  width="150px">{{__('Time Range')}}</th>
-              <th  width="150px">{{__('Where')}}</th>
-              <th >{{__('Who')}}</th>
-             
-             
-            </tr>
-          </thead>
-             <tbody>
-
-{{--         
-            <tr>
-              <td>{{$users->title}}</td>
-              <td>{{date('d-M-Y', strtotime($users->start)) . "   " . "TO" . "   " .date('d-M-Y', strtotime($users->end)) }}</td>
-               <td>{{date('h:i A', strtotime($users->time_start))            . "   " . "TO" . "   " .date('h:i A', strtotime($users->time_end)) }}</td>
-              <td>{{$users->venue}}</td>
-                 @foreach($roles as $data) 
-  <td>{{$data->attendee_name}}</td>
-  @endforeach
-            </tr>
-             --}}
-         
-          </tbody>
-        </table>
-      </div>
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">{{__('Edit Schedule')}}</h3>
     </div>
-  </div>
+    <!-- /.card-header -->
+    {{-- <form method="POST" action="{{route('admin.schedules.update',$scheduleuser->schedule_id)}}" enctype="multipart/form-data"> --}}
+        <!-- /.card-header -->
+        <div class="card-body">
+            @csrf
+            @method('put')
+            {{-- <input type="hidden" id="user_roles" value="{{$user['roles']}}"> --}}
+            <div class="card-body">
+                <div class="col-lg-12">
+                    @include('admin.schedules._form_viewing')
+                </div>
+            </div>
+              <div class="card-footer">
+            
+        </div>
 
+    {{-- </form> --}}
+
+
+
+    <!-- /.card-body -->
 </div>
 
 @endsection
 @section('scripts')
-    <script src="{{url('js/admin/schedules _view.js')}}"></script>
-  
+<script src="{{url('js/admin/schedules.js')}}"></script>
+{{-- <script src="{{url('js/admin/disableInspectElecment.js')}}"></script> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appSchedule')
 
 @section('title')
 {{__('Edit Schedule')}}
@@ -46,25 +46,296 @@
             </div>
               <div class="card-footer">
                @can('view_encoder_schedule')
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" name="action" value="draft"  @if(isset($user)&&$user['is_submitted']==1) selected  hidden @endif >
               <i class="fa fa-check"></i> {{__('Save as Draft')}}
             </button>
             @endcan
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-primary" name="action" value="submit" @if(isset($user)&&$user['status3']== "Conducted" ) selected
+             selected hidden @endif >
               <i class="fa fa-check"></i> {{__('Submit')}}
             </button>
         </div>
 
     </form>
 
-
-
-    <!-- /.card-body -->
 </div>
 
 @endsection
+
 @section('scripts')
-<script src="{{url('js/admin/schedules.js')}}"></script>
-{{-- <script src="{{url('js/admin/disableInspectElecment.js')}}"></script> --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+ 
+
+       var destinationInput2 = document.getElementById("statusSRMU");
+      var appearDiv2 = document.getElementById("appearSRMURemarks");
+  
+      if (destinationInput2.value.toLowerCase() === "returned" ) {
+        appearDiv2.style.display = "block";
+      } 
+      else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+         appearDiv2.style.display = "none";
+      }
+      else
+      {
+        appearDiv2.style.display = "none";
+      }
+
+    
+  
+      destinationInput2.addEventListener("input", function() {
+        if (destinationInput2.value.toLowerCase() === "returned") {
+          appearDiv2.style.display = "block";
+        } 
+         else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+       appearDiv2.style.display = "none";
+      }
+        else 
+        {
+          appearDiv2.style.display = "none";
+        }
+      });
+    </script>
+  
+
+
+ <script>
+  var destinationInput2 = document.getElementById("statusEncoder");
+      var appearDiv2 = document.getElementById("appearEncoderRemarks");
+  
+      if (destinationInput2.value.toLowerCase() === "returned" ) {
+        appearDiv2.style.display = "block";
+      } 
+      else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+         appearDiv2.style.display = "none";
+      }
+      else
+      {
+        appearDiv2.style.display = "none";
+      }
+
+     
+  
+      destinationInput2.addEventListener("input", function() {
+        if (destinationInput2.value.toLowerCase() === "returned") {
+          appearDiv2.style.display = "block";
+        } 
+         else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+       appearDiv2.style.display = "none";
+      }
+        else 
+        {
+          appearDiv2.style.display = "none";
+        }
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+   <script>
+
+
+
+       var destinationInput2 = document.getElementById("statusRD");
+      var appearDiv2 = document.getElementById("appearRDRemarks");
+  
+      if (destinationInput2.value.toLowerCase() === "returned" ) {
+        appearDiv2.style.display = "block";
+      } 
+      else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+         appearDiv2.style.display = "none";
+      }
+      else
+      {
+        appearDiv2.style.display = "none";
+      }
+  
+      destinationInput2.addEventListener("input", function() {
+        if (destinationInput2.value.toLowerCase() === "returned") {
+          appearDiv2.style.display = "block";
+        } 
+         else if (destinationInput2.value.toLowerCase() === "reconsideration" ) {
+        appearDiv2.style.display = "block";
+      }
+      else if (destinationInput2.value.toLowerCase() === "approval" ) {
+       appearDiv2.style.display = "none";
+      }
+        else 
+        {
+          appearDiv2.style.display = "none";
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script>
+  var destinationInput = document.getElementById("status2RD");
+      var appearDiv = document.getElementById("appearRDRemarks2");
+  
+      if (destinationInput.value.toLowerCase() === "disapproved" ) {
+        appearDiv.style.display = "block";
+      } 
+      else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+      else
+      {
+        appearDiv.style.display = "none";
+      }
+
+     
+      destinationInput.addEventListener("input", function() {
+        if (destinationInput.value.toLowerCase() === "disapproved") {
+          appearDiv.style.display = "block";
+        } 
+         else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+        else 
+        {
+          appearDiv.style.display = "none";
+        }
+      });
+    </script>
+
+
+
+
+    
+ <script>
+  
+
+       var destinationInput = document.getElementById("status2Encoder");
+      var appearDiv = document.getElementById("appearEncoderRemarks2");
+  
+      if (destinationInput.value.toLowerCase() === "disapproved" ) {
+        appearDiv.style.display = "block";
+      } 
+      else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+      else
+      {
+        appearDiv.style.display = "none";
+      }
+  
+
+  
+      destinationInput.addEventListener("input", function() {
+        if (destinationInput.value.toLowerCase() === "disapproved") {
+          appearDiv.style.display = "block";
+        } 
+         else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+        else 
+        {
+          appearDiv.style.display = "none";
+        }
+      });
+    </script>
+
+
+
+
+    
+ <script>
+ 
+   var destinationInput = document.getElementById("status2SRMU");
+      var appearDiv = document.getElementById("appearSRMURemarks2");
+  
+      if (destinationInput.value.toLowerCase() === "disapproved" ) {
+        appearDiv.style.display = "block";
+      } 
+      else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+      else
+      {
+        appearDiv.style.display = "none";
+      }
+  
+  
+      destinationInput.addEventListener("input", function() {
+        if (destinationInput.value.toLowerCase() === "disapproved") {
+          appearDiv.style.display = "block";
+        } 
+         else if (destinationInput.value.toLowerCase() === "approved" ) {
+        appearDiv.style.display = "none";
+      }
+    
+        else 
+        {
+          appearDiv.style.display = "none";
+        }
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{{url('js/admin/disableInspectElecment.js')}}"></script>
+  <script src="{{url('js/admin/schedules.js')}}"></script>
+ 
 @endsection

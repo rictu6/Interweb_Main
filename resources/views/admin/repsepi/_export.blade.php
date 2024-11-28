@@ -42,7 +42,7 @@
             <td align="center">{{$prop->ics_rrsp_no}}</td>
             <td align="center">{{""}}</td>
             <td align="center">{{$prop->semi_expendable_property_no }}</td>
-            <td align="center">{{$prop->item_description }}</td>
+            <td align="left">{{$prop->item_description }}</td>
             <td align="center">{{"" }}</td>
             <td align="center">{{$prop->issued_qty}}</td>
             <td align="center">{{$prop->amount }}</td>

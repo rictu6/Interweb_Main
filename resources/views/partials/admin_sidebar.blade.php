@@ -111,7 +111,7 @@
                 <li class="nav-item">
                     <a href="{{route('admin.property_issued.index')}}" class="nav-link" id="ftas">
                                           <i class="far fa-circle nav-icon"></i>
-                                          <p>{{__('Property Management System')}}
+                                          <p>{{__('Inventory Management System')}}
                                           </p>
                                       </a>
                                       <ul class="nav nav-treeview">
@@ -176,6 +176,75 @@
                                       </ul>
                                     </li>
                                     @endcan
+                                    @canany(['view_schedule_dash','view_schedule','view_calendar'])
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" id="schedule">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>{{__('RSA')}}
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+
+                                            @can('view_schedule_dash')
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.schedules.index')}}" class="nav-link">
+                                                    <i class="far fa-square nav-icon"></i>
+                                                    <p>{{__('DASHBOARD')}}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            @endcan
+                                            @can('view_schedule')
+
+
+
+                                            @can('view_encoder_schedule')
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.schedule_list_encoder')}}" class="nav-link">
+                                                    <i class="far fa-square nav-icon"></i>
+                                                    <p>{{__('PLAN A SCHEDULE')}}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            @endcan
+                                            @can('view_schedule_SRMU')
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.schedule_list_srmu')}}" class="nav-link">
+                                                    <i class="far fa-square nav-icon"></i>
+                                                    <p>{{__('PLAN A SCHEDULE')}}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            @endcan
+                                            @can('view_RD_schedule')
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.schedule_list_rd')}}" class="nav-link">
+                                                    <i class="far fa-square nav-icon"></i>
+                                                    <p>{{__('PLAN A SCHEDULE')}}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            @endcan
+
+
+
+
+                                            @endcan
+                                            @can('view_calendar')
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.calendar_show')}}" target="_blank" class="nav-link">
+                                                    <i class="far fa-square nav-icon"></i>
+
+                                                    <p>{{__('CALENDAR')}}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
+                                    @endcan
+
                 {{-- @can('CSS') --}}
                 <li class="nav-item">
                     <a href="{{route('admin.citcha.index')}}" class="nav-link" id="ftas">

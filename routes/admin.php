@@ -1,8 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\KProductController;
 use App\Http\Controllers\Admin\FilesController;
+
+
+ //branches
+ Route::resource('kproducts','KProductController');
+ Route::get('get_kproducts','KProductController@ajax')->name('get_kproducts');
 
 //login admin
 Route::group(['namespace'=>'Auth','prefix'=>'/','middleware'=>'AdminGuest','as'=>'admin.auth.'],function(){
@@ -106,6 +111,35 @@ Route::get('repsepi_export','RepSepiController@export')->name('repsepi.export');
 Route::resource('seplc','SeplcController')->except(['show']);
 Route::get('get_seplc','SeplcController@ajax')->name('get_seplc');
 Route::get('seplc_export','SeplcController@export')->name('seplc.export');
+
+//darz
+
+//schedules
+Route::resource('schedules','SchedulesController');
+Route::get('get_schedules','SchedulesController@ajax')->name('get_schedules');
+Route::get('get_schedules_encoder','SchedulesController@ajax')->name('get_schedules_encoder');
+Route::get('get_schedule_list','SchedulesController@schedule_list')->name('schedule_list');
+
+Route::get('get_schedule_list_encoder','SchedulesController@schedule_list_encoder')->name('schedule_list_encoder');
+Route::get('get_schedule_list_srmu','SchedulesController@schedule_list_srmu')->name('schedule_list_srmu');
+Route::get('get_schedule_list_rd','SchedulesController@schedule_list_rd')->name('schedule_list_rd');
+
+
+Route::get('get_schedule_view/{id}','SchedulesController@schedule_view')->name('schedule_view');
+
+ //attendees
+
+ Route::get('get_attendees','UsersController@ajax')->name('get_attendees');
+
+//sections
+
+
+Route::get('get_show_files/{id}','SchedulesController@show_files')->name('get_show_files');
+
+Route::get('get_calendar_show_id/{id}','SchedulesController@calendar_show_id')->name('calendar_show_id');
+Route::get('get_calendar_show_emp_id/{id}','SchedulesController@calendar_show_emp_id')->name('calendar_show_emp_id');
+Route::get('get_calendar_show','SchedulesController@calendar_show')->name('calendar_show');
+//end darz
 
 Route::resource('menus','MenusController');
 Route::get('get_contactus','MenusController@contactus')->name('contactus');

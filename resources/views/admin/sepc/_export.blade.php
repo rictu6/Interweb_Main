@@ -91,9 +91,9 @@
                 @endphp
                 {{ $qty ? $qty : 'N/A' }}
             </td>
-            <td align="center">{{ $prop['balance_qty'] ?? 'N/A' }}</td>
+            <td align="center">{{ $prop['balance_qty'] ?? '0.00' }}</td>
             <td align="center">{{ $prop['amount'] ?? 'N/A' }}</td>
-            <td align="center">{{ $prop['remarks'] ?? 'N/A' }}</td>
+            <td align="center">{{ $prop['remarks'] ?? ' ' }}</td>
         </tr>
         @endforeach
     </tbody>

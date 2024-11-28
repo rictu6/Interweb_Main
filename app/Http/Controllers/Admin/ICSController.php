@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\SepcExport;
+
 use Illuminate\Http\Request;
-use App\Exports\RegSepiExport;
-
 use App\Models\PropertyIssued;
-
 use Illuminate\Support\Carbon;
-
 use App\Exports\ICSSheetExport;
-use App\Exports\SepcSheetExport;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;

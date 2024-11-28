@@ -9,6 +9,7 @@ use App\Models\PropertyType;
 use App\Models\PropertyIssued;
 
 
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithTitle;
@@ -26,6 +27,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
+
 class RegSepiExport implements WithTitle
 ,FromView
 //,WithHeadings
@@ -34,7 +36,7 @@ class RegSepiExport implements WithTitle
 ,WithColumnFormatting
 , WithCustomStartCell
 , WithEvents
-,ShouldAutoSize
+//,ShouldAutoSize
 {
     private $_counter = 0;
     public $_regsepiData;
@@ -117,49 +119,78 @@ public function view(): View
     {
         // Set paper size to A4
         $sheet->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
+
     }
 
     public function registerEvents(): array
-    {
-        return [
-            BeforeSheet::class => function(BeforeSheet $event) {
-                // Apply styling to the first two rows of the sheet (headings)
-                $event->sheet->getStyle('A1:C2')->applyFromArray([
-                    'font' => [
-                        'bold' => true,
-                    ],
-                    // 'fill' => [
-                    //     'fillType' => Fill::FILL_SOLID,
-                    //     'startColor' => ['rgb' => 'CCCCCC'],
-                    // ],
-                    'alignment' => [
-                        'horizontal' => Alignment::HORIZONTAL_CENTER,
-                        'vertical' => Alignment::VERTICAL_CENTER,
-                    ],
-                ]);
-            },
+{
+    return [
+        BeforeSheet::class => function(BeforeSheet $event) {
+            // Log statement
+            Log::info('Executing BeforeSheet event');
 
+            // Apply styling to the header row (row 7)
+            $event->sheet->getStyle('A7:' . $event->sheet->getDelegate()->getHighestColumn() . '7')->applyFromArray([
+                'font' => [
+                    'bold' => true,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ],
+            ]);
 
-            AfterSheet::class => function(AfterSheet $event) {
-                // Set orientation to landscape
-                $event->sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+            // Manually auto-size the columns based on header content in row 7
+            $highestColumn = $event->sheet->getDelegate()->getHighestColumn();
+            foreach (range('A', $highestColumn) as $col) {
+                $event->sheet->getDelegate()->getColumnDimension($col)->setAutoSize(true);
+            }
+        },
 
-                // Get the highest column index in the header row
-                $highestColumn = $event->sheet->getDelegate()->getHighestColumn();
+        AfterSheet::class => function(AfterSheet $event) {
+            // Manually set the width for each column
+            $columnWidths = [
+                'A' => 10, // Set column A width to 10 units
+                'B' => 188 / 7, // Set column B width to 12 units
+                'C' => 188 / 7, // Set column C width to 15 units
+                'D' => 188 / 7, // Set column D width to approximately 5 cm
+                'E' => 10, // Set column E width to 20 units
+                'F' => 10,
+                'G' => 188 / 7,
+                'H' => 10,
+                'I' => 188 / 7,
+                'J' => 10,
+                'K' => 188 / 7,
+                'L' => 10,
+                'M' => 10,
+                'N' => 10,
+                // '0' => 4,
+                // Add more columns as needed
+            ];
 
-                // Get the highest row index in the header row
-                $highestRow = $event->sheet->getDelegate()->getHighestRow();
+            foreach ($columnWidths as $column => $width) {
+                $event->sheet->getDelegate()->getColumnDimension($column)->setWidth($width);
+            }
 
-                // Set borders for the entire header row
-                $event->sheet->getDelegate()->getStyle('A4:' . $highestColumn . $highestRow)->applyFromArray([
-                    'borders' => [
-                        'allBorders' => [
-                            'borderStyle' => Border::BORDER_THIN,
-                            'color' => ['rgb' => '000000'],
+            // Apply text wrapping to all data rows (starting from row 8 onwards)
+            $highestColumn = $event->sheet->getDelegate()->getHighestColumn();
+            $highestRow = $event->sheet->getDelegate()->getHighestRow();
+            $event->sheet->getDelegate()->getStyle('A8:' . $highestColumn . $highestRow)->getAlignment()->setWrapText(true);
+            $event->sheet->getDelegate()->getStyle('N:N')->getNumberFormat()
+            ->setFormatCode('₱#,##0.00');
+                      // Apply borders to all cells
+                      $event->sheet->getStyle('A1:' . $highestColumn . $highestRow)->applyFromArray([
+                        'borders' => [
+                            'allBorders' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => '000000'],
+                            ],
                         ],
-                    ],
-                ]);
-            },
-        ];
-    }
-}
+                    ]);
+        },
+    ];
+
+
+
+}}
+

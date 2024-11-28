@@ -46,7 +46,7 @@
           <thead>
             <tr>
               <th>#</th>
-              {{-- <th>{{__('Posted By')}}</th> --}}
+              <th>{{__('Posted By')}}</th>
               {{-- <th>{{__('Posted Date')}}</th> --}}
               <th>{{__('Title')}}</th>
               <th>{{__('Venue')}}</th>
@@ -59,10 +59,12 @@
               <th>{{__('Start Time')}}</th>
               <th>{{__('End Time')}}</th>
               <th>{{__('Attendee')}}</th>
-             
+                 <th>{{__('Encoder Submitted/Drafted')}}</th>
                <th>{{__('SRMU Action')}}</th>
                   <th>{{__('RDs Action')}}</th>
                     <th>{{__('Event Status')}}</th>
+                   
+                       <th>{{__('Remarks')}}</th>
                      <th>{{__('Action')}}</th>
             </tr>
           </thead>

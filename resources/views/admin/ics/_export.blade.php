@@ -16,7 +16,7 @@
         <tr>
             <td align="left" colspan="4">{{ __('Fund Cluster:___________________') }}</td>
             <td align="right"  colspan="2">{{ __('ICS No:') }} </td>
-            <
+
         </tr>
         {{-- @endforeach --}}
 
@@ -59,11 +59,63 @@
                 @endphp
                 {{ $total_amount ? $total_amount : 'N/A' }}
             </td>
-            <td align="center">{{ $prop['item_description'] ?? 'N/A' }}</td>
-            <td align="center">{{ $prop['ics_rrsp_no'] ?? 'N/A' }}</td>
+            {{-- <td align="center">{{ $prop['item_description'] ?? 'N/A' }}</td> --}}
+            <td align="center">
+                {{ $prop['item_description'] ?? 'N/A' }}<br><br><br><br>
+                Date Acquired: {{ $prop['date_acquired'] ?? 'N/A' }}
+            </td>
+            <td align="center">{{ $prop['semi_expendable_property_no'] ?? 'N/A' }}</td>
             <td align="center">{{ $prop['estimated_useful_life'] ?? 'N/A' }}</td>
 
         </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="padding-top: 20px;">{{ __('Received From:') }}</td>
+            <td colspan="4" style="padding-top: 20px;">{{ __('Received By:') }}</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="height: 60px; vertical-align: bottom; border-top: 1px solid black; text-align: center;">
+                <strong style="display: inline-block; border-bottom: 1px solid black; padding-bottom: 2px;">
+                    {{ __('ANA LEA ALGER') }}
+                </strong><br>
+                <strong>{{ __('Signature over Printed Name') }}</strong><br>
+
+                <strong style="display: inline-block; border-bottom: 1px solid black; padding-bottom: 2px;">
+                    {{ __('AO V/Supply Officer') }}
+                </strong><br>
+                <strong>{{ __('Position/Office') }}</strong><br>
+                <em>{{ __('Date:') }} _____________________</em>
+            </td>
+            <td colspan="4" style="height: 100px; vertical-align: bottom; border-top: 1px solid black; text-align: center;">
+                <!-- Second footer section with dynamic office data   dd($prop['status'], $office);-->
+                @php
+                    $office = match($prop['status']) {
+                        0 => $prop['issued_office'] ?? 'N/A',
+                        1 => $prop['returned_office'] ?? 'N/A',
+                        2 => $prop['re_issued_office'] ?? 'N/A',
+                        default => 'N/A',
+                    };
+
+                @endphp
+                <strong>{{ $office }}</strong><br>
+                <strong>{{ __('Signature over Printed Name') }}</strong><br>
+
+                <strong>{{ __('_______________________') }}</strong><br>
+                <strong>{{ __('Position/Office') }}</strong><br>
+                <em>{{ __('Date:') }} _____________________</em>
+            </td>
+
+            {{-- <td colspan="4" style="height: 100px; vertical-align: bottom; border-top: 1px solid black; text-align: center;">
+                <strong>{{ __('______________________') }}</strong><br>
+                <strong>{{ __('Signature over Printed Name') }}</strong><br>
+
+
+                <strong>{{ __('_______________________') }}</strong><br>
+                <strong>{{ __('Position/Office') }}</strong><br>
+                <em>{{ __('Date:') }} _____________________</em>
+            </td> --}}
+        </tr>
+    </tfoot>
 </table>

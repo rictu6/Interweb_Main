@@ -9,7 +9,7 @@ use App\Models\PropertyIssued;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class ICSSheetExport implements WithMultipleSheets
+class SeplcSheetExport implements WithMultipleSheets
 
 {
     use Exportable;
@@ -34,7 +34,7 @@ class ICSSheetExport implements WithMultipleSheets
     // }
     foreach ($this->data as $propertyType => $propertyList) {
         $counter++;
-        $sheets[] = new ICSExport($propertyList, $propertyType,$counter);
+        $sheets[] = new SeplcExport($propertyList, $propertyType,$counter);
     }
     return $sheets;
   }

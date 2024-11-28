@@ -46,7 +46,7 @@ var qty;
         "serverSide": true,
         "bSort" : false,
         "ajax": {
-          url: url("admin/get_ics"),
+          url: url("admin/get_seplc"),
         //   data:function(data)
         //   {
         //     data.filter_service_cc=$('#filter_service_cc').val();
